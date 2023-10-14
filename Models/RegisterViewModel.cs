@@ -17,5 +17,14 @@ namespace PousadaIdentity.Models
         [Compare("Password", ErrorMessage = "As senhas divergem")]
         public string? ConfirmSenha { get; set; }
 
+        [Required]
+        public string? Nome { get; set; }
+
+        [Required]
+        public string? CPF { get; set; }
+
+        [Required]
+        public string? Usuario { get; set; }
+
     }
 }

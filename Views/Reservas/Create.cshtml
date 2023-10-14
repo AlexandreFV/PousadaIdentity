@@ -1,4 +1,5 @@
-﻿@model PousadaIdentity.Entities.Reserva
+﻿@using System.Security.Claims;
+@model PousadaIdentity.Entities.Reserva
 
 @{
     ViewData["Title"] = "Create";
@@ -33,14 +34,16 @@
                 <span asp-validation-for="ValorTotalReserva" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Token" class="control-label"></label>
-                <input asp-for="Token" class="form-control" />
+                <input asp-for="Token" class="form-control" type="text" style="display:none;" 
+                value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value">
                 <span asp-validation-for="Token" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="PessoaId" class="control-label"></label>
-                <select asp-for="PessoaId" class ="form-control" asp-items="ViewBag.PessoaId"></select>
-            </div>
+
+                <!--     <div class="form-group">
+                    <label asp-for="PessoaId" class="control-label"></label>
+                    <select asp-for="PessoaId" class ="form-control" asp-items="ViewBag.PessoaId"></select>
+                </div>
+                --> 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

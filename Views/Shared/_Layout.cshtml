@@ -28,11 +28,16 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pessoas" asp-action="Index">Lista Pessoa</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Create">Criar Reserva</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pessoas" asp-action="Create">Criar Pessoa</a>
-                       
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Index">Lista de Reserva</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Quartos" asp-action="Create">Adicionar Quartos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Quartos" asp-action="Index">Lista de Quartos</a>
                         </li>
                     </ul>
                     <partial name="LoginPartial.cshtml" />
