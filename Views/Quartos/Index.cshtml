@@ -27,9 +27,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.ValorTotalQuarto)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reserva)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -50,9 +47,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ValorTotalQuarto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reserva.ReservaId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.QuartoId">Edit</a> |

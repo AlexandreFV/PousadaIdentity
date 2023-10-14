@@ -245,7 +245,7 @@ namespace PousadaIdentity.Migrations
 
                     b.HasKey("PessoaId");
 
-                    b.ToTable("Pessoas");
+                    b.ToTable("Pessoa");
                 });
 
             modelBuilder.Entity("PousadaIdentity.Entities.Quarto", b =>
@@ -265,9 +265,6 @@ namespace PousadaIdentity.Migrations
                     b.Property<string>("Numero")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReservaID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Tipo")
                         .HasColumnType("nvarchar(max)");
 
@@ -276,9 +273,7 @@ namespace PousadaIdentity.Migrations
 
                     b.HasKey("QuartoId");
 
-                    b.HasIndex("ReservaID");
-
-                    b.ToTable("Quartos");
+                    b.ToTable("Quarto");
                 });
 
             modelBuilder.Entity("PousadaIdentity.Entities.Reserva", b =>
@@ -289,16 +284,25 @@ namespace PousadaIdentity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReservaId"));
 
-                    b.Property<string>("DataQuandoReservada")
+                    b.Property<string>("CheckIn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DataReserva")
+                    b.Property<string>("CheckUp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DataReservada")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Estado")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PessoaFKId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("PessoaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuartoID")
                         .HasColumnType("int");
 
                     b.Property<string>("Token")
@@ -311,7 +315,9 @@ namespace PousadaIdentity.Migrations
 
                     b.HasIndex("PessoaId");
 
-                    b.ToTable("Reservas");
+                    b.HasIndex("QuartoID");
+
+                    b.ToTable("Reserva");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -365,22 +371,21 @@ namespace PousadaIdentity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PousadaIdentity.Entities.Quarto", b =>
-                {
-                    b.HasOne("PousadaIdentity.Entities.Reserva", "Reserva")
-                        .WithMany()
-                        .HasForeignKey("ReservaID");
-
-                    b.Navigation("Reserva");
-                });
-
             modelBuilder.Entity("PousadaIdentity.Entities.Reserva", b =>
                 {
                     b.HasOne("PousadaIdentity.Entities.Pessoa", "Pessoa")
                         .WithMany()
                         .HasForeignKey("PessoaId");
 
+                    b.HasOne("PousadaIdentity.Entities.Quarto", "Quarto")
+                        .WithMany()
+                        .HasForeignKey("QuartoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Pessoa");
+
+                    b.Navigation("Quarto");
                 });
 #pragma warning restore 612, 618
         }

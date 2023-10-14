@@ -13,16 +13,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DataReserva)
+                @Html.DisplayNameFor(model => model.CheckIn)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataQuandoReservada)
+                @Html.DisplayNameFor(model => model.CheckUp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataReservada)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Estado)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ValorTotalReserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quarto)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Token)
@@ -37,16 +43,22 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DataReserva)
+                @Html.DisplayFor(modelItem => item.CheckIn)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DataQuandoReservada)
+                @Html.DisplayFor(modelItem => item.CheckUp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataReservada)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Estado)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ValorTotalReserva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quarto.QuartoId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Token)

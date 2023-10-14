@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +12,7 @@ using PousadaIdentity.Entities;
 
 namespace PousadaIdentity.Controllers
 {
+    [Authorize]
     public class ReservasController : Controller
     {
         private readonly AppDbContext _context;
@@ -22,15 +23,16 @@ namespace PousadaIdentity.Controllers
             this.userManager = userManager;
         }
 
+
         // GET: Reservas
         public async Task<IActionResult> Index()
         {
-     
+
             var user = await userManager.GetUserAsync(User);
             if (await userManager.IsInRoleAsync(user, "CLIENT"))
             {
                 // Se o usuário tem a função "CLIENT", consulte apenas as reservas relacionadas ao seu ID
-                var appDbContext = _context.Reservas
+                var appDbContext = _context.Reserva
                 .Where(r => r.Token == user.Id)
                 .Include(r => r.Pessoa);
                 return View(await appDbContext.ToListAsync());
@@ -38,7 +40,7 @@ namespace PousadaIdentity.Controllers
             else if (await userManager.IsInRoleAsync(user, "FUNCI"))
             {
                 // Se o usuário tem a função "FUNCI", ele pode ver todas as reservas
-                var appDbContext = _context.Reservas.Include(r => r.Pessoa);
+                var appDbContext = _context.Reserva.Include(r => r.Pessoa);
                 return View(await appDbContext.ToListAsync());
             }
             else
@@ -48,16 +50,18 @@ namespace PousadaIdentity.Controllers
             }
         }
 
-    // GET: Reservas/Details/5
-    public async Task<IActionResult> Details(int? id)
+
+        // GET: Reservas/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Reservas == null)
+            if (id == null || _context.Reserva == null)
             {
                 return NotFound();
             }
 
-            var reserva = await _context.Reservas
+            var reserva = await _context.Reserva
                 .Include(r => r.Pessoa)
+                .Include(r => r.Quarto)
                 .FirstOrDefaultAsync(m => m.ReservaId == id);
             if (reserva == null)
             {
@@ -70,7 +74,8 @@ namespace PousadaIdentity.Controllers
         // GET: Reservas/Create
         public IActionResult Create()
         {
-            ViewData["PessoaId"] = new SelectList(_context.Pessoas, "PessoaId", "PessoaId");
+            ViewData["PessoaId"] = new SelectList(_context.Pessoa, "PessoaId", "PessoaId");
+            ViewData["QuartoID"] = new SelectList(_context.Quarto, "QuartoId", "QuartoId");
             return View();
         }
 
@@ -79,7 +84,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReservaId,DataReserva,DataQuandoReservada,Estado,ValorTotalReserva,Token,PessoaId")] Reserva reserva)
+        public async Task<IActionResult> Create([Bind("ReservaId,CheckIn,CheckUp,DataReservada,Estado,ValorTotalReserva,QuartoID,Token,PessoaId")] Reserva reserva)
         {
             if (ModelState.IsValid)
             {
@@ -87,24 +92,26 @@ namespace PousadaIdentity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PessoaId"] = new SelectList(_context.Pessoas, "PessoaId", "PessoaId", reserva.PessoaId);
+            ViewData["PessoaId"] = new SelectList(_context.Pessoa, "PessoaId", "PessoaId", reserva.PessoaId);
+            ViewData["QuartoID"] = new SelectList(_context.Quarto, "QuartoId", "QuartoId", reserva.QuartoID);
             return View(reserva);
         }
 
         // GET: Reservas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Reservas == null)
+            if (id == null || _context.Reserva == null)
             {
                 return NotFound();
             }
 
-            var reserva = await _context.Reservas.FindAsync(id);
+            var reserva = await _context.Reserva.FindAsync(id);
             if (reserva == null)
             {
                 return NotFound();
             }
-            ViewData["PessoaId"] = new SelectList(_context.Pessoas, "PessoaId", "PessoaId", reserva.PessoaId);
+            ViewData["PessoaId"] = new SelectList(_context.Pessoa, "PessoaId", "PessoaId", reserva.PessoaId);
+            ViewData["QuartoID"] = new SelectList(_context.Quarto, "QuartoId", "QuartoId", reserva.QuartoID);
             return View(reserva);
         }
 
@@ -113,7 +120,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,DataReserva,DataQuandoReservada,Estado,ValorTotalReserva,Token,PessoaId")] Reserva reserva)
+        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,CheckIn,CheckUp,DataReservada,Estado,ValorTotalReserva,QuartoID,Token,PessoaId")] Reserva reserva)
         {
             if (id != reserva.ReservaId)
             {
@@ -140,20 +147,22 @@ namespace PousadaIdentity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PessoaId"] = new SelectList(_context.Pessoas, "PessoaId", "PessoaId", reserva.PessoaId);
+            ViewData["PessoaId"] = new SelectList(_context.Pessoa, "PessoaId", "PessoaId", reserva.PessoaId);
+            ViewData["QuartoID"] = new SelectList(_context.Quarto, "QuartoId", "QuartoId", reserva.QuartoID);
             return View(reserva);
         }
 
         // GET: Reservas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Reservas == null)
+            if (id == null || _context.Reserva == null)
             {
                 return NotFound();
             }
 
-            var reserva = await _context.Reservas
+            var reserva = await _context.Reserva
                 .Include(r => r.Pessoa)
+                .Include(r => r.Quarto)
                 .FirstOrDefaultAsync(m => m.ReservaId == id);
             if (reserva == null)
             {
@@ -168,14 +177,14 @@ namespace PousadaIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Reservas == null)
+            if (_context.Reserva == null)
             {
-                return Problem("Entity set 'AppDbContext.Reservas'  is null.");
+                return Problem("Entity set 'AppDbContext.Reserva'  is null.");
             }
-            var reserva = await _context.Reservas.FindAsync(id);
+            var reserva = await _context.Reserva.FindAsync(id);
             if (reserva != null)
             {
-                _context.Reservas.Remove(reserva);
+                _context.Reserva.Remove(reserva);
             }
             
             await _context.SaveChangesAsync();
@@ -184,7 +193,7 @@ namespace PousadaIdentity.Controllers
 
         private bool ReservaExists(int id)
         {
-          return (_context.Reservas?.Any(e => e.ReservaId == id)).GetValueOrDefault();
+          return (_context.Reserva?.Any(e => e.ReservaId == id)).GetValueOrDefault();
         }
     }
 }

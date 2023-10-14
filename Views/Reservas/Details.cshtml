@@ -11,16 +11,22 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataReserva)
+            @Html.DisplayNameFor(model => model.CheckIn)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataReserva)
+            @Html.DisplayFor(model => model.CheckIn)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataQuandoReservada)
+            @Html.DisplayNameFor(model => model.CheckUp)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataQuandoReservada)
+            @Html.DisplayFor(model => model.CheckUp)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DataReservada)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DataReservada)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Estado)
@@ -33,6 +39,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ValorTotalReserva)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Quarto)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Quarto.QuartoId)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Token)

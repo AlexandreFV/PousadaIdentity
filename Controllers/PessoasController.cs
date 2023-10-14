@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using PousadaIdentity.Entities;
 
 namespace PousadaIdentity.Controllers
 {
-    [Authorize]
     public class PessoasController : Controller
     {
         private readonly AppDbContext _context;
@@ -24,20 +22,20 @@ namespace PousadaIdentity.Controllers
         // GET: Pessoas
         public async Task<IActionResult> Index()
         {
-              return _context.Pessoas != null ? 
-                          View(await _context.Pessoas.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.Pessoas'  is null.");
+              return _context.Pessoa != null ? 
+                          View(await _context.Pessoa.ToListAsync()) :
+                          Problem("Entity set 'AppDbContext.Pessoa'  is null.");
         }
 
         // GET: Pessoas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Pessoas == null)
+            if (id == null || _context.Pessoa == null)
             {
                 return NotFound();
             }
 
-            var pessoa = await _context.Pessoas
+            var pessoa = await _context.Pessoa
                 .FirstOrDefaultAsync(m => m.PessoaId == id);
             if (pessoa == null)
             {
@@ -58,7 +56,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PessoaId,Nome,CPF,Password,Email,Usuario")] Pessoa pessoa)
+        public async Task<IActionResult> Create([Bind("PessoaId,Nome,CPF,Senha,Email,Usuario")] Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -72,12 +70,12 @@ namespace PousadaIdentity.Controllers
         // GET: Pessoas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Pessoas == null)
+            if (id == null || _context.Pessoa == null)
             {
                 return NotFound();
             }
 
-            var pessoa = await _context.Pessoas.FindAsync(id);
+            var pessoa = await _context.Pessoa.FindAsync(id);
             if (pessoa == null)
             {
                 return NotFound();
@@ -90,7 +88,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PessoaId,Nome,CPF,Password,Email,Usuario")] Pessoa pessoa)
+        public async Task<IActionResult> Edit(int id, [Bind("PessoaId,Nome,CPF,Senha,Email,Usuario")] Pessoa pessoa)
         {
             if (id != pessoa.PessoaId)
             {
@@ -123,12 +121,12 @@ namespace PousadaIdentity.Controllers
         // GET: Pessoas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Pessoas == null)
+            if (id == null || _context.Pessoa == null)
             {
                 return NotFound();
             }
 
-            var pessoa = await _context.Pessoas
+            var pessoa = await _context.Pessoa
                 .FirstOrDefaultAsync(m => m.PessoaId == id);
             if (pessoa == null)
             {
@@ -143,14 +141,14 @@ namespace PousadaIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Pessoas == null)
+            if (_context.Pessoa == null)
             {
-                return Problem("Entity set 'AppDbContext.Pessoas'  is null.");
+                return Problem("Entity set 'AppDbContext.Pessoa'  is null.");
             }
-            var pessoa = await _context.Pessoas.FindAsync(id);
+            var pessoa = await _context.Pessoa.FindAsync(id);
             if (pessoa != null)
             {
-                _context.Pessoas.Remove(pessoa);
+                _context.Pessoa.Remove(pessoa);
             }
             
             await _context.SaveChangesAsync();
@@ -159,7 +157,7 @@ namespace PousadaIdentity.Controllers
 
         private bool PessoaExists(int id)
         {
-          return (_context.Pessoas?.Any(e => e.PessoaId == id)).GetValueOrDefault();
+          return (_context.Pessoa?.Any(e => e.PessoaId == id)).GetValueOrDefault();
         }
     }
 }

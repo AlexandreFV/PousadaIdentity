@@ -22,20 +22,20 @@ namespace PousadaIdentity.Controllers
         // GET: Quartos
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Quartos.Include(q => q.Reserva);
-            return View(await appDbContext.ToListAsync());
+              return _context.Quarto != null ? 
+                          View(await _context.Quarto.ToListAsync()) :
+                          Problem("Entity set 'AppDbContext.Quarto'  is null.");
         }
 
         // GET: Quartos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Quartos == null)
+            if (id == null || _context.Quarto == null)
             {
                 return NotFound();
             }
 
-            var quarto = await _context.Quartos
-                .Include(q => q.Reserva)
+            var quarto = await _context.Quarto
                 .FirstOrDefaultAsync(m => m.QuartoId == id);
             if (quarto == null)
             {
@@ -48,7 +48,6 @@ namespace PousadaIdentity.Controllers
         // GET: Quartos/Create
         public IActionResult Create()
         {
-            ViewData["ReservaID"] = new SelectList(_context.Reservas, "ReservaId", "ReservaId");
             return View();
         }
 
@@ -57,7 +56,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,ValorTotalQuarto,ReservaID")] Quarto quarto)
+        public async Task<IActionResult> Create([Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,ValorTotalQuarto")] Quarto quarto)
         {
             if (ModelState.IsValid)
             {
@@ -65,24 +64,22 @@ namespace PousadaIdentity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReservaID"] = new SelectList(_context.Reservas, "ReservaId", "ReservaId", quarto.ReservaID);
             return View(quarto);
         }
 
         // GET: Quartos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Quartos == null)
+            if (id == null || _context.Quarto == null)
             {
                 return NotFound();
             }
 
-            var quarto = await _context.Quartos.FindAsync(id);
+            var quarto = await _context.Quarto.FindAsync(id);
             if (quarto == null)
             {
                 return NotFound();
             }
-            ViewData["ReservaID"] = new SelectList(_context.Reservas, "ReservaId", "ReservaId", quarto.ReservaID);
             return View(quarto);
         }
 
@@ -91,7 +88,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,ValorTotalQuarto,ReservaID")] Quarto quarto)
+        public async Task<IActionResult> Edit(int id, [Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,ValorTotalQuarto")] Quarto quarto)
         {
             if (id != quarto.QuartoId)
             {
@@ -118,20 +115,18 @@ namespace PousadaIdentity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ReservaID"] = new SelectList(_context.Reservas, "ReservaId", "ReservaId", quarto.ReservaID);
             return View(quarto);
         }
 
         // GET: Quartos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Quartos == null)
+            if (id == null || _context.Quarto == null)
             {
                 return NotFound();
             }
 
-            var quarto = await _context.Quartos
-                .Include(q => q.Reserva)
+            var quarto = await _context.Quarto
                 .FirstOrDefaultAsync(m => m.QuartoId == id);
             if (quarto == null)
             {
@@ -146,14 +141,14 @@ namespace PousadaIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Quartos == null)
+            if (_context.Quarto == null)
             {
-                return Problem("Entity set 'AppDbContext.Quartos'  is null.");
+                return Problem("Entity set 'AppDbContext.Quarto'  is null.");
             }
-            var quarto = await _context.Quartos.FindAsync(id);
+            var quarto = await _context.Quarto.FindAsync(id);
             if (quarto != null)
             {
-                _context.Quartos.Remove(quarto);
+                _context.Quarto.Remove(quarto);
             }
             
             await _context.SaveChangesAsync();
@@ -162,7 +157,7 @@ namespace PousadaIdentity.Controllers
 
         private bool QuartoExists(int id)
         {
-          return (_context.Quartos?.Any(e => e.QuartoId == id)).GetValueOrDefault();
+          return (_context.Quarto?.Any(e => e.QuartoId == id)).GetValueOrDefault();
         }
     }
 }

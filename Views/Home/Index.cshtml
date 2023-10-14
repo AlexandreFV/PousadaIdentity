@@ -8,5 +8,5 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 <p>
-    ID do Usuário: @User.FindFirst(ClaimTypes.PrimarySid)?.Value
+    ID do Usuário: @User.FindFirst(ClaimTypes.NameIdentifier)?.Value
 </p>

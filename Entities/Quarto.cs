@@ -15,8 +15,5 @@
 
         public string? ValorTotalQuarto { get; set;}
 
-        public int? ReservaID { get; set; }
-
-        public Reserva? Reserva { get; set; }
     }
 }
