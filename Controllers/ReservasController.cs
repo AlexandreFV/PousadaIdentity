@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,21 +15,41 @@ namespace PousadaIdentity.Controllers
     public class ReservasController : Controller
     {
         private readonly AppDbContext _context;
-
-        public ReservasController(AppDbContext context)
+        private readonly UserManager<IdentityUser> userManager;
+        public ReservasController(AppDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            this.userManager = userManager;
         }
 
         // GET: Reservas
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Reservas.Include(r => r.Pessoa);
-            return View(await appDbContext.ToListAsync());
+     
+            var user = await userManager.GetUserAsync(User);
+            if (await userManager.IsInRoleAsync(user, "CLIENT"))
+            {
+                // Se o usuário tem a função "CLIENT", consulte apenas as reservas relacionadas ao seu ID
+                var appDbContext = _context.Reservas
+                .Where(r => r.Token == user.Id)
+                .Include(r => r.Pessoa);
+                return View(await appDbContext.ToListAsync());
+            }
+            else if (await userManager.IsInRoleAsync(user, "FUNCI"))
+            {
+                // Se o usuário tem a função "FUNCI", ele pode ver todas as reservas
+                var appDbContext = _context.Reservas.Include(r => r.Pessoa);
+                return View(await appDbContext.ToListAsync());
+            }
+            else
+            {
+                // Trate outras funções ou usuários sem função de acordo com sua lógica
+                return View(new List<Reserva>());
+            }
         }
 
-        // GET: Reservas/Details/5
-        public async Task<IActionResult> Details(int? id)
+    // GET: Reservas/Details/5
+    public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Reservas == null)
             {

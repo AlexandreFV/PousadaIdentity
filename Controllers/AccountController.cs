@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PousadaIdentity.Context;
+using PousadaIdentity.Entities;
 using PousadaIdentity.Models;
+using System.Data.Entity;
 using System.Security.Claims;
 
 namespace PousadaIdentity.Controllers
@@ -12,13 +14,13 @@ namespace PousadaIdentity.Controllers
     {
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
+        private readonly AppDbContext appDbContext;
 
-
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, AppDbContext appDbContext)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-
+            this.appDbContext = appDbContext;
         }
 
         [HttpGet]
@@ -28,8 +30,10 @@ namespace PousadaIdentity.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+
+        public async Task<IActionResult> Register([Bind("Nome,CPF,Senha,Email,Usuario")] Pessoa pessoa,RegisterViewModel model)
         {
+
             if (ModelState.IsValid)
             {
 
@@ -43,7 +47,12 @@ namespace PousadaIdentity.Controllers
 
                 if (result.Succeeded)
                 {
+                    await userManager.AddToRoleAsync(user, "CLIENT");
+
                     await signInManager.SignInAsync(user, isPersistent: false);
+                    appDbContext.Add(pessoa);
+                    await appDbContext.SaveChangesAsync();
+
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -53,6 +62,7 @@ namespace PousadaIdentity.Controllers
                 }
             }
                 return View(model);
+
         }
 
         [HttpGet]
@@ -64,38 +74,43 @@ namespace PousadaIdentity.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await signInManager.PasswordSignInAsync(
-                    model.Email, model.Password, model.RememberMe, false);
 
-                if (result.Succeeded)
+        if (ModelState.IsValid)
+        {
+            var result = await signInManager.PasswordSignInAsync(
+                model.Email, model.Password, model.RememberMe, false);
+
+            if (result.Succeeded)
+            {
+
+                var user = await userManager.FindByNameAsync(model.Email);
+
+                /*Caso precise apagar algum usuario do banco deve ser logar dps com isso ativado
+                var rEesult = await userManager.DeleteAsync(user);
+                await signInManager.SignOutAsync();
+                */
+                var claims = new List<Claim>
                 {
 
-                    var user = await userManager.FindByNameAsync(model.Email);
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id) // Adiciona o ID do usuário como uma claim
 
-                    var claims = new List<Claim>
-                    {
+                };
 
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id) // Adiciona o ID do usuário como uma claim
-                     
-                    };
+                var userIdentity = new ClaimsIdentity(claims, "login");
+                var userPrincipal = new ClaimsPrincipal(userIdentity);
 
-                    var userIdentity = new ClaimsIdentity(claims, "login");
-                    var userPrincipal = new ClaimsPrincipal(userIdentity);
-
-                    // Faça login com o principal que contém as claims
-                    await HttpContext.SignInAsync(userPrincipal);
+                // Faça login com o principal que contém as claims
+                await HttpContext.SignInAsync(userPrincipal);
 
 
-                    return RedirectToAction("Index", "Home");
-                }
-
-                ModelState.AddModelError(string.Empty, "Login Invalido");
+                return RedirectToAction("Index", "Home");
             }
-            return View(model);
+
+            ModelState.AddModelError(string.Empty, "Login Invalido");
         }
+        return View(model);
+    }
 
         [HttpPost]
         public async Task<IActionResult> LogOut()
@@ -103,5 +118,6 @@ namespace PousadaIdentity.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+     
     }
 }
