@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using PousadaIdentity.Entities;
 
 namespace PousadaIdentity.Controllers
 {
+    [Authorize]
     public class PessoasController : Controller
     {
         private readonly AppDbContext _context;
@@ -56,7 +58,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PessoaId,Nome,CPF,Senha,Email,Usuario")] Pessoa pessoa)
+        public async Task<IActionResult> Create([Bind("PessoaId,Nome,CPF,Password,Email,Usuario")] Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +90,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PessoaId,Nome,CPF,Senha,Email,Usuario")] Pessoa pessoa)
+        public async Task<IActionResult> Edit(int id, [Bind("PessoaId,Nome,CPF,Password,Email,Usuario")] Pessoa pessoa)
         {
             if (id != pessoa.PessoaId)
             {
