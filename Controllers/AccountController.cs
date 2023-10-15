@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PousadaIdentity.Context;
@@ -14,7 +15,6 @@ namespace PousadaIdentity.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
         private readonly AppDbContext appDbContext;
-
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, AppDbContext appDbContext)
         {
             this.userManager = userManager;
@@ -32,7 +32,6 @@ namespace PousadaIdentity.Controllers
         public async Task<IActionResult> Register([Bind("Nome,CPF,Senha,Email,Usuario")] Pessoa pessoa, RegisterViewModel model)
         {
 
-
             if (ModelState.IsValid)
             {
 
@@ -49,6 +48,7 @@ namespace PousadaIdentity.Controllers
 
                     await signInManager.SignInAsync(user, isPersistent: false);
                     appDbContext.Add(pessoa);
+
                     await appDbContext.SaveChangesAsync();
 
                     return RedirectToAction("Index", "Home");
@@ -81,8 +81,18 @@ namespace PousadaIdentity.Controllers
 
                 if (result.Succeeded)
                 {
+                    var pessoa = appDbContext.Pessoa.FirstOrDefault(p => p.Email == model.Email);
 
                     var user = await userManager.FindByNameAsync(model.Email);
+
+                    if (pessoa != null)
+                    {
+                        // Armazene o ID da tabela Pessoa na sessão
+                        int? nullablePessoaId = pessoa.PessoaId;
+                        int pessoaId = nullablePessoaId ?? 0; // 0 é o valor padrão se nullablePessoaId for nulo
+                        HttpContext.Session.SetInt32("SessionPessoaId", pessoaId);
+                    }
+
 
                     /*Caso precise apagar algum usuario do banco deve ser logar dps com isso ativado
                     var rEesult = await userManager.DeleteAsync(user);
@@ -101,9 +111,8 @@ namespace PousadaIdentity.Controllers
 
                     // Faça login com o principal que contém as claims
                     await HttpContext.SignInAsync(userPrincipal);
-
-
                     return RedirectToAction("Index", "Home");
+                
                 }
 
                 ModelState.AddModelError(string.Empty, "Login Invalido");

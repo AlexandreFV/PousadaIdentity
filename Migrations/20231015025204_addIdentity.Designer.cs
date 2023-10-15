@@ -12,7 +12,7 @@ using PousadaIdentity.Context;
 namespace PousadaIdentity.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231014214021_addIdentity")]
+    [Migration("20231015025204_addIdentity")]
     partial class addIdentity
     {
         /// <inheritdoc />
@@ -299,17 +299,11 @@ namespace PousadaIdentity.Migrations
                     b.Property<string>("Estado")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PessoaFKId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("PessoaId")
                         .HasColumnType("int");
 
                     b.Property<int>("QuartoID")
                         .HasColumnType("int");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("ValorTotalReserva")
                         .HasColumnType("decimal(18,2)");

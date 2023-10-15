@@ -15,6 +15,7 @@ namespace PousadaIdentity.Models
         [Display(Name = "Lembrar-me")]
         public bool RememberMe { get; set; }
 
+        public int PessoaId { get; set; }
 
     }
 }

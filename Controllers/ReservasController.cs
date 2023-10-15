@@ -1,47 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PousadaIdentity.Context;
 using PousadaIdentity.Entities;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Components;
 
 namespace PousadaIdentity.Controllers
 {
-    [Authorize]
     public class ReservasController : Controller
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> userManager;
-        public ReservasController(AppDbContext context, UserManager<IdentityUser> userManager)
+        private readonly IHttpContextAccessor httpContextAccessor;
+
+        public ReservasController(AppDbContext context, UserManager<IdentityUser> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             this.userManager = userManager;
-        }
+            this.httpContextAccessor = httpContextAccessor;
 
+
+        }
 
         // GET: Reservas
         public async Task<IActionResult> Index()
         {
-
             var user = await userManager.GetUserAsync(User);
+            int pessoaId = httpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId") ?? 0;
+
             if (await userManager.IsInRoleAsync(user, "CLIENT"))
             {
+
                 // Se o usuário tem a função "CLIENT", consulte apenas as reservas relacionadas ao seu ID
-                var appDbContext = _context.Reserva
-                .Where(r => r.Token == user.Id)
-                .Include(r => r.Pessoa);
-                return View(await appDbContext.ToListAsync());
+
+                var reservas = _context.Reserva
+                    .Where(r => r.PessoaId == pessoaId)
+                    .Include(r => r.Pessoa);
+                return View(await reservas.ToListAsync());
             }
             else if (await userManager.IsInRoleAsync(user, "FUNCI"))
             {
                 // Se o usuário tem a função "FUNCI", ele pode ver todas as reservas
-                var appDbContext = _context.Reserva.Include(r => r.Pessoa);
-                return View(await appDbContext.ToListAsync());
+                var DbContext = _context.Reserva.Include(r => r.Pessoa);
+                return View(await DbContext.ToListAsync());
             }
             else
             {
@@ -49,7 +57,6 @@ namespace PousadaIdentity.Controllers
                 return View(new List<Reserva>());
             }
         }
-
 
         // GET: Reservas/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -84,7 +91,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReservaId,CheckIn,CheckUp,DataReservada,Estado,ValorTotalReserva,QuartoID,Token,PessoaId")] Reserva reserva)
+        public async Task<IActionResult> Create([Bind("ReservaId,CheckIn,CheckUp,DataReservada,Estado,ValorTotalReserva,QuartoID,PessoaId")] Reserva reserva)
         {
             if (ModelState.IsValid)
             {
@@ -92,6 +99,7 @@ namespace PousadaIdentity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["PessoaId"] = new SelectList(_context.Pessoa, "PessoaId", "PessoaId", reserva.PessoaId);
             ViewData["QuartoID"] = new SelectList(_context.Quarto, "QuartoId", "QuartoId", reserva.QuartoID);
             return View(reserva);
@@ -120,7 +128,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,CheckIn,CheckUp,DataReservada,Estado,ValorTotalReserva,QuartoID,Token,PessoaId")] Reserva reserva)
+        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,CheckIn,CheckUp,DataReservada,Estado,ValorTotalReserva,QuartoID,PessoaId")] Reserva reserva)
         {
             if (id != reserva.ReservaId)
             {

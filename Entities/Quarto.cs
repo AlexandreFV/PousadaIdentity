@@ -1,8 +1,10 @@
-﻿namespace PousadaIdentity.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PousadaIdentity.Entities
 {
     public class Quarto
     {
-
+        [Key]
         public int QuartoId { get; set; }
 
         public string? Disponibilidade { get; set; }

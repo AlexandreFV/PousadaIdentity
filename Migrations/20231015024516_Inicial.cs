@@ -56,8 +56,6 @@ namespace PousadaIdentity.Migrations
                     Estado = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ValorTotalReserva = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     QuartoID = table.Column<int>(type: "int", nullable: false),
-                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PessoaFKId = table.Column<int>(type: "int", nullable: true),
                     PessoaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

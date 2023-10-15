@@ -296,17 +296,11 @@ namespace PousadaIdentity.Migrations
                     b.Property<string>("Estado")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PessoaFKId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("PessoaId")
                         .HasColumnType("int");
 
                     b.Property<int>("QuartoID")
                         .HasColumnType("int");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("ValorTotalReserva")
                         .HasColumnType("decimal(18,2)");
