@@ -16,6 +16,8 @@ using System.Data;
 
 namespace PousadaIdentity.Controllers
 {
+
+    [Authorize]
     public class ReservasController : Controller
     {
         private readonly AppDbContext _context;
