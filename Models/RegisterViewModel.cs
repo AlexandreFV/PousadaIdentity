@@ -28,5 +28,7 @@ namespace PousadaIdentity.Models
         [Required]
         public string? Usuario { get; set; }
 
+
+
     }
 }

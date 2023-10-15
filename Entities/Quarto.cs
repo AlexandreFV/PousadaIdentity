@@ -15,7 +15,7 @@ namespace PousadaIdentity.Entities
 
         public string? ArCondicionado { get; set; }
 
-        public string? ValorTotalQuarto { get; set;}
+        public decimal Preco { get; set; }
 
     }
 }

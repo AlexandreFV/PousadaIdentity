@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,11 @@ namespace PousadaIdentity.Controllers
     public class PessoasController : Controller
     {
         private readonly AppDbContext _context;
-
-        public PessoasController(AppDbContext context)
+        private readonly RoleManager<IdentityRole> roleManager;
+        public PessoasController(AppDbContext context, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            this.roleManager = roleManager;
         }
 
         // GET: Pessoas
@@ -30,6 +32,9 @@ namespace PousadaIdentity.Controllers
         // GET: Pessoas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var roles = roleManager.Roles.ToList();
+            var rolesSelectList = new SelectList(roles, "Id", "Name");
+
             if (id == null || _context.Pessoa == null)
             {
                 return NotFound();
@@ -41,6 +46,7 @@ namespace PousadaIdentity.Controllers
             {
                 return NotFound();
             }
+            ViewData["Roles"] = rolesSelectList;
 
             return View(pessoa);
         }

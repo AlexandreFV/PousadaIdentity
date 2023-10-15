@@ -11,6 +11,8 @@ using PousadaIdentity.Context;
 using PousadaIdentity.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace PousadaIdentity.Controllers
 {
@@ -91,18 +93,107 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ReservaId,CheckIn,CheckUp,DataReservada,Estado,ValorTotalReserva,QuartoID,PessoaId")] Reserva reserva)
+        public async Task<IActionResult> Create([Bind("ReservaId,CheckIn,CheckOut,DataReservada,Estado,ValorTotalReserva,QuartoID,PessoaId")] Reserva reserva)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(reserva);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                int numeroDias = (reserva.CheckOut - reserva.CheckIn).Days;
+
+                bool quartoDisponivel = VerificarDisponibilidadeQuarto(reserva.QuartoID, reserva.CheckIn, reserva.CheckOut);
+                if (quartoDisponivel)
+                {
+                    decimal precoQuarto = ObterPrecoQuarto(reserva.QuartoID);
+                    decimal valorTotal = numeroDias * precoQuarto;
+                    reserva.ValorTotalReserva = valorTotal;
+                    ViewBag.ValorTotalReserva = valorTotal; // onde "valorTotal" é o valor calculado
+
+                    // O quarto está disponível, pode criar a reserva
+                    _context.Add(reserva);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "O quarto escolhido não está disponível para as datas selecionadas.");
+
+                }
+
             }
 
             ViewData["PessoaId"] = new SelectList(_context.Pessoa, "PessoaId", "PessoaId", reserva.PessoaId);
             ViewData["QuartoID"] = new SelectList(_context.Quarto, "QuartoId", "QuartoId", reserva.QuartoID);
             return View(reserva);
+        }
+
+
+        private decimal ObterPrecoQuarto(int quartoId)
+        {
+            // Consulte o banco de dados ou outra fonte de dados para obter o preço do quarto com base no ID do quarto
+            var quarto = _context.Quarto.FirstOrDefault(q => q.QuartoId == quartoId);
+            if (quarto != null)
+            {
+                return quarto.Preco;
+            }
+
+            ModelState.AddModelError(string.Empty, "Selecione um quarto valido.");
+            return 0.0M;
+        }
+
+        public IActionResult ObterPrecoQuartoExibicao(int quartoId)
+        {
+            // Consulte o banco de dados ou outra fonte de dados para obter o preço do quarto com base no ID do quarto
+            var quarto = _context.Quarto.FirstOrDefault(q => q.QuartoId == quartoId);
+
+            if (quarto != null)
+            {
+          
+                return Json(new { preco = quarto.Preco });
+            }
+
+            return Json(new { error = "Quarto não encontrado" });
+        }
+
+        [Authorize(Roles = "Funcionario")] // Certifique-se de que apenas usuários com a role FUNCI podem acessar essa ação.
+        public async Task<IActionResult> MarcarComoPago(int id)
+        {
+            var reserva = _context.Reserva.FirstOrDefault(q => q.ReservaId == id);
+            if (reserva != null)
+            {
+                reserva.Estado = "Pago"; // Altera o estado para "Pago".
+                _context.Update(reserva);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Details", new { id });
+        }
+
+
+        [Authorize(Roles = "Funcionario")] // Certifique-se de que apenas usuários com a role FUNCI podem acessar essa ação.
+        public async Task<IActionResult> MarcarComoNãoPago(int id)
+        {
+            var reserva = _context.Reserva.FirstOrDefault(q => q.ReservaId == id);
+            if (reserva != null)
+            {
+                reserva.Estado = "Não Pago"; // Altera o estado para "Pago".
+                _context.Update(reserva);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Details", new { id });
+        }
+
+
+        private bool VerificarDisponibilidadeQuarto(int quartoId, DateTime checkIn, DateTime checkOut)
+        {
+            // Verifique no banco de dados se o quarto está disponível para as datas escolhidas
+            // Implemente a lógica de consulta ao banco de dados de acordo com a sua estrutura de dados
+
+            bool quartoDisponivel = !_context.Reserva.Any(r =>
+                r.QuartoID == quartoId &&
+                (checkIn >= r.CheckIn && checkIn <= r.CheckOut) ||
+                (checkOut >= r.CheckIn && checkOut <= r.CheckOut));
+
+            return quartoDisponivel;
         }
 
         // GET: Reservas/Edit/5
@@ -128,7 +219,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,CheckIn,CheckUp,DataReservada,Estado,ValorTotalReserva,QuartoID,PessoaId")] Reserva reserva)
+        public async Task<IActionResult> Edit(int id, [Bind("ReservaId,CheckIn,CheckOut,DataReservada,Estado,ValorTotalReserva,QuartoID,PessoaId")] Reserva reserva)
         {
             if (id != reserva.ReservaId)
             {

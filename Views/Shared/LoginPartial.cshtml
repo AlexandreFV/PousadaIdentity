@@ -2,14 +2,19 @@
 @using System.Security.Claims;
 @inject SignInManager<IdentityUser> SignInManager
 
+
 @if (SignInManager.IsSignedIn(User))
 {
+    var roles = User.FindAll(ClaimTypes.Role);
+    var roleNames = roles.Select(r => r.Value);
+    var rolesText = string.Join(", ", roleNames);
 
     <ul class="nav-item">
         <form method="post" asp-controller="Account" asp-action="LogOut">
             <button type="submit" style="width:auto" class="nav-link btn btn-link py-0">
                 Logout @User.Identity.Name
                 UserID: @User.FindFirst(ClaimTypes.NameIdentifier)?.Value <!-- Exibe o ID do usuário -->
+                <p>Roles do Usuário: @rolesText</p>
 
             </button>
         </form>

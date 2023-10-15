@@ -10,11 +10,11 @@ namespace PousadaIdentity.Entities
         [Key]
         public int ReservaId { get; set; }
 
-        public string? CheckIn { get; set; }
+        public DateTime CheckIn { get; set; }
 
-        public string? CheckUp { get; set; }
+        public DateTime CheckOut { get; set; }
 
-        public string? DataReservada { get; set; }
+        public DateTime DataReservada { get; set; }
 
         public string? Estado { get; set; } 
 

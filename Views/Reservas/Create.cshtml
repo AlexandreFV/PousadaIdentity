@@ -4,6 +4,36 @@
 @{
     ViewData["Title"] = "Create";
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#CheckIn, #CheckUp, #QuartoID').on('change', function () {
+            calcularValorTotal();
+        });
+
+        function calcularValorTotal() {
+            var checkIn = new Date($('#CheckIn').val());
+            var checkUp = new Date($('#CheckUp').val());
+            var quartoID = $('#QuartoID').val();
+
+            if (!isNaN(checkIn) && !isNaN(checkUp) && quartoID) {
+                var numeroDias = Math.ceil((checkUp - checkIn) / (1000 * 60 * 60 * 24));
+
+                $.get('/Reservas/ObterPrecoQuartoExibicao', { quartoID: quartoID }, function (data) {
+                    if (data && data.preco) {
+                        var valorTotal = numeroDias * data.preco;
+                        $('#ValorExibido').val(valorTotal.toFixed(2));
+                        ViewBag.ValorTotalReserva = valorTotal; // onde "valorTotal" é o valor calculado
+
+                    } else {
+                        console.error('Erro ao obter preço do quarto.');
+                    }
+                });
+            }
+        }
+    });
+</script>
+
 
 <h1>Create</h1>
 
@@ -14,35 +44,40 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CheckIn" class="control-label"></label>
-                <input asp-for="CheckIn" class="form-control" />
-                <span asp-validation-for="CheckIn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CheckUp" class="control-label"></label>
-                <input asp-for="CheckUp" class="form-control" />
-                <span asp-validation-for="CheckUp" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DataReservada" class="control-label"></label>
-                <input asp-for="DataReservada" class="form-control" />
-                <span asp-validation-for="DataReservada" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ValorTotalReserva" class="control-label"></label>
-                <input asp-for="ValorTotalReserva" class="form-control" />
+                <label class="control-label">Valor Total</label>
+                <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" />
+
+                <input asp-for="ValorTotalReserva" class="form-control" style="visibility:hidden;display:none;" readonly/>
                 <span asp-validation-for="ValorTotalReserva" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="QuartoID" class="control-label"></label>
-                <select asp-for="QuartoID" class ="form-control" asp-items="ViewBag.QuartoID"></select>
+                <label asp-for="CheckIn" class="control-label"></label>
+                <input asp-for="CheckIn" class="form-control" id="CheckIn" />
+                <span asp-validation-for="CheckIn" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="CheckOut" class="control-label"></label>
+                <input asp-for="CheckOut" class="form-control" id="CheckUp" />
+                <span asp-validation-for="CheckOut" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none;visibility:hidden;">
+                <label asp-for="DataReservada" class="control-label"></label>
+                <input asp-for="DataReservada" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="text" />
+                <span asp-validation-for="DataReservada" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="QuartoID" class="control-label"></label>
+                <select asp-for="QuartoID" class="form-control" asp-items="ViewBag.QuartoID" id="QuartoID"></select>
+            </div>
+            <div class="form-group" style="display:none;visibility:hidden;">
+                <label asp-for="Estado" class="control-label"></label>
+                <select asp-for="Estado" class="form-control" />
+                <option value="Não Pago">Não Pago</option>
+                <option value="Pago">Pago</option>
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>     
+            <div class="form-group" style="display:none;visibility:hidden;">
                 <label asp-for="PessoaId" class="control-label"></label>
                 <input asp-for="PessoaId" class="form-control" value="@HttpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId")"></input>
             </div>

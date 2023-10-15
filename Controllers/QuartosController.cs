@@ -58,7 +58,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,ValorTotalQuarto")] Quarto quarto)
+        public async Task<IActionResult> Create([Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,Preco")] Quarto quarto)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,ValorTotalQuarto")] Quarto quarto)
+        public async Task<IActionResult> Edit(int id, [Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,Preco")] Quarto quarto)
         {
             if (id != quarto.QuartoId)
             {

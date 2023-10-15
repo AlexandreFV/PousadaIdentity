@@ -3,7 +3,27 @@
 @{
     ViewData["Title"] = "Details";
 }
+<!--
+<script>
+    $(document).ready(function () {
+        $("#btnCargos").click(function () {
+            $("#cargosModal").modal("show");
+        });
+    });
+</script>
 
+<script>
+    $(document).ready(function () {
+        $('#btnAtualizarRole').click(function () {
+            var novaRole = $('#novaRole').val(); // Obtenha a nova role do input
+
+            $.post('/Usuario/AtualizarRole', { novaRole: novaRole }, function (result) {
+                // Trate a resposta do servidor, por exemplo, mostrando uma mensagem de sucesso ou erro.
+            });
+        });
+    });
+</script>
+-->
 <h1>Details</h1>
 
 <div>
@@ -44,5 +64,41 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.PessoaId">Edit</a> |
+
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+<!---if (User.IsInRole("Funcionario"))
+{
+
+    <button id="btnCargos" class="btn btn-primary">Cargos</button>
+}
+
+if (User.IsInRole("Funcionario"))
+{ <!---   
+<div class="modal fade" id="cargosModal" tabindex="-1" role="dialog" aria-labelledby="cargosModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="selectRoles">Cargos</label>
+                    <select asp-items="ViewBag.Roles" class="form-control" type="text" id="novaRole">
+                        <option value="">Selecione um cargo</option>
+                    </select>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button id="btnAtualizarRole" class="btn btn-primary">Atualizar Role</button>
+                </div>
+            </div>
+        </div>
+    </div>
+} -->
+
