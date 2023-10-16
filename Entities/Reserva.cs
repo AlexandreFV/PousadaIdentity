@@ -10,8 +10,14 @@ namespace PousadaIdentity.Entities
         [Key]
         public int ReservaId { get; set; }
 
+        [Display(Name = "Check In")]
+        [DataType(DataType.Date)]
+        [DataCheckInMaiorOuIgualDataAtual] // Aplica a validação personalizada
         public DateTime CheckIn { get; set; }
 
+        [Display(Name = "Check Out")]
+        [DataType(DataType.Date)]
+        [DataCheckOutMaiorQueCheckIn] // Aplica a validação personalizada
         public DateTime CheckOut { get; set; }
 
         public DateTime DataReservada { get; set; }

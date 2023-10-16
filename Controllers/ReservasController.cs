@@ -39,6 +39,19 @@ namespace PousadaIdentity.Controllers
             var user = await userManager.GetUserAsync(User);
             int pessoaId = httpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId") ?? 0;
 
+            var dataLimite = DateTime.Now.Date.AddDays(-2); // Duas dias atrás em relação à data atual
+            var reservasParaRemover = _context.Reserva
+                .Where(r => r.Estado == "Não Pago" && r.CheckIn.Date <= dataLimite)
+                .ToList();
+
+            foreach (var reserva in reservasParaRemover)
+            {
+                _context.Reserva.Remove(reserva);
+                // Adicione lógica adicional, como notificações ou logs, conforme necessário
+            }
+
+            _context.SaveChanges();
+
             if (await userManager.IsInRoleAsync(user, "CLIENT"))
             {
 
@@ -295,6 +308,65 @@ namespace PousadaIdentity.Controllers
         private bool ReservaExists(int id)
         {
           return (_context.Reserva?.Any(e => e.ReservaId == id)).GetValueOrDefault();
+        }
+
+        public IActionResult MostrarReservasOrdenadas(string ordenacao)
+        {
+            // Consulte o banco de dados ou sua fonte de dados para obter todas as reservas.
+            var reservas = _context.Reserva.ToList();
+
+            // Ordene as reservas com base na direção de ordenação
+            if (ordenacao == "asc")
+            {
+                reservas = reservas.OrderBy(r => r.CheckIn).ToList();
+            }
+            else if (ordenacao == "desc")
+            {
+                reservas = reservas.OrderByDescending(r => r.CheckIn).ToList();
+            }
+
+            return View("Index", reservas); // Redirecione para a view "Index" com as reservas ordenadas.
+        }
+
+        public IActionResult MostrarReservasOrdenadasComEstado(string ordenacao)
+        {
+            // Consulte o banco de dados ou sua fonte de dados para obter todas as reservas.
+            var reservas = _context.Reserva.ToList();
+
+            // Ordene as reservas com base na direção de ordenação
+            if (ordenacao == "asc")
+            {
+                reservas = reservas.OrderBy(r => r.CheckIn).ToList();
+            }
+            else if (ordenacao == "desc")
+            {
+                reservas = reservas.OrderByDescending(r => r.CheckIn).ToList();
+            }
+
+            // Mova as reservas com o estado "não pago" para o início da lista
+            reservas = reservas.OrderBy(r => r.Estado != "Não Pago").ToList();
+
+            return View("Index", reservas); // Redirecione para a view "Index" com as reservas ordenadas e priorizando o estado "não pago".
+        }
+
+        public IActionResult MostrarReservasNaoPagasEPosteriores()
+        {
+            var dataAtual = DateTime.Now.Date; // Obtém o dia atual sem a parte da hora.
+
+            // Consulte o banco de dados ou sua fonte de dados para obter as reservas que são "não pagas" e têm datas iguais ou maiores que o dia atual.
+            var reservas = _context.Reserva.Where(r => r.Estado == "Não Pago" && r.CheckIn.Date >= dataAtual).ToList();
+
+            return View("Index", reservas); // Redirecione para a view "Index" com as reservas priorizadas como especificado.
+        }
+
+        public IActionResult MostrarReservasPagasEPosteriores()
+        {
+            var dataAtual = DateTime.Now.Date; // Obtém o dia atual sem a parte da hora.
+
+            // Consulte o banco de dados ou sua fonte de dados para obter as reservas que são "pagas" e têm datas iguais ou maiores que o dia atual.
+            var reservas = _context.Reserva.Where(r => r.Estado == "Pago" && r.CheckIn.Date >= dataAtual).ToList();
+
+            return View("Index", reservas); // Redirecione para a view "Index" com as reservas priorizadas como especificado.
         }
     }
 }

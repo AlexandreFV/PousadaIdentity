@@ -5,6 +5,68 @@
     ViewData["Title"] = "Index";
 }
 
+
+<style>
+    .custom-dropdown {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .selected-option {
+        background: #f2f2f2;
+        padding: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .dropdown-options {
+        display: none;
+        position: absolute;
+        background: #fff;
+        border: 1px solid #ccc;
+    }
+
+        .dropdown-options a {
+            display: block;
+            padding: 8px;
+            text-decoration: none;
+            color: #333;
+            cursor: pointer;
+        }
+
+            .dropdown-options a:hover {
+                background: #e0e0e0;
+            }
+
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const customDropdown = document.querySelector(".custom-dropdown");
+        const selectedOption = document.querySelector(".selected-option");
+        const dropdownOptions = document.querySelector(".dropdown-options");
+
+        customDropdown.addEventListener("click", function () {
+            dropdownOptions.style.display = dropdownOptions.style.display === "block" ? "none" : "block";
+        });
+
+        dropdownOptions.addEventListener("click", function (event) {
+            if (event.target.tagName === "LI") {
+                selectedOption.textContent = event.target.textContent;
+                dropdownOptions.style.display = "none";
+            }
+        });
+
+        document.addEventListener("click", function (event) {
+            if (event.target !== customDropdown && event.target !== selectedOption) {
+                dropdownOptions.style.display = "none";
+            }
+        });
+    });
+
+</script>
+
+
 <h1>Index</h1>
 
     Nome : @HttpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId")
@@ -13,6 +75,19 @@
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
+
+    <div class="custom-dropdown">
+        <span class="selected-option">Filtrar por CheckIn e Estado: </span>
+        <div class="dropdown-options">
+            <a asp-controller="Reservas" asp-action="Index" asp-route-ordenacao="asc">Padrão</a>
+            <a asp-controller="Reservas" asp-action="MostrarReservasOrdenadas" asp-route-ordenacao="asc">Data Crescente</a>
+            <a asp-controller="Reservas" asp-action="MostrarReservasOrdenadas" asp-route-ordenacao="desc">Data Descendente</a>
+            <a asp-controller="Reservas" asp-action="MostrarReservasOrdenadasComEstado" asp-route-ordenacao="asc">Data Crescente e Não Pago</a>
+            <a asp-controller="Reservas" asp-action="MostrarReservasOrdenadasComEstado" asp-route-ordenacao="desc">Data Descendente e Não Pago</a>
+            <a asp-controller="Reservas" asp-action="MostrarReservasNaoPagasEPosteriores" asp-route-ordenacao="asc">Apenas Não Pagos com Data => Atual</a>
+            <a asp-controller="Reservas" asp-action="MostrarReservasPagasEPosteriores">Reservas Pagas com Data => Atual</a>
+        </div>
+    </div>
     <thead>
         <tr>
             <th>
@@ -32,6 +107,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Quarto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pessoa)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Pessoa)
@@ -62,6 +140,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pessoa.PessoaId)
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Pessoa.Nome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ReservaId">Edit</a> |
