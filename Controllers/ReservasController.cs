@@ -205,8 +205,7 @@ namespace PousadaIdentity.Controllers
 
             bool quartoDisponivel = !_context.Reserva.Any(r =>
                 r.QuartoID == quartoId &&
-                (checkIn >= r.CheckIn && checkIn <= r.CheckOut) ||
-                (checkOut >= r.CheckIn && checkOut <= r.CheckOut));
+                ((checkIn >= r.CheckIn && checkIn < r.CheckOut) || (checkOut > r.CheckIn && checkOut <= r.CheckOut)));
 
             return quartoDisponivel;
         }
