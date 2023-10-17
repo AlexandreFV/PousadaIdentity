@@ -168,6 +168,19 @@ namespace PousadaIdentity.Controllers
             return Json(new { error = "Quarto não encontrado" });
         }
 
+        //Obtem todas as informacoes do Quarto referente ao ID do select
+        public IActionResult ObterInformacoesQuarto(int quartoId)
+        {
+            var quarto = _context.Quarto.FirstOrDefault(q => q.QuartoId == quartoId);
+
+            if (quarto != null)
+            {
+                return Json(new { preco = quarto.Preco, tipo = quarto.Tipo });
+            }
+
+            return Json(new { error = "Quarto não encontrado" });
+        }
+
         [Authorize(Roles = "Funcionario")] // Certifique-se de que apenas usuários com a role FUNCI podem acessar essa ação.
         public async Task<IActionResult> MarcarComoPago(int id)
         {

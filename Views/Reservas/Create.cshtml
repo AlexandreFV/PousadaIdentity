@@ -35,14 +35,94 @@
 </script>
 
 
+
+<script>
+    // Função para atualizar os campos em tempo real
+    function atualizarCampos() {
+        var quartoId = $('#QuartoID').val();
+
+        if (quartoId) {
+            $.get('/Reservas/ObterInformacoesQuarto', { quartoId: quartoId }, function (data) {
+                if (data && data.preco && data.tipo) {
+                    $('#PrecoQuartoInput').val(data.preco);
+                    $('#TipoQuartoInput').val(data.tipo);
+                } else {
+                    console.error('Erro ao obter informações do quarto.');
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        // Chame a função na carga da página
+        atualizarCampos();
+
+        // Adicione um manipulador de evento ao 'change' do select
+        $('#QuartoID').on('change', function () {
+            atualizarCampos();
+        });
+    });
+
+
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        var select = document.getElementById("QuartoID");
+        var increaseButton = document.getElementById("increase");
+        var decreaseButton = document.getElementById("decrease");
+
+        // Função para verificar e atualizar a desabilitação dos botões
+        function updateButtonAvailability() {
+            var selectedIndex = select.selectedIndex;
+            var optionCount = select.options.length;
+
+            increaseButton.disabled = selectedIndex >= optionCount - 1;
+            decreaseButton.disabled = selectedIndex <= 0;
+        }
+
+        // Inicialmente, atualize o estado dos botões
+        updateButtonAvailability();
+
+        // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
+        increaseButton.addEventListener("click", function () {
+            select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
+            atualizarCampos();
+            updateButtonAvailability();
+        });
+
+        decreaseButton.addEventListener("click", function () {
+            select.selectedIndex = Math.max(0, select.selectedIndex - 1);
+            atualizarCampos();
+            updateButtonAvailability();
+        });
+    });
+
+
+</script>
+
+
+
+
 <h1>Create</h1>
 
 <h4>Reserva</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
+ 
         <form asp-action="Create">
-            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="All" class="text-danger">
+
+                <div class="form-group">
+                    <label class="control-label">Preço do Quarto</label>
+                    <input class="form-control" id="PrecoQuartoInput" name="PrecoQuartoInput" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Tipo de Quarto</label>
+                    <input class="form-control" id="TipoQuartoInput" name="TipoQuartoInput" readonly>
+                </div>
+             
+
             <div class="form-group">
                 <label class="control-label">Valor Total</label>
                 <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" />
@@ -64,18 +144,23 @@
                 <label asp-for="DataReservada" class="control-label"></label>
                 <input asp-for="DataReservada" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="text" />
                 <span asp-validation-for="DataReservada" class="text-danger"></span>
-
             </div>
             <div class="form-group">
                 <label asp-for="QuartoID" class="control-label"></label>
-                <select asp-for="QuartoID" class="form-control" asp-items="ViewBag.QuartoID" id="QuartoID"></select>
+                <select asp-for="QuartoID" class="form-control" asp-items="ViewBag.QuartoID" id="QuartoID">
+                </select>
+                    <button type="button" id="decrease"><</button>
+                    <button type="button" id="increase">></button>
+
             </div>
             <div class="form-group" style="display:none;visibility:hidden;">
                 <label asp-for="Estado" class="control-label"></label>
-                <select asp-for="Estado" class="form-control" />
+                <select asp-for="Estado" class="form-control">                
                 <option value="Não Pago">Não Pago</option>
                 <option value="Pago">Pago</option>
                 <span asp-validation-for="Estado" class="text-danger"></span>
+                    </select>
+
             </div>     
             <div class="form-group" style="display:none;visibility:hidden;">
                 <label asp-for="PessoaId" class="control-label"></label>
@@ -83,6 +168,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
             </div>
         </form>
     </div>
