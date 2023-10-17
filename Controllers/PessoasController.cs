@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,8 +7,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Common;
 using PousadaIdentity.Context;
 using PousadaIdentity.Entities;
+using static System.Net.WebRequestMethods;
 
 namespace PousadaIdentity.Controllers
 {
@@ -15,10 +18,13 @@ namespace PousadaIdentity.Controllers
     {
         private readonly AppDbContext _context;
         private readonly RoleManager<IdentityRole> roleManager;
-        public PessoasController(AppDbContext context, RoleManager<IdentityRole> roleManager)
+        private readonly UserManager<IdentityUser> userManager;
+
+        public PessoasController(AppDbContext context, RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
         {
             _context = context;
             this.roleManager = roleManager;
+            this.userManager = userManager;
         }
 
         // GET: Pessoas
@@ -165,5 +171,53 @@ namespace PousadaIdentity.Controllers
         {
           return (_context.Pessoa?.Any(e => e.PessoaId == id)).GetValueOrDefault();
         }
+
+            [HttpGet]
+            public async Task<IActionResult> CheckForDuplicateTokens(int roleSelecionada)
+            {
+                var duplicateTokens = await (from pessoa in _context.Pessoa
+                                             join userRole in _context.UserRoles on pessoa.Token equals userRole.UserId
+                                             select new
+                                             {
+                                                 pessoa.Token,
+                                                 userRole.UserId,
+                                                 userRole.RoleId
+                                             }).ToListAsync();
+
+                foreach (var tokenInfo in duplicateTokens)
+                {
+                    Console.WriteLine($"Token: {tokenInfo.Token} corresponde a UserId: {tokenInfo.UserId}");
+
+                    // Verifique se o usuário existe
+                    var user = await userManager.FindByIdAsync(tokenInfo.UserId);
+                    if (user != null)
+                    {
+                        // Remova todas as roles existentes do usuário
+                        var existingRoles = await userManager.GetRolesAsync(user);
+                        await userManager.RemoveFromRolesAsync(user, existingRoles);
+                        var oldUserRole = _context.UserRoles.FirstOrDefault(ur => ur.UserId == tokenInfo.UserId);
+
+                    if (roleSelecionada == 1)
+                        {
+                        _context.UserRoles.Remove(oldUserRole);
+                        await userManager.AddToRoleAsync(user, "CLIENT");
+
+                        }
+                        else if (roleSelecionada == 2)
+                        {
+                        _context.UserRoles.Remove(oldUserRole);
+                        await userManager.AddToRoleAsync(user, "FUNCI");
+                        }
+                    }
+                }
+
+                return Ok("Verificação concluída.");
+            }
+
+
+
+
+
+
     }
 }

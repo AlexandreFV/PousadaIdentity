@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Details";
 }
-<!--
+
 <script>
     $(document).ready(function () {
         $("#btnCargos").click(function () {
@@ -23,7 +23,7 @@
         });
     });
 </script>
--->
+
 <h1>Details</h1>
 
 <div>
@@ -69,14 +69,14 @@
 </div>
 
 
-<!---if (User.IsInRole("Funcionario"))
+@if (User.IsInRole("Funcionario"))
 {
 
     <button id="btnCargos" class="btn btn-primary">Cargos</button>
 }
 
-if (User.IsInRole("Funcionario"))
-{ <!---   
+@if (User.IsInRole("Funcionario"))
+{ 
 <div class="modal fade" id="cargosModal" tabindex="-1" role="dialog" aria-labelledby="cargosModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -88,17 +88,18 @@ if (User.IsInRole("Funcionario"))
                 </div>
                 <div class="modal-body">
                     <label for="selectRoles">Cargos</label>
-                    <select asp-items="ViewBag.Roles" class="form-control" type="text" id="novaRole">
-                        <option value="">Selecione um cargo</option>
-                    </select>
+                    <form method="get" action="/Pessoas/CheckForDuplicateTokens">
+                        <select name="roleSelecionada">
+                            <option value="1">Cliente</option>
+                            <option value="2">Funcionario</option>
+                        </select>
+                        <button type="submit">Verificar e Atualizar Role</button>
+                    </form>
 
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    <button id="btnAtualizarRole" class="btn btn-primary">Atualizar Role</button>
-                </div>
+            
             </div>
         </div>
     </div>
-} -->
+} 
 

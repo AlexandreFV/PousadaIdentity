@@ -44,6 +44,8 @@ namespace PousadaIdentity.Controllers
 
                 if (result.Succeeded)
                 {
+                    pessoa.Token = user.Id; // user.Id é o NameIdentifier
+
                     await userManager.AddToRoleAsync(user, "CLIENT");
 
                     await signInManager.SignInAsync(user, isPersistent: false);
