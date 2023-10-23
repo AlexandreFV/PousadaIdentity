@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PousadaIdentity.Context;
+using PousadaIdentity.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 

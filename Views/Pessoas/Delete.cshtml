@@ -42,10 +42,18 @@
             @Html.DisplayFor(model => model.Usuario)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="PessoaId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+
+
+    @if (Model.Email == "master@example.com")
+    {
+        <p style="color:red;font-size:20px;">Este usuário não pode ser excluído.</p>
+    }
+    else
+    {
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="PessoaId" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index">Back to List</a>
+        </form>
+    }
 </div>

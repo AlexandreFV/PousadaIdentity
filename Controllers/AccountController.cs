@@ -46,7 +46,16 @@ namespace PousadaIdentity.Controllers
                 {
                     pessoa.Token = user.Id; // user.Id é o NameIdentifier
 
-                    await userManager.AddToRoleAsync(user, "CLIENT");
+                    if (userManager.Users.Count() == 1)
+                    {
+                        // Este é o primeiro usuário registrado, atribua a role "FUNC"
+                        await userManager.AddToRoleAsync(user, "FUNCI");
+                    }
+                    else
+                    {
+                        // Para usuários subsequentes, atribua a role "CLIENT"
+                        await userManager.AddToRoleAsync(user, "CLIENT");
+                    }
 
                     await signInManager.SignInAsync(user, isPersistent: false);
                     appDbContext.Add(pessoa);

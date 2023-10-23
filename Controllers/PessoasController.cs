@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,6 +15,7 @@ using static System.Net.WebRequestMethods;
 
 namespace PousadaIdentity.Controllers
 {
+    [Authorize(Roles = "Funcionario")]
     public class PessoasController : Controller
     {
         private readonly AppDbContext _context;
