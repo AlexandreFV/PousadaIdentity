@@ -17,5 +17,7 @@ namespace PousadaIdentity.Entities
 
         public decimal Preco { get; set; }
 
+        public byte[]? Imagem { get; set; } // Atributo para a imagem
+
     }
 }

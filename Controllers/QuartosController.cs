@@ -58,10 +58,21 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,Preco")] Quarto quarto)
+        public async Task<IActionResult> Create([Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,Preco,Imagem")] Quarto quarto, IFormFile Imagem)
         {
             if (ModelState.IsValid)
             {
+                if (Imagem != null && Imagem.Length > 0)
+                {
+                    var imagePath = "caminho/para/salvar/a/imagem/" + Imagem.FileName;
+
+                    using (var stream = new MemoryStream())
+                    {
+                        await Imagem.CopyToAsync(stream);
+                        quarto.Imagem = stream.ToArray();
+                    }
+
+                }
                 _context.Add(quarto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -90,7 +101,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,Preco")] Quarto quarto)
+        public async Task<IActionResult> Edit(int id, [Bind("QuartoId,Disponibilidade,Numero,Tipo,ArCondicionado,Preco,Imagem")] Quarto quarto, IFormFile Imagem)
         {
             if (id != quarto.QuartoId)
             {
@@ -101,6 +112,15 @@ namespace PousadaIdentity.Controllers
             {
                 try
                 {
+                    if (Imagem != null && Imagem.Length > 0)
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await Imagem.CopyToAsync(memoryStream);
+                            quarto.Imagem = memoryStream.ToArray();
+                        }
+                    }
+
                     _context.Update(quarto);
                     await _context.SaveChangesAsync();
                 }

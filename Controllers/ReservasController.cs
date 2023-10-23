@@ -161,8 +161,22 @@ namespace PousadaIdentity.Controllers
 
             if (quarto != null)
             {
-          
+
                 return Json(new { preco = quarto.Preco });
+            }
+
+            return Json(new { error = "Quarto não encontrado" });
+        }
+
+        public IActionResult ObterImagemQuartoExibicao(int quartoId)
+        {
+            // Consulte o banco de dados ou outra fonte de dados para obter o preço do quarto com base no ID do quarto
+            var quarto = _context.Quarto.FirstOrDefault(q => q.QuartoId == quartoId);
+
+            if (quarto != null)
+            {
+
+                return Json(new { imagem = quarto.Imagem });
             }
 
             return Json(new { error = "Quarto não encontrado" });
@@ -175,7 +189,7 @@ namespace PousadaIdentity.Controllers
 
             if (quarto != null)
             {
-                return Json(new { preco = quarto.Preco, tipo = quarto.Tipo });
+                return Json(new { preco = quarto.Preco, tipo = quarto.Tipo, imagem = quarto.Imagem });
             }
 
             return Json(new { error = "Quarto não encontrado" });
@@ -312,14 +326,14 @@ namespace PousadaIdentity.Controllers
             {
                 _context.Reserva.Remove(reserva);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ReservaExists(int id)
         {
-          return (_context.Reserva?.Any(e => e.ReservaId == id)).GetValueOrDefault();
+            return (_context.Reserva?.Any(e => e.ReservaId == id)).GetValueOrDefault();
         }
 
         public IActionResult MostrarReservasOrdenadas(string ordenacao)
@@ -380,5 +394,6 @@ namespace PousadaIdentity.Controllers
 
             return View("Index", reservas); // Redirecione para a view "Index" com as reservas priorizadas como especificado.
         }
+
     }
 }
