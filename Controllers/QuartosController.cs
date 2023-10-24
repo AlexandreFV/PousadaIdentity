@@ -181,5 +181,12 @@ namespace PousadaIdentity.Controllers
         {
           return (_context.Quarto?.Any(e => e.QuartoId == id)).GetValueOrDefault();
         }
+
+        [AllowAnonymous]
+        public IActionResult Bloqueio()
+        {
+            return RedirectToAction("Bloqueio","Account");
+        }
+
     }
 }

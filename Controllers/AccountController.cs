@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -135,9 +136,15 @@ namespace PousadaIdentity.Controllers
         public async Task<IActionResult> LogOut()
         {
             await signInManager.SignOutAsync();
+
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
+        public IActionResult Bloqueio()
+        {
+            return View();
+        }
 
     }
 }

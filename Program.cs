@@ -30,6 +30,16 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("FuncionarioPolicy", policy => policy.RequireRole("Funcionario"));
+});
+
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Quartos/Bloqueio";
+});
 
 
 var app = builder.Build();
@@ -50,6 +60,9 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
+
 
 app.Use(async (context, next) =>
 {
@@ -78,6 +91,11 @@ app.Use(async (context, next) =>
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+    app.MapControllerRoute(
+    name: "bloqueio",
+    pattern: "/Bloqueio",
+    defaults: new { controller = "Account", action = "Bloqueio" });
+
 
 app.Run();
 

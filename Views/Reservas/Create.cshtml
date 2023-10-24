@@ -132,7 +132,25 @@
         });
     });
 
+    $(document).ready(function () {
+        // Obtenha a data atual
+        var dataAtual = new Date();
 
+        // Configurar o Datepicker para o campo CheckIn
+        $("#CheckIn").datepicker({
+            dateFormat: "yy-mm-dd",
+            minDate: 0, // Impede datas anteriores
+            beforeShowDay: function (date) {
+                return [date >= dataAtual];
+            },
+            onSelect: function (selectedDate) {
+                var selectedDateObj = new Date(selectedDate);
+
+                // Atualize o Datepicker do campo CheckOut para ocultar as datas anteriores à data selecionada em CheckIn
+                $("#CheckOut").datepicker("option", "minDate", selectedDateObj);
+            }
+        });
+    });
 
 </script>
 
