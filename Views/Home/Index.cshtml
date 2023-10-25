@@ -6,7 +6,7 @@
 @{
     ViewData["Title"] = "Home Page";
 } 
-
+<!--
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -17,12 +17,13 @@
 
 </p>
 <h1>Valor do userID:</h1>
-
+-->
 @using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Home Page";
 }
+<!--
 <div class="text-center">
     <h2 class="display-4">Usando Session</h2>
     <hr />
@@ -31,3 +32,4 @@
     Nome : @HttpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId")
     Idade : @HttpContextAccessor.HttpContext.Session.GetInt32("SessionIdade")
 </div>
+-->
