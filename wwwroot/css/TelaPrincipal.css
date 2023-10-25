@@ -8,6 +8,39 @@ html {
   }
 }
 
+@media  (max-width: 1320px){
+    .account {
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    .btn_entrar {
+        color: white !important;
+        text-decoration: none !important;
+        background-color: #4694A6;
+        padding: 5px 12px;
+        border-radius: 7px;
+        text-align: center;
+    }
+
+    .btn_cadastrar {
+        color: white !important;
+        text-decoration: none !important;
+        background-color: #4694A6;
+        padding: 8px 5px;
+        border-radius: 7px;
+    }
+
+    .ou {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
+        color: white !important;
+    }
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -29,7 +62,7 @@ html {
 .nome_logo{
     color: white;
     font-family: carter one;
-    font-size: 40px;
+    font-size: 35px;
     cursor: pointer;
 }
 
@@ -38,8 +71,8 @@ html {
 }
 
 .img_logo_header {
-    width: 6.31rem;
-    height: 5.37rem;
+    width: 6.01rem;
+    height: 5.07rem;
 }
 
 .header, .navigation_header {
@@ -63,12 +96,12 @@ html {
 }
 
 .navigation_header{
-    gap: 2.37rem;
+    gap: 2rem;
 
 }
 
 .navigation_header a{
-    font-size: 1.56rem;
+    font-size: 1.40rem;
     /*font-weight: bold;*/
     font-family: carter one;
     color: white !important;
@@ -103,10 +136,64 @@ html {
     padding-bottom: 2px;
 }
 
-.btn_entrar{
-    color: white !important;
-    text-decoration: none !important;
+@media (min-width: 1321px) {
+    .account {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .btn_entrar {
+        color: white !important;
+        text-decoration: none !important;
+        background-color: #4694A6;
+        padding: 10px 20px;
+        border-radius: 7px;
+    }
+
+    .btn_cadastrar {
+        color: white !important;
+        text-decoration: none !important;
+        background-color: #4694A6;
+        padding: 10px 8px;
+        border-radius: 7px;
+    }
+
+    .ou {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 0;
+        color: white !important;
+    }
+
 }
+
+@media (max-width: 1230px){
+    
+/*
+    .navigation_header{
+        right: 0;
+        position: absolute;
+        padding-right:3%;
+        flex-direction: column;
+        top: 0;
+        background-color: red;
+    }
+}
+*/
+@media (min-width: 1231px) {
+    .btn_menu {
+        background-color: red;
+        border: none;
+        display: none;
+
+    }
+
+       
+}
+
+
 
 
 
