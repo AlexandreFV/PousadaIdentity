@@ -395,5 +395,24 @@ namespace PousadaIdentity.Controllers
             return View("Index", reservas); // Redirecione para a view "Index" com as reservas priorizadas como especificado.
         }
 
+        public JsonResult GetDatesUnavailable(int quartoId)
+        {
+            var reservations = _context.Reserva
+                .Where(r => (r.Estado == "Pago" || r.Estado == "Não Pago") && r.QuartoID == quartoId)
+                .Select(r => new { CheckIn = r.CheckIn, CheckOut = r.CheckOut })
+                .ToList();
+
+            var datesUnavailable = reservations
+                .SelectMany(r => Enumerable.Range(0, (int)(r.CheckOut - r.CheckIn).TotalDays)
+                    .Select(offset => r.CheckIn.Date.AddDays(offset)))
+                .Distinct()
+                .ToList();
+
+            return Json(datesUnavailable);
+        }
+
+
+
+
     }
 }
