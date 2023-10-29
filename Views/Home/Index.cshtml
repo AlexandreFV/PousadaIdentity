@@ -5,6 +5,7 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    <link link rel="stylesheet" href="/css/Index.css" asp-append-version="true" />
 } 
 <!--
 <div class="text-center">
@@ -17,13 +18,13 @@
 
 </p>
 <h1>Valor do userID:</h1>
--->
+
 @using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Home Page";
 }
-<!--
+
 <div class="text-center">
     <h2 class="display-4">Usando Session</h2>
     <hr />
@@ -33,3 +34,11 @@
     Idade : @HttpContextAccessor.HttpContext.Session.GetInt32("SessionIdade")
 </div>
 -->
+
+<div class="container_inicio">
+    <div class="boas_vindas">
+        <center>
+        <img class="img_boas_vindas" src="/Imagens/palimar_img.png"/>
+        </center>
+    </div>
+</div>

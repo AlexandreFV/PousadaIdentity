@@ -54,6 +54,7 @@ html {
     height: 7.18rem;
     justify-content: space-between;
     padding: 0 3%;
+
 }
 
 .logo_header{
@@ -168,6 +169,7 @@ html {
 
 }
 
+
 @media (max-width: 1199px){
     .navigation_header{
         display:none;
@@ -178,7 +180,26 @@ html {
     }
 
     .menu_lateral {
-        display: block;
+ 
+        position: absolute;
+        right: 0;
+        top: 0;
+        animation-duration: 1s;
+        overflow: hidden;
+        margin-right: -80vw;
+
+    }
+
+    @keyframes ShowMenuLateral {
+        from {
+            overflow: hidden;
+            margin-right: -80vw;
+        }
+
+        to {
+            overflow: visible;
+            margin-right: 0;
+        }
     }
 
     .account_menu{
@@ -235,7 +256,7 @@ html {
         margin-left: 0.5rem;
     }
 
-    .btn_contato_menu {
+    .btn_minhas_reservas_menu {
         position: absolute;
         top: 12.16rem;
         right: 1.72rem;
@@ -243,7 +264,7 @@ html {
         font-size: 1.25rem;
     }
 
-    .contato_menu {
+    .minhas_reservas_menu {
         color: white !important;
         text-decoration: none !important;
     }
@@ -253,6 +274,142 @@ html {
         margin-bottom: 10px;
         margin-left: 0.5rem;
     }
+
+    .btn_menu_inicio {
+        position: absolute;
+        text-align: right;
+        top: 4.31rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_inicio {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_home_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_menu_como_chegar {
+        position: absolute;
+        text-align: right;
+        top: 8.29rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_como_chegar {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_localiz_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_menu_contato {
+        position: absolute;
+        text-align: right;
+        top: 12.27rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_contato {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_contato_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_menu_galeria {
+        position: absolute;
+        text-align: right;
+        top: 16.25rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_galeria {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_galeria_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_menu_sobre_nos {
+        position: absolute;
+        text-align: right;
+        top: 20.23rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_sobre_nos {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_sobre_nos_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+
 }
 
 @media (min-width: 1200px){
@@ -275,13 +432,22 @@ html {
         */
 }
 
-    @media (min-width: 1231px) {
-        .btn_menu {
-            background-color: red;
-            border: none;
-            display: none;
-        }
+@media (min-width: 1200px) {
+    .btn_menu {
+        display: none;
     }
+}
+
+@media (max-width: 1199px){
+    .btn_menu{
+        display: block;
+        background-color: transparent;
+        border: none;
+        right: 0;
+        position: absolute;
+        padding-right: 3%; 
+    }
+}
 
 .background_menu1 {
     background-color: #DFA67B;
@@ -297,12 +463,13 @@ html {
 .background_menu2 {
     background-color: white;
     width: 23.4375rem;
-    height: 100%;
+    height: 71.8vh;
     position: absolute;
     top: 16.12rem;
     right: 0;
     z-index: 4;
     border-radius: 4.375rem 0rem 0rem 0rem;
+    font-family: Carter One;
 }
 
 .btn_menu_fechar {
@@ -312,6 +479,13 @@ html {
 }
 
 
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
 
 
 

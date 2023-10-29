@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PousadaIdentity</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/TelaPrincipal.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Header_Footer.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PousadaIdentity.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </head>
-<body class="body_principal">
+<body class="body_principal" id="body_principal">
     
        <!-- <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -53,9 +53,9 @@
         </nav> -->
         
         <div class="header" id="header">
-            <!--<button class="btn_menu">
+            <button onclick="toggleMenuLateral()" class="btn_menu">
                 <img src="/Imagens/Menu_hamburguer.png" />
-            </button>-->
+            </button>
             <div class="logo_header">
             <div class="nome_logo">
                 <p style="margin-bottom: 0;">Pousada Palimar</p>
@@ -67,7 +67,7 @@
             <div class="navigation_header">
                 
                 <div class="active">
-                    <a href="#" class="">Início</a>
+                    <a href="#" class="btn_header_inicio">Início</a>
                 </div> 
                 <a href="#">Minhas reservas</a>
                 <a href="#">Contato</a>
@@ -82,10 +82,10 @@
                 <p class="ou" style="">ou</p>
                 <a href="#" class="btn_cadastrar">Cadastrar</a>
             </div>
-
-            <div class="menu_lateral">
+            
+            <div class="menu_lateral" id="menu_lateral">
                 <div class="background_menu1">
-                    <a href="#" class="btn_menu_fechar">
+                    <a href="#" onclick="toggleMenuLateral()" class="btn_menu_fechar">
                          <img src="/Imagens/Btn_fechar_menu.png" />
                     </a>
                     <div class="account_menu">
@@ -99,26 +99,50 @@
                             <img class="img_user_menu" src="/Imagens/Icon_user.png"/>
                          </a>
                     </div>
-                    <div class="btn_contato_menu">
-                        <a href="#" class="contato_menu">Contato
+                    <div class="btn_minhas_reservas_menu">
+                        <a href="#" class="minhas_reservas_menu">Minhas reservas
                             <img class="img_calendario_menu" src="/Imagens/Calendario.png"/>
                          </a>
                     </div>
                 
                 </div>
                 <div class="background_menu2">
-
+                    <div class="btn_menu_inicio">
+                        <a href="#" class="desc_menu_inicio">Início
+                            <img class="img_home_menu" src="/Imagens/icon_home.png"/>
+                        </a>
+                    </div>
+                    <div class="btn_menu_como_chegar">
+                        <a href="#" class="desc_menu_como_chegar">Como chegar
+                            <img class="img_localiz_menu" src="/Imagens/icon_localizacao.png"/>
+                        </a>
+                    </div>
+                    <div class="btn_menu_contato">
+                        <a href="#" class="desc_menu_contato">Contato
+                            <img class="img_contato_menu" src="/Imagens/icon_telefone.png"/>
+                        </a>
+                    </div>
+                    <div class="btn_menu_galeria">
+                        <a href="#" class="desc_menu_galeria">Galeria
+                            <img class="img_galeria_menu" src="/Imagens/icon_galeria.png"/>
+                        </a>
+                    </div>
+                    <div class="btn_menu_sobre_nos">
+                        <a href="#" class="desc_menu_sobre_nos">Sobre nós
+                            <img class="img_sobre_nos_menu" src="/Imagens/icon_info.png"/>
+                        </a>
+                    </div>
                 </div>
             </div>
             
         </div>
     
-    <div class="container">
-        <main role="main" class="pb-3">
+
+        <main tabindex="0" onclick="closeMenuLateral()" role="main" class="pb-3" id="main_principal">
             @RenderBody()
             
         </main>
-    </div>
+ 
 
     <footer class="border-top footer text-muted">
         <div class="container">
@@ -127,7 +151,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="/js/Header_Footer.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
