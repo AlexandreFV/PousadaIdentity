@@ -12,6 +12,7 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
 
+    /*
     $(document).ready(function () {
         $('#CheckIn, #CheckOut, #QuartoID,#increase, #decrease').on('change click', function () {
             calcularValorTotal();
@@ -37,11 +38,48 @@
                 });
             }
         }
-    });
+    });*/
 
 
 
+        $(document).ready(function () {
+            $('#CheckIn, #CheckOut, #QuartoID, #increase, #decrease').on('change click', function () {
+                calcularValorTotal();
+            });
 
+            function calcularValorTotal() {
+                // Função para fazer o parsing de datas no formato "dd/mm/yy" para objetos Date
+                function parseDate(input) {
+                    var parts = input.split('/');
+                    if (parts.length === 3) {
+                        return new Date('20' + parts[2], parts[1] - 1, parts[0]);
+                    }
+                    return null;
+                }
+
+                var checkInText = $('#CheckIn').val();
+                var checkOutText = $('#CheckOut').val();
+                var quartoID = $('#QuartoID').val();
+
+                var checkIn = parseDate(checkInText);
+                var checkOut = parseDate(checkOutText);
+
+                if (checkIn && checkOut && quartoID) {
+                    var numeroDias = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+
+                    $.get('/Reservas/ObterPrecoQuartoExibicao', { quartoID: quartoID }, function (data) {
+                        if (data && data.preco) {
+                            var valorTotal = numeroDias * data.preco;
+                            $('#ValorExibido').val(valorTotal.toFixed(2));
+                            // Você não pode definir ViewBag.ValorTotalReserva aqui porque o ViewBag é uma propriedade do servidor no ASP.NET MVC.
+                            // Se você deseja passar esse valor para o servidor, você deve fazer uma solicitação HTTP, por exemplo, usando $.ajax.
+                        } else {
+                            console.error('Erro ao obter preço do quarto.');
+                        }
+                    });
+                }
+            }
+        });
 
     // Função para atualizar os campos em tempo real
     function atualizarCampos() {
@@ -183,6 +221,8 @@
                                 return [date >= new Date() && isDateAvailable];
                             }
                         });
+                    $("#CheckIn, #CheckOut").attr("readonly", true);
+
                     });
                 }
 
@@ -259,7 +299,7 @@
 
             <div class="form-group">
                 <label class="control-label">Valor Total</label>
-                <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" readonly/>
+                <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" type="text"/>
 
                 <input asp-for="ValorTotalReserva" class="form-control" style="visibility:hidden;display:none;" readonly/>
                 <span asp-validation-for="ValorTotalReserva" class="text-danger"></span>

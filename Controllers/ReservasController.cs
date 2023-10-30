@@ -246,10 +246,13 @@ namespace PousadaIdentity.Controllers
             }
 
             var reserva = await _context.Reserva.FindAsync(id);
+            var quarto = await _context.Quarto.FindAsync(reserva.QuartoID);
+
             if (reserva == null)
             {
                 return NotFound();
             }
+            ViewData["PrecoQuarto"] = quarto.Preco; // Supondo que o preço do quarto seja um valor decimal
             ViewData["PessoaId"] = new SelectList(_context.Pessoa, "PessoaId", "PessoaId", reserva.PessoaId);
             ViewData["QuartoID"] = new SelectList(_context.Quarto, "QuartoId", "QuartoId", reserva.QuartoID);
             return View(reserva);

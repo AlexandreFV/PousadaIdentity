@@ -38,6 +38,12 @@
                 <input asp-for="ValorTotalReserva" class="form-control" />
                 <span asp-validation-for="ValorTotalReserva" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label for="PrecoQuarto" class="control-label">Preço da Diaria</label>
+                <input type="text" id="PrecoQuarto" name="PrecoQuarto" class="form-control" value="@ViewData["PrecoQuarto"]" disabled />
+            </div>
+
             <div class="form-group">
                 <label asp-for="QuartoID" class="control-label"></label>
                 <select asp-for="QuartoID" class="form-control" asp-items="ViewBag.QuartoID"></select>
