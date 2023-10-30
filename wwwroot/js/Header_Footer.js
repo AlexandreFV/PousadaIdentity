@@ -32,3 +32,9 @@ function closeMenuLateral(){
         toggleMenuLateral();
     }
 }
+
+window.addEventListener('resize', function (event) {
+    if(window.innerWidth > 1200 && ShowMenuLateral){
+        toggleMenuLateral();
+    }
+});
