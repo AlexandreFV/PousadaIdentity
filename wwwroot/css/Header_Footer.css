@@ -33,6 +33,11 @@ html {
     cursor: pointer;
 }
 
+.nome_logo a:hover, .nome_logo a{
+    text-decoration: none !important;
+    color: white;
+}
+
 .img_header{
     cursor: pointer;
 }
@@ -484,7 +489,12 @@ html {
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px;
+    height: 5rem;
+    background-color: #DFA67B;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 3%;
 }
 
 

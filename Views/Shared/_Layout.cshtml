@@ -57,12 +57,12 @@
                 <img src="/Imagens/Menu_hamburguer.png" />
             </button>
             <div class="logo_header">
-            <div class="nome_logo">
-                <p style="margin-bottom: 0;">Pousada Palimar</p>
-            </div>
-            <div class="img_header">
-                <img class="img_logo_header" src="/Imagens/ícone Pessoa dormindo2 5.png" />
-            </div>
+                <div class="nome_logo">
+                    <a asp-controller="Home" asp-action="Index">Pousada Palimar</a>
+                </div>
+                <div class="img_header">
+                   <a asp-controller="Home" asp-action="Index"> <img class="img_logo_header" src="/Imagens/ícone Pessoa dormindo2 5.png" /> </a>
+                </div>
             </div>
             <div class="navigation_header">
                 
@@ -78,9 +78,9 @@
                 </div>
             </div>
             <div class="account">
-                <a href="#" class="btn_entrar" style="">Entrar</a>
+                <a asp-controller="Account" asp-action="Login" class="btn_entrar" style="">Entrar</a>
                 <p class="ou" style="">ou</p>
-                <a href="#" class="btn_cadastrar">Cadastrar</a>
+                <a asp-controller="Account" asp-action="Register" class="btn_cadastrar">Cadastrar</a>
             </div>
             
             <div class="menu_lateral" id="menu_lateral">
@@ -89,9 +89,9 @@
                          <img src="/Imagens/Btn_fechar_menu.png" />
                     </a>
                     <div class="account_menu">
-                        <a href="#" class="btn_entrar" style="">Entrar</a>
+                        <a asp-controller="Account" asp-action="Login" class="btn_entrar" style="">Entrar</a>
                         <p class="ou" style="">ou</p>
-                        <a href="#" class="btn_cadastrar">Cadastrar</a>
+                        <a asp-controller="Account" asp-action="Register" class="btn_cadastrar">Cadastrar</a>
                     </div>
                     <span class="linha_menu"></span>
                     <div class="btn_meu_perfil_menu">
@@ -138,15 +138,29 @@
         </div>
     
         
-            <main tabindex="0" onclick="closeMenuLateral()" role="main" class="pb-3" id="main_principal">
+            <main tabindex="0" onclick="closeMenuLateral()" role="main" class="" id="main_principal">
                 @RenderBody()
             
             </main>
+
         
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - PousadaIdentity - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="footer">
+        <div class="footer_nome" style="align-items: center; display: flex; color: white;"> 
+            2023 - Projeto Pousada Palimar
+        </div>           
+
+        <div class="integrantes" style="display: flex;">
+
+            <p style="border-bottom: 0; color: white;">Integrantes:</p>
+
+            <div class="nome_integrantes" style="color: white;">
+            <ul>
+                <li>Alexandre José Peixoto dos Santos</li>
+                <li>Arthur Américo Durante</li>
+                <li>Fernando Felipe dos Santos</li>
+            </ul>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

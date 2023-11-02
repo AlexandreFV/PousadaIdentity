@@ -1,8 +1,5 @@
 ﻿body {
-   /* background-image: url('../Imagens/palimar 1.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 100%;*/
+
 }
 
 #container_principal{   
@@ -116,15 +113,14 @@
 @media (min-width: 1200px) {
     .img_boas_vindas {
         width: 90%;
-        height: 90%;
+        height: 95%;
         padding-bottom: 5rem;
     }
 }
 
 @media (min-width: 1500px) {
     .img_boas_vindas {
-        width: 80%;
-
+        width: 85%;
     }
 }
 
@@ -133,6 +129,6 @@
         width: 100%;
         height: 90%;
        /* height: 50.5rem; */
-        padding-bottom: 5rem;
+       
     }
 }
