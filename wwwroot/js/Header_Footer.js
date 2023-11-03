@@ -17,7 +17,7 @@ function toggleMenuLateral() {
         MenuLateral.style.marginRight = '0'
         MenuLateral.style.animationName = 'ShowMenuLateral';
         MainPrincipal.style.filter = 'blur(2px)';
-        
+
     }
     else {
         MenuLateral.style.overflow = 'hidden';
@@ -25,16 +25,36 @@ function toggleMenuLateral() {
         MenuLateral.style.animationName = '';
         MainPrincipal.style.filter = '';
     }
-} 
+}
 
-function closeMenuLateral(){
+function closeMenuLateral() {
     if (ShowMenuLateral) {
         toggleMenuLateral();
     }
 }
 
 window.addEventListener('resize', function (event) {
-    if(window.innerWidth > 1200 && ShowMenuLateral){
+    if (window.innerWidth > 1200 && ShowMenuLateral) {
         toggleMenuLateral();
     }
 });
+
+// Adicione um evento de clique ao link "Mais" para mostrar/ocultar o dropdown
+document.getElementById("mais").addEventListener("click", function () {
+    var dropdown = document.getElementById("myDropdown");
+    if (dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+    } else {
+        dropdown.style.display = "block";
+    }
+});
+
+// Feche o dropdown se o usuário clicar fora dele
+window.onclick = function (event) {
+    if (!event.target.matches("#mais")) {
+        var dropdown = document.getElementById("myDropdown");
+        if (dropdown.style.display === "block") {
+            dropdown.style.display = "none";
+        }
+    }
+};

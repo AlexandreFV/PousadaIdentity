@@ -1,44 +1,68 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
+#mais {
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #DFA67B;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    /* Estilize os itens do dropdown */
+    .dropdown-content a {
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+/* Altere a cor dos itens do dropdown ao passar o mouse sobre eles */
+
+
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 .body_principal {
     background-color: #ECECEC;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-.nome_logo{
+.nome_logo {
     color: white;
     font-family: carter one;
     font-size: 35px;
     cursor: pointer;
 }
 
-.nome_logo a:hover, .nome_logo a{
-    text-decoration: none !important;
-    color: white;
-}
+    .nome_logo a:hover, .nome_logo a {
+        text-decoration: none !important;
+        color: white;
+    }
 
-.img_header{
+.img_header {
     cursor: pointer;
 }
 
@@ -59,32 +83,30 @@ html {
     height: 7.18rem;
     justify-content: space-between;
     padding: 0 3%;
-
 }
 
-.logo_header{
+.logo_header {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.navigation_header{
+.navigation_header {
     gap: 2rem;
-
 }
 
-.navigation_header a{
-    font-size: 1.40rem;
-    /*font-weight: bold;*/
-    font-family: carter one;
-    color: white !important;
-    text-decoration: none !important;  
-    padding: 10px;
-}
+    .navigation_header a {
+        font-size: 1.40rem;
+        /*font-weight: bold;*/
+        font-family: carter one;
+        color: white !important;
+        text-decoration: none !important;
+        padding: 10px;
+    }
 
-.navigation_header a:hover{
-    border-bottom: 2px solid white;
-}
+        .navigation_header a:hover {
+            border-bottom: 2px solid white;
+        }
 
 /*.active {
     background-color: rgba(140, 105, 78, 0.45);
@@ -92,22 +114,22 @@ html {
     border-radius: 7px;
 }*/
 
-.active:hover{
+.active:hover {
     background: none;
     padding-bottom: 8px;
 }
 
-.img_opcoes{
+.img_opcoes {
     padding-bottom: 10px;
 }
 
-.opcoes{
+.opcoes {
     padding-top: 8px;
 }
 
-.opcoes:hover{
-    padding-bottom: 2px;
-}
+    .opcoes:hover {
+        padding-bottom: 2px;
+    }
 
 @media (max-width: 1320px) {
     .account {
@@ -171,28 +193,25 @@ html {
         margin-bottom: 0;
         color: white !important;
     }
-
 }
 
 
-@media (max-width: 1199px){
-    .navigation_header{
-        display:none;
+@media (max-width: 1199px) {
+    .navigation_header {
+        display: none;
     }
 
-    .account{
-        display:none;
+    .account {
+        display: none;
     }
 
     .menu_lateral {
- 
         position: absolute;
         right: 0;
         top: 0;
         animation-duration: 1s;
         overflow: hidden;
         margin-right: -80vw;
-
     }
 
     @keyframes ShowMenuLateral {
@@ -207,17 +226,16 @@ html {
         }
     }
 
-    .account_menu{
-        display:flex;
+    .account_menu {
+        display: flex;
         flex-direction: row;
         gap: 10px;
         position: relative;
         justify-content: center;
         top: 32px;
-
     }
 
-    .btn_entrar {              
+    .btn_entrar {
         padding: 10px 15px;
     }
 
@@ -225,24 +243,22 @@ html {
         padding: 10px 8px;
     }
 
-    .ou{
-        display:flex;
+    .ou {
+        display: flex;
         flex-direction: row;
     }
 
-    .linha_menu{
+    .linha_menu {
         background-color: white;
         width: 100%;
         height: 0.125rem;
         position: absolute;
         top: 112px;
-
     }
 
-    .meu_perfil_menu{
+    .meu_perfil_menu {
         color: white !important;
         text-decoration: none !important;
-
     }
 
     .btn_meu_perfil_menu {
@@ -251,11 +267,9 @@ html {
         right: 1.72rem;
         font-family: Carter One;
         font-size: 1.25rem;
-
-
     }
 
-    .img_user_menu{
+    .img_user_menu {
         width: 25px;
         margin-bottom: 10px;
         margin-left: 0.5rem;
@@ -414,10 +428,9 @@ html {
         padding-bottom: 5px;
         margin-left: 0.5rem;
     }
-
 }
 
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
     .menu_lateral {
         display: none;
     }
@@ -443,26 +456,25 @@ html {
     }
 }
 
-@media (max-width: 1199px){
-    .btn_menu{
+@media (max-width: 1199px) {
+    .btn_menu {
         display: block;
         background-color: transparent;
         border: none;
         right: 0;
         position: absolute;
-        padding-right: 3%; 
+        padding-right: 3%;
     }
 }
 
 .background_menu1 {
     background-color: #DFA67B;
-    width:  23.43rem;
+    width: 23.43rem;
     height: 21.43rem;
     position: absolute;
     top: 0;
     right: 0;
     z-index: 3;
-
 }
 
 .background_menu2 {
@@ -496,8 +508,3 @@ html {
     justify-content: space-between;
     padding: 0 3%;
 }
-
-
-
-
-
