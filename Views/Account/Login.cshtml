@@ -50,7 +50,7 @@
                 <p>Não possui <br />conta?</p>
             </div>
             <div class="text_aviso_cadastrar_login">
-                <p>Clique <a href="#">aqui</a> para se <br /> cadastrar.</p>
+                <p>Clique <a asp-controller="Account" asp-action="Register">aqui</a> para se <br /> cadastrar.</p>
             </div>
             <div class="faixa_duvida_login">
                 <p>Tem alguma <br />duvida?</p>
@@ -105,10 +105,11 @@
                     </div>                    
                     </center>
                     <div class="btn_sem_conta">
-                        <p>Não possui conta? <a asp-controller="Account" asp-action="Register">Cadastre-se</a></p>
+                        <p>Não possui conta? <a type="submit" asp-controller="Account" asp-action="Register">Cadastre-se</a></p>
                     </div>
                 </form>
                 
             </div>
     </div>
+</div>
 </div>
