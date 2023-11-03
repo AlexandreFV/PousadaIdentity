@@ -36,7 +36,7 @@
 </div>
 -->
 
-<div class="container">
+<div class="container" >
 
     <div class="faixa_entrar">
         <svg class="line_entrar_1"></svg>
@@ -44,9 +44,71 @@
         <p>Entrar</p>
     </div>
 
-    <div class="container">
-        <div class="background_login">
+    <div class="container" >
+        <div class="background_login_principal">
+            <div class="faixa_aviso_login">
+                <p>Não possui <br />conta?</p>
+            </div>
+            <div class="text_aviso_cadastrar_login">
+                <p>Clique <a href="#">aqui</a> para se <br /> cadastrar.</p>
+            </div>
+            <div class="faixa_duvida_login">
+                <p>Tem alguma <br />duvida?</p>
+            </div>
+            <div class="text_aviso_duvida_login">
+                <p>Entre em contato <br /> conosco via whatsapp <br /> ou telefone:  <br /></p>
+            </div>
+            <div class="faixa_whatsapp_login">
+                <img src="/Imagens/icon_whatsapp.png"/>
+                <p>(16) X XXXX-XXXX</p>
+            </div>
+            <div class="faixa_telefone_login">
+                <img src="/Imagens/icon_telefone (2).png" />
+                <p>(16) XXXX-XXXX</p>
+            </div>
+            <div class="faixa_observacao_login">
+                <p>Observação: <br />
+                    Horário de atendimento das <br /> 8:00h às 21:00h.
+                </p>
+            </div>
+            <div class="background_form">
+                <p>Informe seus dados para entrar</p>
+                    <center>
+                        <svg class="line_form"></svg>
+                    </center>
+                <form method="post" class="container_form">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group mb-4">
+                        <label asp-for="Email" class="desc_email mb-0">E-mail</label>
+                        <input asp-for="Email" class="form-control" placeholder="Digite seu e-mail..."/>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group ">
+                        <label asp-for="Password" class="desc_senha mb-0">Senha</label>
+                        <input asp-for="Password" class="form-control" placeholder="Digite sua senha..." />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <a href="#">Esqueceu sua senha?</a>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="RememberMe">
+                                <input asp-for="RememberMe" />
+                                @Html.DisplayNameFor(m => m.RememberMe)
+                            </label>
+                        </div>
 
-        </div>
+                    </div>
+                    @* <button type="submit" class="btn btn-primary mt-02">Entrar</button> *@
+                    <center>
+                    <div class="btn_form_entrar">
+                        <a class="desc_btn_form_entrar" href="#">Entrar</a>
+                    </div>                    
+                    </center>
+                    <div class="btn_sem_conta">
+                        <p>Não possui conta? <a asp-controller="Account" asp-action="Register">Cadastre-se</a></p>
+                    </div>
+                </form>
+                
+            </div>
     </div>
 </div>

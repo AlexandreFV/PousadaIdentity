@@ -116,11 +116,19 @@
         height: 95%;
         padding-bottom: 5rem;
     }
+
+    #container_principal {
+        margin-bottom: 8rem;
+    }
 }
 
 @media (min-width: 1500px) {
     .img_boas_vindas {
         width: 85%;
+    }
+
+    #container_principal{
+        margin-bottom: 5rem;
     }
 }
 
@@ -130,5 +138,9 @@
         height: 90%;
        /* height: 50.5rem; */
        
+    }
+
+    #container_principal {
+        margin-bottom: 10rem;
     }
 }
