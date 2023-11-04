@@ -4,12 +4,20 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+    top:20px;margin-left:auto;margin-right:auto;height:500px;">
 
 <h4>Pessoa</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
+    <h1 style="position:relative;margin-left:auto;margin-right:auto;margin:0;text-align:center;
+    background-color:#DFA67B;color:white;border-top-left-radius:10px;border-top-right-radius:10px;">
+        Editar Pessoa
+    </h1>
+    <hr style="position:relative;bottom:16px;" />
+
+<div>
+    <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="PessoaId" />

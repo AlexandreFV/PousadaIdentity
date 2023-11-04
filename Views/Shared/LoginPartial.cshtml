@@ -12,6 +12,9 @@
     <ul class="nav-item">
         <form method="post" asp-controller="Account" asp-action="LogOut">
             <button type="submit" style="width:auto;line-height:1px; background-color:transparent;border-color:transparent;">
+    <ul class="nav-item" style="color:white;">
+        <form method="post" asp-controller="Account" asp-action="LogOut" style="color:white;">
+            <button type="submit" style="width:auto;line-height:1px; background-color:transparent;border-color:transparent;color:white;">
                 <p>Usuario: @User.Identity.Name </p>
                 <p>Cargo: @rolesText</p>
                 <p>Sair</p>
