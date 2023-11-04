@@ -6,12 +6,12 @@
 
 
 
-<h1>Index</h1>
+<h1>Lista de Pessoas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar nova Pessoa</a>
 </p>
-<table class="table">
+<table class="table" style="width:90%;margin:0 auto;">
     <thead>
         <tr>
             <th>
@@ -19,9 +19,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CPF)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Senha)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -42,18 +39,15 @@
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Senha)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Usuario)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PessoaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PessoaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PessoaId">Delete</a>
+            <td>    
+                <a asp-action="Edit" asp-route-id="@item.PessoaId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.PessoaId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.PessoaId">Excluir</a>
             </td>
         </tr>
 }

@@ -4,18 +4,25 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div style="width:600px;background-color:#FFFF;position:relative;top:20px;border-radius:10px;
+    top:20px;margin-left:auto;margin-right:auto;height:750px;">
+
+<h1 style="position:relative;margin-left:auto;margin-right:auto;margin:0;text-align:center;
+    background-color:#DFA67B;color:white;border-top-left-radius:10px;border-top-right-radius:10px;">
+    Detalhes do Quarto
+</h1>
+<hr style="position:relative;bottom:16px;" />
 
 <div>
-    <h4>Quarto</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Imagem)
-        </dt>
-        <dd class="col-sm-10">
-            <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Imagem)" style="width:500px;height:400px;" />
-        </dd>
+    <dl>
+
+        <center>
+            <div class="col-sm-10">
+                <div style="max-width: 400px; margin: 0 auto;">
+                    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Imagem)" style="width: 100%; max-width: 400px; height: 300px;" />
+                </div>
+            </div>
+            </center>
 
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Disponibilidade)
@@ -41,19 +48,17 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ArCondicionado)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Preco)
+        <dt class = "col-sm-10">
+            Preço Diario
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Preco)
         </dd>
-     
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.QuartoId)
-        </dt>
+
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.QuartoId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div style ="position:relative;text-align: center;">
+    <a asp-action="Index" class="btn" style="background-color:#dc3545;color:#fff;">Voltar</a>
+    <a asp-action="Edit" asp-route-id="@Model?.QuartoId" class="btn btn-primary" style="width:70px;">Editar</a> 
+    </div>
 </div>
