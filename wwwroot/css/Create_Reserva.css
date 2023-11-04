@@ -18,12 +18,12 @@
     padding-top: 4%;
 }
 
-.faixa_entrar p{
-    position: absolute;
-    left: 50%;  
-    transform: translateX(-50%);
-    text-align: center;
-}
+    .faixa_entrar p {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
 
 .line_entrar_1 {
     display: flex;
@@ -52,7 +52,7 @@
 .background_login_principal {
     position: relative;
     width: 100%;
-    height: 40rem;
+    height: 50rem;
     border-radius: 0.625rem;
     background: #DFA67B;
     margin-bottom: 10rem;
@@ -60,8 +60,8 @@
     margin-right: 50rem;
 }
 
-@media (max-width: 1399px){
-    .background_login_principal{
+@media (max-width: 1399px) {
+    .background_login_principal {
         width: 95%;
     }
 }
@@ -82,25 +82,25 @@
     position: absolute;
     left: 17.38rem;
     width: 78.2%;
-    height: 40rem;
+    height: 50rem;
     border-radius: 0.625rem;
     background-color: white;
     border-radius: 6.25rem 0.625rem 0.625rem 0rem;
 }
 
-.background_form p{
-    color: black;
-    font-family: Inter;
-    font-size: 1.875rem;
-    text-align: center;
-    padding-top: 1.87rem;
-}
+    .background_form p {
+        color: black;
+        font-family: Inter;
+        font-size: 1.875rem;
+        text-align: center;
+        padding-top: 1.87rem;
+    }
 
-.background_form svg {
-    width: 80%;    
-    height: 0.2rem;
-    background: #DFA67B;
-}
+    .background_form svg {
+        width: 80%;
+        height: 0.2rem;
+        background: #DFA67B;
+    }
 
 .faixa_aviso_login p {
     position: absolute;
@@ -231,9 +231,9 @@
     border: 2px solid #DFA67B;
 }
 
-.form-control::placeholder{
-    opacity: 0.5;
-}
+    .form-control::placeholder {
+        opacity: 0.5;
+    }
 
 .desc_email {
     color: #DFA67B;
@@ -249,7 +249,7 @@
     font-weight: bold;
 }
 
-.container_form{
+.container_form {
     padding: 1rem 12rem;
 }
 
@@ -272,7 +272,7 @@
     cursor: pointer;
 }
 
-.btn_form_entrar button {    
+.btn_form_entrar button {
     color: white;
     background-color: transparent;
     border: none;
@@ -292,6 +292,6 @@
     margin-top: -1rem;
 }
 
-.btn_sem_conta a {
-    color: #4694A6;
-}
+    .btn_sem_conta a {
+        color: #4694A6;
+    }
