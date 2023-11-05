@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<!--
+
 <style>
     .custom-dropdown {
         position: relative;
@@ -118,39 +118,39 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckIn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckOut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataReservada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValorTotalReserva)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quarto.QuartoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pessoa.PessoaId)
-            </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.Pessoa.Nome)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ReservaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ReservaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ReservaId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckOut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataReservada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorTotalReserva)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quarto.QuartoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pessoa.PessoaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pessoa.Nome)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ReservaId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ReservaId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ReservaId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
--->

@@ -1,0 +1,297 @@
+﻿body {
+}
+
+.faixa_entrar p {
+    position: relative;
+    display: inline-block;
+    background-color: #DFA67B;
+    padding: 1rem;
+    width: 17.75rem;
+    color: white;
+    border-radius: 0.625rem;
+    font-family: Carter One;
+    font-size: 2.5rem;
+}
+
+.faixa_entrar {
+    position: relative;
+    padding-top: 4%;
+}
+
+    .faixa_entrar p {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+.line_entrar_1 {
+    display: flex;
+    position: absolute;
+    background: #DFA67B;
+    width: 70rem;
+    height: 0.5rem;
+    margin-top: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+@media (max-width: 1199px) {
+    .line_entrar_1 {
+        width: 60rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .line_entrar_1 {
+        width: 100%;
+    }
+}
+
+.background_login_principal {
+    position: relative;
+    width: 100%;
+    height: 50rem;
+    border-radius: 0.625rem;
+    background: #DFA67B;
+    margin-bottom: 10rem;
+    left: 0;
+    margin-right: 50rem;
+}
+
+@media (max-width: 1399px) {
+    .background_login_principal {
+        width: 95%;
+    }
+}
+
+@media (max-width: 1199px) {
+    .background_login_principal {
+        width: 88%;
+    }
+}
+
+@media (max-width: 991px) {
+    .background_login_principal {
+        width: 75%;
+    }
+}
+
+.background_form {
+    position: absolute;
+    left: 17.38rem;
+    width: 78.2%;
+    height: 50rem;
+    border-radius: 0.625rem;
+    background-color: white;
+    border-radius: 6.25rem 0.625rem 0.625rem 0rem;
+}
+
+    .background_form p {
+        color: black;
+        font-family: Inter;
+        font-size: 1.875rem;
+        text-align: center;
+        padding-top: 1.87rem;
+    }
+
+    .background_form svg {
+        width: 80%;
+        height: 0.2rem;
+        background: #DFA67B;
+    }
+
+.faixa_aviso_login p {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    top: 2rem;
+    color: #DFA67B;
+    font-family: Inter;
+    font-weight: bold;
+    font-size: 1.5625rem;
+    background-color: white;
+    width: 14.4375rem;
+    height: 4.3125rem;
+    border-radius: 0rem 1.25rem 1.25rem 0rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.text_aviso_cadastrar_login p {
+    position: absolute;
+    top: 7.25rem;
+    color: white;
+    font-family: Inter;
+    font-size: 0.9375rem;
+    padding-left: 2rem;
+}
+
+.text_aviso_cadastrar_login a {
+    color: #4694A6;
+}
+
+.faixa_duvida_login p {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    top: 10.75rem;
+    color: #DFA67B;
+    font-family: Inter;
+    font-weight: bold;
+    font-size: 1.5625rem;
+    background-color: white;
+    width: 14.4375rem;
+    height: 4.3125rem;
+    border-radius: 0rem 1.25rem 1.25rem 0rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.text_aviso_duvida_login p {
+    position: absolute;
+    top: 16.31rem;
+    color: white;
+    font-family: Inter;
+    font-size: 0.9375rem;
+    padding-left: 2rem;
+    text-align: justify;
+    line-height: 1.2;
+}
+
+.faixa_whatsapp_login p {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-left: 3.2rem;
+    top: 20.44rem;
+    color: #DFA67B;
+    font-family: Inter;
+    font-weight: bold;
+    font-size: 0.9375rem;
+    background-color: white;
+    width: 12.8rem;
+    height: 1.9375rem;
+    border-radius: 0rem 1.25rem 1.25rem 0rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.faixa_whatsapp_login img {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    top: 20.94rem;
+    z-index: 1;
+}
+
+.faixa_telefone_login p {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-left: 3.2rem;
+    top: 23.37rem;
+    color: #DFA67B;
+    font-family: Inter;
+    font-weight: bold;
+    font-size: 0.9375rem;
+    background-color: white;
+    width: 12.8rem;
+    height: 1.9375rem;
+    border-radius: 0rem 1.25rem 1.25rem 0rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.faixa_telefone_login img {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    top: 23.87rem;
+    z-index: 1;
+}
+
+.faixa_observacao_login p {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+    top: 33.81rem;
+    color: white;
+    font-family: Inter;
+    font-weight: bold;
+    font-size: 0.9375rem;
+    background-color: #4694A6;
+    width: 40%;
+}
+
+.form-control {
+    box-shadow: none !important;
+    border: 2px solid #DFA67B;
+}
+
+    .form-control::placeholder {
+        opacity: 0.5;
+    }
+
+.desc_email {
+    color: #DFA67B;
+    font-family: Inter;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.desc_senha {
+    color: #DFA67B;
+    font-family: Inter;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.container_form {
+    padding: 1rem 12rem;
+}
+
+.form-group a {
+    position: absolute;
+    right: 12.2rem;
+    text-decoration: none !important;
+    color: #DFA67B;
+}
+
+.btn_form_entrar {
+    background-color: #DFA67B;
+    width: 17.49063rem;
+    height: 4.1875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.625rem;
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+    .btn_form_entrar button {
+        color: white;
+        background-color: transparent;
+        border: none;
+        font-family: Inter;
+        font-size: 1.625rem;
+        font-weight: bold;
+    }
+
+.btn_sem_conta p {
+    color: #DFA67B;
+    font-family: Inter;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.btn_sem_conta {
+    margin-top: -1rem;
+}
+
+    .btn_sem_conta a {
+        color: #4694A6;
+    }
