@@ -24,7 +24,7 @@
                 <div class="checkbox">
                     <label asp-for="RememberMe">
                         <input asp-for="RememberMe" />
-                            @Html.DisplayNameFor(m => m.RememberMe)
+                    @Html.DisplayNameFor(m => m.RememberMe)
                     </label>
                 </div>
 
@@ -78,7 +78,7 @@
                     <svg class="line_form"></svg>
                 </center>
                 <form method="post" class="container_form">
-
+                    <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group mb-4">
                         <label asp-for="Email" class="desc_email mb-0">E-mail</label>
                         <input asp-for="Email" class="form-control" placeholder="Digite seu e-mail..." />
