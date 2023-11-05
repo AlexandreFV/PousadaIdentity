@@ -127,7 +127,7 @@ namespace PousadaIdentity.Controllers
                 
                 }
 
-                ModelState.AddModelError(string.Empty, "Login Invalido");
+                ModelState.AddModelError(string.Empty, "Usuario ou Senha incorretos");
             }
             return View(model);
         }

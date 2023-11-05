@@ -5,21 +5,6 @@
     <link link rel="stylesheet" href="/css/Login.css" asp-append-version="true" />
 }
 
-<script>
-    $(document).ready(function () {
-        $("#Email").tooltip({
-            position: {
-                my: "left top",
-                at: "right top"
-            },
-            content: function () {
-                return $("#Email").attr("data-val-required");
-            }
-        });
-    });
-</script>
-
-
 <!--<h1>Autenticar Pessoa</h1>
 <div class="row">
     <div class="col-md-12">
@@ -96,12 +81,12 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group mb-4">
                         <label asp-for="Email" class="desc_email mb-0">E-mail</label>
-                        <input asp-for="Email" class="form-control" placeholder="Digite seu e-mail..." data-val="true" data-val-required="o email é obrigatório" />
+                        <input asp-for="Email" class="form-control" placeholder="Digite seu e-mail..." required/>
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                     <div class="form-group ">
                         <label asp-for="Password" class="desc_senha mb-0">Senha</label>
-                        <input asp-for="Password" class="form-control" placeholder="Digite sua senha..." />
+                        <input asp-for="Password" class="form-control" placeholder="Digite sua senha..." required/>
                         <span asp-validation-for="Password" class="text-danger"></span>
                         <a href="#">Esqueceu sua senha?</a>
                     </div>
