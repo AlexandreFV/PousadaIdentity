@@ -18,12 +18,18 @@
     });
 </script>
 
-<h1>Details</h1>
+
+<div style="width:600px;background-color:#FFFF;position:relative;top:20px;border-radius:10px;
+    top:20px;margin-left:auto;margin-right:auto;height:800px;">
+
+    <h1 style="position:relative;margin-left:auto;margin-right:auto;margin:0;text-align:center;
+    background-color:#DFA67B;color:white;border-top-left-radius:10px;border-top-right-radius:10px;">
+        Detalhes do Quarto
+    </h1>
+    <hr style="position:relative;bottom:16px;" />
 
 <div>
-    <h4>Reserva</h4>
-    <hr />
-    <dl class="row">
+    <dl>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CheckIn)
         </dt>
@@ -92,11 +98,9 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ReservaId">Edit</a> |
- 
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div style="position:relative;text-align: center;position:relative;">
+        <a asp-action="Index" class="btn" style="background-color:#dc3545;color:#fff;">Voltar</a>
+        <a asp-action="Edit" asp-route-id="@Model?.ReservaId" class="btn btn-primary" style="width:70px;">Editar</a>
 
 @if (User.IsInRole("Funcionario") && Model.Estado != "Pago")
 {
@@ -107,6 +111,7 @@
 {
     <button id="btnConfirmarNãoPago" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmarNãoPago">Marcar como Não Pago</button>
 }
+    </div>
 
 @if (User.IsInRole("Funcionario") && Model.Estado != "Pago")
 {

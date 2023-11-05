@@ -63,8 +63,8 @@
     </dl>
 </div>
     <div style="position:relative;text-align: center;position:relative;">
-        <a asp-action="Index" class="btn btn-danger">Voltar</a>
-    <a asp-action="Edit" asp-route-id="@Model?.PessoaId" class="btn btn-primary">Editar</a>
+        <a asp-action="Index" class="btn" style="background-color:#dc3545;color:#fff;">Voltar</a>
+        <a asp-action="Edit" asp-route-id="@Model?.PessoaId" class="btn btn-primary" style="width:70px;">Editar</a>
         @if (User.IsInRole("Funcionario"))
         {
 

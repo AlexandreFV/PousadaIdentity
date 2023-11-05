@@ -10,7 +10,7 @@
 
 
 <table class="table" style="width:90%;margin:0 auto;">
-    <thead>
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.Usuario)
             </td>
             <td>    
-                <a asp-action="Edit" asp-route-id="@item.PessoaId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.PessoaId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.PessoaId">Excluir</a>
+            <a asp-action="Edit" asp-route-id="@item.PessoaId" class="btn" style="background-color:#DFA67B;color:white;">Editar</a> |
+            <a asp-action="Details" asp-route-id="@item.PessoaId" class="btn btn-primary" style="width:90px;">Detalhes</a> |
+            <a asp-action="Delete" asp-route-id="@item.PessoaId" class="btn btn-danger">Excluir</a>
             </td>
         </tr>
 }

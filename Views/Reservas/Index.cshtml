@@ -67,16 +67,15 @@
 </script>
 
 
-<h1>Index</h1>
+<h1>Lista de Reservas</h1>
 
-    Nome : @HttpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId")
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar Nova Reserva</a>
 </p>
-<table class="table">
+<table class="table" style="width:90%;margin:0 auto;">
 
-    <div class="custom-dropdown">
+    <div class="custom-dropdown" style="margin-left:5%;">
         <span class="selected-option">Filtrar por CheckIn e Estado: </span>
         <div class="dropdown-options">
             <a asp-controller="Reservas" asp-action="Index" asp-route-ordenacao="asc">Padrão</a>
@@ -88,8 +87,8 @@
             <a asp-controller="Reservas" asp-action="MostrarReservasPagasEPosteriores">Reservas Pagas com Data => Atual</a>
         </div>
     </div>
-    <thead>
-        <tr>
+    <thead class="thead-dark">
+            <tr>
             <th>
                 @Html.DisplayNameFor(model => model.CheckIn)
             </th>
@@ -146,9 +145,9 @@
                     @Html.DisplayFor(modelItem => item.Pessoa.Nome)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ReservaId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ReservaId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ReservaId">Delete</a>
+                  <a asp-action="Edit" asp-route-id="@item.ReservaId" class="btn" style="background-color:#DFA67B;color:white;">Editar</a> |
+                  <a asp-action="Details" asp-route-id="@item.ReservaId" class="btn btn-primary" style="width:90px;">Detalhes</a> |
+                  <a asp-action="Delete" asp-route-id="@item.ReservaId" class="btn btn-danger">Excluir</a>
                 </td>
             </tr>
         }
