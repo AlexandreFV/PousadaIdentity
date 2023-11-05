@@ -56,7 +56,8 @@
     border-radius: 0.625rem;
     background: #DFA67B;
     margin-bottom: 10rem;
-    left: 0; 
+    left: 0;
+    margin-right: 50rem;
 }
 
 @media (max-width: 1399px) {
@@ -81,7 +82,7 @@
     position: absolute;
     left: 17.38rem;
     width: 78.2%;
-    height: 100%;
+    height: 45rem;
     border-radius: 0.625rem;
     background-color: white;
     border-radius: 6.25rem 0.625rem 0.625rem 0rem;
@@ -291,10 +292,8 @@
     margin-top: 2rem;
 }
 
-    .btn_form_cadastrar button {
+    .btn_form_cadastrar a {
         text-decoration: none !important;
-        background-color: transparent;
-        border: none;
         color: white;
         font-family: Inter;
         font-size: 1.625rem;
@@ -312,6 +311,6 @@
     margin-top: -1rem;
 }
 
-.btn_sem_conta a {
-    color: #4694A6;
-}
+    .btn_sem_conta a {
+        color: #4694A6;
+    }

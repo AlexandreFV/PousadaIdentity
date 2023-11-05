@@ -46,21 +46,14 @@
 
     @if (Model.Email == "master@example.com")
     {
-        <div style="position:relative;text-align: center;position:relative;">
         <p style="color:red;font-size:20px;">Este usuário não pode ser excluído.</p>
-        </div>
     }
     else
     {
-        <div style="position:relative;text-align: center;position:relative;">
         <form asp-action="Delete">
             <input type="hidden" asp-for="PessoaId" />
             <input type="submit" value="Delete" class="btn btn-danger" /> |
             <a asp-action="Index">Back to List</a>
-            <a asp-action="Index" class="btn btn-danger">Voltar</a>
-            <input type="submit" value="Deletar" class="btn btn-danger" /> 
         </form>
-        </div>
     }
-</div>
 </div>

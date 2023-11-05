@@ -269,13 +269,11 @@
     justify-content: center;
     border-radius: 0.625rem;
     margin-top: 2rem;
-    cursor: pointer;
 }
 
-.btn_form_entrar button {    
+.btn_form_entrar a {
+    text-decoration: none !important;
     color: white;
-    background-color: transparent;
-    border: none;
     font-family: Inter;
     font-size: 1.625rem;
     font-weight: bold;
