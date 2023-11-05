@@ -11,24 +11,21 @@
 
     <ul class="nav-item">
         <form method="post" asp-controller="Account" asp-action="LogOut">
-            <button type="submit" style="width:auto" class="nav-link btn btn-link py-0">
-                Logout @User.Identity.Name
-                UserID: @User.FindFirst(ClaimTypes.NameIdentifier)?.Value <!-- Exibe o ID do usuário -->
-                <p>Roles do Usuário: @rolesText</p>
+            <button type="submit" style="width:auto;line-height:1px; background-color:transparent;border-color:transparent;">
+                <p>Usuario: @User.Identity.Name </p>
+                <p>Cargo: @rolesText</p>
+                <p>Sair</p>
 
             </button>
         </form>
     </ul>
-
 }
 else
 {
 
-    <ul class="nav-item">
-        <a class="nav-link" asp-controller="Account" asp-action="Register">Registrar</a>
-    </ul>
-
-    <ul class="nav-link">
-        <a class="nav-link" asp-controller="Account" asp-action="Login">Entrar</a>
-    </ul>
+    <div class="account">
+        <a asp-controller="Account" asp-action="Login" class="btn_entrar" style="">Entrar</a>
+        <p class="ou" style="">ou</p>
+        <a asp-controller="Account" asp-action="Register" class="btn_cadastrar">Cadastrar</a>
+    </div>
 }

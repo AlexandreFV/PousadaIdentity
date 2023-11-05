@@ -1,0 +1,510 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+#mais {
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #DFA67B;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+    /* Estilize os itens do dropdown */
+    .dropdown-content a {
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+/* Altere a cor dos itens do dropdown ao passar o mouse sobre eles */
+
+
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.body_principal {
+    background-color: #ECECEC;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.nome_logo {
+    color: white;
+    font-family: carter one;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+    .nome_logo a:hover, .nome_logo a {
+        text-decoration: none !important;
+        color: white;
+    }
+
+.img_header {
+    cursor: pointer;
+}
+
+.img_logo_header {
+    width: 6.01rem;
+    height: 5.07rem;
+}
+
+.header, .navigation_header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header {
+    background-color: #DFA67B;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    height: 7.18rem;
+    justify-content: space-between;
+    padding: 0 3%;
+}
+
+.logo_header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navigation_header {
+    gap: 2rem;
+}
+
+    .navigation_header a {
+        font-size: 1.40rem;
+        /*font-weight: bold;*/
+        font-family: carter one;
+        color: white !important;
+        text-decoration: none !important;
+        padding: 10px;
+    }
+
+        .navigation_header a:hover {
+            border-bottom: 2px solid white;
+        }
+
+/*.active {
+    background-color: rgba(140, 105, 78, 0.45);
+    padding: 0.4rem 0.1rem;
+    border-radius: 7px;
+}*/
+
+.active:hover {
+    background: none;
+    padding-bottom: 8px;
+}
+
+.img_opcoes {
+    padding-bottom: 10px;
+}
+
+.opcoes {
+    padding-top: 8px;
+}
+
+    .opcoes:hover {
+        padding-bottom: 2px;
+    }
+
+@media (max-width: 1320px) {
+    .account {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn_entrar {
+        color: white !important;
+        text-decoration: none !important;
+        background-color: #4694A6;
+        padding: 5px 12px;
+        border-radius: 7px;
+        text-align: center;
+    }
+
+    .btn_cadastrar {
+        color: white !important;
+        text-decoration: none !important;
+        background-color: #4694A6;
+        padding: 8px 5px;
+        border-radius: 7px;
+    }
+
+    .ou {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
+        color: white !important;
+    }
+}
+
+@media (min-width: 1321px) {
+    .account {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .btn_entrar {
+        color: white !important;
+        text-decoration: none !important;
+        background-color: #4694A6;
+        padding: 10px 20px;
+        border-radius: 7px;
+    }
+
+    .btn_cadastrar {
+        color: white !important;
+        text-decoration: none !important;
+        background-color: #4694A6;
+        padding: 10px 8px;
+        border-radius: 7px;
+    }
+
+    .ou {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 0;
+        color: white !important;
+    }
+}
+
+
+@media (max-width: 1199px) {
+    .navigation_header {
+        display: none;
+    }
+
+    .account {
+        display: none;
+    }
+
+    .menu_lateral {
+        position: absolute;
+        right: 0;
+        top: 0;
+        animation-duration: 1s;
+        overflow: hidden;
+        margin-right: -80vw;
+    }
+
+    @keyframes ShowMenuLateral {
+        from {
+            overflow: hidden;
+            margin-right: -80vw;
+        }
+
+        to {
+            overflow: visible;
+            margin-right: 0;
+        }
+    }
+
+    .account_menu {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        position: relative;
+        justify-content: center;
+        top: 32px;
+    }
+
+    .btn_entrar {
+        padding: 10px 15px;
+    }
+
+    .btn_cadastrar {
+        padding: 10px 8px;
+    }
+
+    .ou {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .linha_menu {
+        background-color: white;
+        width: 100%;
+        height: 0.125rem;
+        position: absolute;
+        top: 112px;
+    }
+
+    .meu_perfil_menu {
+        color: white !important;
+        text-decoration: none !important;
+    }
+
+    .btn_meu_perfil_menu {
+        position: absolute;
+        top: 8.46rem;
+        right: 1.72rem;
+        font-family: Carter One;
+        font-size: 1.25rem;
+    }
+
+    .img_user_menu {
+        width: 25px;
+        margin-bottom: 10px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_minhas_reservas_menu {
+        position: absolute;
+        top: 12.16rem;
+        right: 1.72rem;
+        font-family: Carter One;
+        font-size: 1.25rem;
+    }
+
+    .minhas_reservas_menu {
+        color: white !important;
+        text-decoration: none !important;
+    }
+
+    .img_calendario_menu {
+        width: 25px;
+        margin-bottom: 10px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_menu_inicio {
+        position: absolute;
+        text-align: right;
+        top: 4.31rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_inicio {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_home_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_menu_como_chegar {
+        position: absolute;
+        text-align: right;
+        top: 8.29rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_como_chegar {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_localiz_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_menu_contato {
+        position: absolute;
+        text-align: right;
+        top: 12.27rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_contato {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_contato_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_menu_galeria {
+        position: absolute;
+        text-align: right;
+        top: 16.25rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_galeria {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_galeria_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+
+    .btn_menu_sobre_nos {
+        position: absolute;
+        text-align: right;
+        top: 20.23rem;
+        right: 0;
+        font-size: 1.25rem;
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+        border-top: 3px solid #DFA67B;
+        border-bottom: 3px solid #DFA67B;
+        border-left: 3px solid #DFA67B;
+        width: 19rem;
+        padding-top: 5px;
+    }
+
+    .desc_menu_sobre_nos {
+        text-decoration: none !important;
+        color: #DFA67B !important;
+        padding-right: 1.72rem;
+    }
+
+    .img_sobre_nos_menu {
+        width: 30px;
+        padding-bottom: 5px;
+        margin-left: 0.5rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .menu_lateral {
+        display: none;
+    }
+}
+
+@media (max-width: 1230px) {
+
+    /*
+    .navigation_header{
+        right: 0;
+        position: absolute;
+        padding-right:3%;
+        flex-direction: column;
+        top: 0;
+        background-color: red;
+    }
+        */
+}
+
+@media (min-width: 1200px) {
+    .btn_menu {
+        display: none;
+    }
+}
+
+@media (max-width: 1199px) {
+    .btn_menu {
+        display: block;
+        background-color: transparent;
+        border: none;
+        right: 0;
+        position: absolute;
+        padding-right: 3%;
+    }
+}
+
+.background_menu1 {
+    background-color: #DFA67B;
+    width: 23.43rem;
+    height: 21.43rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+}
+
+.background_menu2 {
+    background-color: white;
+    width: 23.4375rem;
+    height: 71.8vh;
+    position: absolute;
+    top: 16.12rem;
+    right: 0;
+    z-index: 4;
+    border-radius: 4.375rem 0rem 0rem 0rem;
+    font-family: Carter One;
+}
+
+.btn_menu_fechar {
+    position: absolute;
+    right: 21.62rem;
+    top: 1.17rem;
+}
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    height: 5rem;
+    background-color: #DFA67B;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 3%;
+}

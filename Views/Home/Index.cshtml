@@ -5,8 +5,9 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    <link link rel="stylesheet" href="/css/Index.css" asp-append-version="true" />
 } 
-
+<!--
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -23,6 +24,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
 <div class="text-center">
     <h2 class="display-4">Usando Session</h2>
     <hr />
@@ -30,4 +32,26 @@
     <hr />
     Nome : @HttpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId")
     Idade : @HttpContextAccessor.HttpContext.Session.GetInt32("SessionIdade")
+</div>
+-->
+
+<div class="container" id="container_principal">
+    <div class="boas_vindas">
+        <center>
+        <img class="img_boas_vindas" src="/Imagens/palimar_img.png"/>
+        <div class="desc_boas_vindas">
+            <p class="p_bemvindo">Seja bem-vindo(a) à</p>
+            <p class="p_pousada">Pousada Palimar</p>
+        </div>
+        <div class="desc_faixa">
+            <p>Tranquilidade e Conforto</p>
+            <span class="line_e"></span>
+            <span class="line_d"></span>
+        </div>
+        <div class="btn_reservar_agora" >
+            <a class="desc_btn_reservar_agora" asp-controller="Reservas" asp-action="Create">Reservar agora</a>   
+        </div>
+        </center>
+        
+    </div>
 </div>
