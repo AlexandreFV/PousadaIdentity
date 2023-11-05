@@ -4,18 +4,23 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div style="width:450px;background-color:#FFFF;position:relative;top:20px;border-radius:10px;
+    top:20px;margin-left:auto;margin-right:auto;height:580px;">
 
-<h4>Quarto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <h1 style="position:relative;margin-left:auto;margin-right:auto;margin:0;text-align:center;
+    background-color:#DFA67B;color:white;border-top-left-radius:10px;border-top-right-radius:10px;">
+        Criar Quarto
+    </h1>
+    <hr style="position:relative;bottom:16px;" />
+
+<div>
+    <div class="col-md-12">
         <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="All" class="text-danger">
 
                 <div class="form-group">
                     <label asp-for="Imagem" class="control-label"></label>
-                    <input asp-for="Imagem" type="file" class="form-control" />
+                    <input asp-for="Imagem" type="file" class="form-control" accept="image/*" />
                     <span asp-validation-for="Imagem" class="text-danger"></span>
                 </div>
             <div class="form-group" style="visibility:hidden;display:none;">
@@ -53,16 +58,16 @@
                 <input asp-for="Preco" class="form-control" type="number"/>
                 <span asp-validation-for="Preco" class="text-danger"></span>
             </div>
-            <div class="form-group">
+                <div style="position:relative;text-align: center;position:relative;bottom:0px;">
+                <a asp-action="Index" class="btn btn-danger">Voltar</a>
                 <input type="submit" value="Create" class="btn btn-primary" />
+
             </div>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
