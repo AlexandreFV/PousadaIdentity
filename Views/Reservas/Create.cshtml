@@ -6,40 +6,41 @@
     <link link rel="stylesheet" href="/css/Create_Reserva.css" asp-append-version="true" />
 }
 <head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-    /*
-    $(document).ready(function () {
-        $('#CheckIn, #CheckOut, #QuartoID,#increase, #decrease').on('change click', function () {
-            calcularValorTotal();
-        });
+    <script>
 
-        function calcularValorTotal() {
-            var checkIn = new Date($('#CheckIn').val());
-            var checkUp = new Date($('#CheckOut').val());
-            var quartoID = $('#QuartoID').val();
+        /*
+        $(document).ready(function () {
+            $('#CheckIn, #CheckOut, #QuartoID,#increase, #decrease').on('change click', function () {
+                calcularValorTotal();
+            });
 
-            if (!isNaN(checkIn) && !isNaN(checkUp) && quartoID) {
-                var numeroDias = Math.ceil((checkUp - checkIn) / (1000 * 60 * 60 * 24));
+            function calcularValorTotal() {
+                var checkIn = new Date($('#CheckIn').val());
+                var checkUp = new Date($('#CheckOut').val());
+                var quartoID = $('#QuartoID').val();
 
-                $.get('/Reservas/ObterPrecoQuartoExibicao', { quartoID: quartoID }, function (data) {
-                    if (data && data.preco) {
-                        var valorTotal = numeroDias * data.preco;
-                        $('#ValorExibido').val(valorTotal.toFixed(2));
-                        ViewBag.ValorTotalReserva = valorTotal; // onde "valorTotal" é o valor calculado
+                if (!isNaN(checkIn) && !isNaN(checkUp) && quartoID) {
+                    var numeroDias = Math.ceil((checkUp - checkIn) / (1000 * 60 * 60 * 24));
 
-                    } else {
-                        console.error('Erro ao obter preço do quarto.');
-                    }
-                });
+                    $.get('/Reservas/ObterPrecoQuartoExibicao', { quartoID: quartoID }, function (data) {
+                        if (data && data.preco) {
+                            var valorTotal = numeroDias * data.preco;
+                            $('#ValorExibido').val(valorTotal.toFixed(2));
+                            ViewBag.ValorTotalReserva = valorTotal; // onde "valorTotal" é o valor calculado
+
+                        } else {
+                            console.error('Erro ao obter preço do quarto.');
+                        }
+                    });
+                }
             }
-        }
-    });*/
+        });*/
 
 
 
@@ -82,152 +83,152 @@
             }
         });
 
-    // Função para atualizar os campos em tempo real
-    function atualizarCampos() {
-        var quartoId = $('#QuartoID').val();
+        // Função para atualizar os campos em tempo real
+        function atualizarCampos() {
+            var quartoId = $('#QuartoID').val();
 
-        if (quartoId) {
-            $.get('/Reservas/ObterInformacoesQuarto', { quartoId: quartoId }, function (data) {
-                if (data && data.preco && data.tipo) {
-                    $('#PrecoQuartoInput').val(data.preco);
-                    $('#TipoQuartoInput').val(data.tipo);
-                    $('#ImagemQuarto').attr('src', 'data:image/jpeg;base64,' + data.imagem);
-                    console.log("imagem: " + data.imagem);
-                } else {
-                    console.error('Erro ao obter informações do quarto.');
-                }
-            });
-        }
-    }
-
-    $(document).ready(function () {
-        // Chame a função na carga da página
-        atualizarCampos();
-
-        // Adicione um manipulador de evento ao 'change' do select
-        $('#QuartoID').on('change', function () {
-            atualizarCampos();
-        });
-    });
-
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var select = document.getElementById("QuartoID");
-        var increaseButton = document.getElementById("increase");
-        var decreaseButton = document.getElementById("decrease");
-
-        // Função para verificar e atualizar a desabilitação dos botões
-        function updateButtonAvailability() {
-            var selectedIndex = select.selectedIndex;
-            var optionCount = select.options.length;
-
-            increaseButton.disabled = selectedIndex >= optionCount - 1;
-            decreaseButton.disabled = selectedIndex <= 0;
-        }
-
-        // Inicialmente, atualize o estado dos botões
-        updateButtonAvailability();
-
-        // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
-        increaseButton.addEventListener("click", function () {
-            select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
-            atualizarCampos();
-            updateButtonAvailability();
-        });
-
-        decreaseButton.addEventListener("click", function () {
-            select.selectedIndex = Math.max(0, select.selectedIndex - 1);
-            atualizarCampos();
-            updateButtonAvailability();
-        });
-    });
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var select = document.getElementById("QuartoID");
-        var increaseButton = document.getElementById("increase");
-        var decreaseButton = document.getElementById("decrease");
-
-        // Função para verificar e atualizar a desabilitação dos botões
-        function updateButtonAvailability() {
-            var selectedIndex = select.selectedIndex;
-            var optionCount = select.options.length;
-
-            increaseButton.disabled = selectedIndex >= optionCount - 1;
-            decreaseButton.disabled = selectedIndex <= 0;
-        }
-
-        // Inicialmente, atualize o estado dos botões
-        updateButtonAvailability();
-
-        // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
-        increaseButton.addEventListener("click", function () {
-            select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
-
-            updateButtonAvailability();
-            calcularValorTotal(); // Atualize o valor total após alterar a seleção
-        });
-
-        decreaseButton.addEventListener("click", function () {
-            select.selectedIndex = Math.max(0, select.selectedIndex - 1);
-            updateButtonAvailability();
-            calcularValorTotal(); // Atualize o valor total após alterar a seleção
-        });
-    });
-
-
-
-
-            $(document).ready(function () {
-                var selectedQuartoID;
-                var datesUnavailable = [];
-
-                // Função para carregar datas indisponíveis
-                function loadDatesUnavailable() {
-                    selectedQuartoID = $('#QuartoID').val();
-                    if (!selectedQuartoID) {
-                        return;
+            if (quartoId) {
+                $.get('/Reservas/ObterInformacoesQuarto', { quartoId: quartoId }, function (data) {
+                    if (data && data.preco && data.tipo) {
+                        $('#PrecoQuartoInput').val(data.preco);
+                        $('#TipoQuartoInput').val(data.tipo);
+                        $('#ImagemQuarto').attr('src', 'data:image/jpeg;base64,' + data.imagem);
+                        console.log("imagem: " + data.imagem);
+                    } else {
+                        console.error('Erro ao obter informações do quarto.');
                     }
-                    $.get('/Reservas/GetDatesUnavailable', { quartoId: selectedQuartoID }, function (data) {
-                        datesUnavailable = data.map(function (date) {
-                            return new Date(date);
-                        });
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            // Chame a função na carga da página
+            atualizarCampos();
+
+            // Adicione um manipulador de evento ao 'change' do select
+            $('#QuartoID').on('change', function () {
+                atualizarCampos();
+            });
+        });
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var select = document.getElementById("QuartoID");
+            var increaseButton = document.getElementById("increase");
+            var decreaseButton = document.getElementById("decrease");
+
+            // Função para verificar e atualizar a desabilitação dos botões
+            function updateButtonAvailability() {
+                var selectedIndex = select.selectedIndex;
+                var optionCount = select.options.length;
+
+                increaseButton.disabled = selectedIndex >= optionCount - 1;
+                decreaseButton.disabled = selectedIndex <= 0;
+            }
+
+            // Inicialmente, atualize o estado dos botões
+            updateButtonAvailability();
+
+            // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
+            increaseButton.addEventListener("click", function () {
+                select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
+                atualizarCampos();
+                updateButtonAvailability();
+            });
+
+            decreaseButton.addEventListener("click", function () {
+                select.selectedIndex = Math.max(0, select.selectedIndex - 1);
+                atualizarCampos();
+                updateButtonAvailability();
+            });
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var select = document.getElementById("QuartoID");
+            var increaseButton = document.getElementById("increase");
+            var decreaseButton = document.getElementById("decrease");
+
+            // Função para verificar e atualizar a desabilitação dos botões
+            function updateButtonAvailability() {
+                var selectedIndex = select.selectedIndex;
+                var optionCount = select.options.length;
+
+                increaseButton.disabled = selectedIndex >= optionCount - 1;
+                decreaseButton.disabled = selectedIndex <= 0;
+            }
+
+            // Inicialmente, atualize o estado dos botões
+            updateButtonAvailability();
+
+            // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
+            increaseButton.addEventListener("click", function () {
+                select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
+
+                updateButtonAvailability();
+                calcularValorTotal(); // Atualize o valor total após alterar a seleção
+            });
+
+            decreaseButton.addEventListener("click", function () {
+                select.selectedIndex = Math.max(0, select.selectedIndex - 1);
+                updateButtonAvailability();
+                calcularValorTotal(); // Atualize o valor total após alterar a seleção
+            });
+        });
+
+
+
+
+        $(document).ready(function () {
+            var selectedQuartoID;
+            var datesUnavailable = [];
+
+            // Função para carregar datas indisponíveis
+            function loadDatesUnavailable() {
+                selectedQuartoID = $('#QuartoID').val();
+                if (!selectedQuartoID) {
+                    return;
+                }
+                $.get('/Reservas/GetDatesUnavailable', { quartoId: selectedQuartoID }, function (data) {
+                    datesUnavailable = data.map(function (date) {
+                        return new Date(date);
+                    });
                     console.log("Datas: ", datesUnavailable)
 
-                        // Configurar o Datepicker para o campo CheckIn
-                        $("#CheckIn").datepicker({
-                            dateFormat: "dd/mm/yy",
-                            minDate: 1,
-                            beforeShowDay: function (date) {
-                                var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
-                                var isDateAvailable = !datesUnavailable.some(function (unavailable) {
-                                    return date.getTime() === unavailable.getTime();
-                                });
+                    // Configurar o Datepicker para o campo CheckIn
+                    $("#CheckIn").datepicker({
+                        dateFormat: "dd/mm/yy",
+                        minDate: 1,
+                        beforeShowDay: function (date) {
+                            var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
+                            var isDateAvailable = !datesUnavailable.some(function (unavailable) {
+                                return date.getTime() === unavailable.getTime();
+                            });
 
-                                return [date >= new Date() && isDateAvailable];
-                            }
-                        });
+                            return [date >= new Date() && isDateAvailable];
+                        }
+                    });
 
-                        // Configurar o Datepicker para o campo CheckOut
-                        $("#CheckOut").datepicker({
-                            dateFormat: "dd/mm/yy",
-                            minDate: 1,
-                            beforeShowDay: function (date) {
-                                var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
-                                var isDateAvailable = !datesUnavailable.some(function (unavailable) {
-                                    return date.getTime() === unavailable.getTime();
-                                });
+                    // Configurar o Datepicker para o campo CheckOut
+                    $("#CheckOut").datepicker({
+                        dateFormat: "dd/mm/yy",
+                        minDate: 1,
+                        beforeShowDay: function (date) {
+                            var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
+                            var isDateAvailable = !datesUnavailable.some(function (unavailable) {
+                                return date.getTime() === unavailable.getTime();
+                            });
 
-                                return [date >= new Date() && isDateAvailable];
-                            }
-                        });
+                            return [date >= new Date() && isDateAvailable];
+                        }
+                    });
                     $("#CheckIn, #CheckOut").attr("readonly", true);
 
-                    });
-                }
+                });
+            }
 
-                
+
 
             function updateDatesAndID() {
                 loadDatesUnavailable();
@@ -248,7 +249,8 @@
 
 
 
-</script>
+    </script>
+
 </head>
 
 
@@ -262,12 +264,6 @@
         background-color: lightgrey;
     }
 
-<<<<<<< HEAD
-=======
-
-   
-
->>>>>>> master
 </style>
 
 
@@ -348,11 +344,7 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+
 -->
 
 <div class="container">
@@ -401,12 +393,12 @@
 
                         <div class="form-group col">
                             <label asp-for="CheckIn" class="control-label">Entrada</label>
-                            <input asp-for="CheckIn" class="form-control" id="CheckIn" />
+                            <input asp-for="CheckIn" id="CheckIn" type="text" placeholder="Insira a data para entrada..." class="form-control" />
                             <span asp-validation-for="CheckIn" class="text-danger"></span>
                         </div>
                         <div class="form-group col">
                             <label asp-for="CheckOut" class="control-label">Saída</label>
-                            <input asp-for="CheckOut" class="form-control" id="CheckUp" />
+                            <input asp-for="CheckOut" id="CheckOut" type="text" placeholder="Insira a data para saída..." class="form-control" />
                             <span asp-validation-for="CheckOut" class="text-danger"></span>
                         </div>
                         @* <button type="submit" class="btn btn-primary mt-02">Entrar</button> *@
@@ -466,3 +458,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
