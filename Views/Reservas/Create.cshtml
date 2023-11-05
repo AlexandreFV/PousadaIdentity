@@ -5,16 +5,23 @@
     ViewData["Title"] = "Create";
     <link link rel="stylesheet" href="/css/Create_Reserva.css" asp-append-version="true" />
 }
+<head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
+
+    /*
     $(document).ready(function () {
-        $('#CheckIn, #CheckUp, #QuartoID,#increase, #decrease').on('change click', function () {
+        $('#CheckIn, #CheckOut, #QuartoID,#increase, #decrease').on('change click', function () {
             calcularValorTotal();
         });
 
         function calcularValorTotal() {
             var checkIn = new Date($('#CheckIn').val());
-            var checkUp = new Date($('#CheckUp').val());
+            var checkUp = new Date($('#CheckOut').val());
             var quartoID = $('#QuartoID').val();
 
             if (!isNaN(checkIn) && !isNaN(checkUp) && quartoID) {
@@ -32,11 +39,48 @@
                 });
             }
         }
-    });
+    });*/
 
 
 
+        $(document).ready(function () {
+            $('#CheckIn, #CheckOut, #QuartoID, #increase, #decrease').on('change click', function () {
+                calcularValorTotal();
+            });
 
+            function calcularValorTotal() {
+                // Função para fazer o parsing de datas no formato "dd/mm/yy" para objetos Date
+                function parseDate(input) {
+                    var parts = input.split('/');
+                    if (parts.length === 3) {
+                        return new Date('20' + parts[2], parts[1] - 1, parts[0]);
+                    }
+                    return null;
+                }
+
+                var checkInText = $('#CheckIn').val();
+                var checkOutText = $('#CheckOut').val();
+                var quartoID = $('#QuartoID').val();
+
+                var checkIn = parseDate(checkInText);
+                var checkOut = parseDate(checkOutText);
+
+                if (checkIn && checkOut && quartoID) {
+                    var numeroDias = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+
+                    $.get('/Reservas/ObterPrecoQuartoExibicao', { quartoID: quartoID }, function (data) {
+                        if (data && data.preco) {
+                            var valorTotal = numeroDias * data.preco;
+                            $('#ValorExibido').val(valorTotal.toFixed(2));
+                            // Você não pode definir ViewBag.ValorTotalReserva aqui porque o ViewBag é uma propriedade do servidor no ASP.NET MVC.
+                            // Se você deseja passar esse valor para o servidor, você deve fazer uma solicitação HTTP, por exemplo, usando $.ajax.
+                        } else {
+                            console.error('Erro ao obter preço do quarto.');
+                        }
+                    });
+                }
+            }
+        });
 
     // Função para atualizar os campos em tempo real
     function atualizarCampos() {
@@ -123,7 +167,6 @@
 
             updateButtonAvailability();
             calcularValorTotal(); // Atualize o valor total após alterar a seleção
-
         });
 
         decreaseButton.addEventListener("click", function () {
@@ -133,27 +176,81 @@
         });
     });
 
-    $(document).ready(function () {
-        // Obtenha a data atual
-        var dataAtual = new Date();
 
-        // Configurar o Datepicker para o campo CheckIn
-        $("#CheckIn").datepicker({
-            dateFormat: "yy-mm-dd",
-            minDate: 0, // Impede datas anteriores
-            beforeShowDay: function (date) {
-                return [date >= dataAtual];
-            },
-            onSelect: function (selectedDate) {
-                var selectedDateObj = new Date(selectedDate);
 
-                // Atualize o Datepicker do campo CheckOut para ocultar as datas anteriores à data selecionada em CheckIn
-                $("#CheckOut").datepicker("option", "minDate", selectedDateObj);
+
+            $(document).ready(function () {
+                var selectedQuartoID;
+                var datesUnavailable = [];
+
+                // Função para carregar datas indisponíveis
+                function loadDatesUnavailable() {
+                    selectedQuartoID = $('#QuartoID').val();
+                    if (!selectedQuartoID) {
+                        return;
+                    }
+                    $.get('/Reservas/GetDatesUnavailable', { quartoId: selectedQuartoID }, function (data) {
+                        datesUnavailable = data.map(function (date) {
+                            return new Date(date);
+                        });
+                    console.log("Datas: ", datesUnavailable)
+
+                        // Configurar o Datepicker para o campo CheckIn
+                        $("#CheckIn").datepicker({
+                            dateFormat: "dd/mm/yy",
+                            minDate: 1,
+                            beforeShowDay: function (date) {
+                                var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
+                                var isDateAvailable = !datesUnavailable.some(function (unavailable) {
+                                    return date.getTime() === unavailable.getTime();
+                                });
+
+                                return [date >= new Date() && isDateAvailable];
+                            }
+                        });
+
+                        // Configurar o Datepicker para o campo CheckOut
+                        $("#CheckOut").datepicker({
+                            dateFormat: "dd/mm/yy",
+                            minDate: 1,
+                            beforeShowDay: function (date) {
+                                var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
+                                var isDateAvailable = !datesUnavailable.some(function (unavailable) {
+                                    return date.getTime() === unavailable.getTime();
+                                });
+
+                                return [date >= new Date() && isDateAvailable];
+                            }
+                        });
+                    $("#CheckIn, #CheckOut").attr("readonly", true);
+
+                    });
+                }
+
+                
+
+            function updateDatesAndID() {
+                loadDatesUnavailable();
             }
+
+            // Chame a função para carregar datas indisponíveis quando a página carregar
+            loadDatesUnavailable();
+
+            $('#QuartoID').on('change', function () {
+                updateDatesAndID();
+            });
+
+            // Adicione ouvintes de eventos aos botões "increase" e "decrease"
+            $('#increase, #decrease').on('click', function () {
+                updateDatesAndID();
+            });
         });
-    });
+
+
 
 </script>
+</head>
+
 
 <style>
 
@@ -165,6 +262,12 @@
         background-color: lightgrey;
     }
 
+<<<<<<< HEAD
+=======
+
+   
+
+>>>>>>> master
 </style>
 
 
@@ -182,11 +285,13 @@
                     <div>
                     <img id="ImagemQuarto" style="width:600px;height:300px;display:inline-block;" />
                     <div class="form-group">
-                        <div style="visibility:hidden;display:none;">
+                    <div style="visibility:hidden;display:none;">
+
                             <label asp-for="QuartoID" class="control-label"></label>
                             <select asp-for="QuartoID" class="form-control" asp-items="ViewBag.QuartoID" id="QuartoID">
                             </select>
                         </div>
+
                         <button type="button" id="decrease"><</button>
                         <button type="button" id="increase">></button>
                     </div>
@@ -198,19 +303,19 @@
 
             <div class="form-group">
                 <label class="control-label">Valor Total</label>
-                <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" />
+                <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" type="text"/>
 
                 <input asp-for="ValorTotalReserva" class="form-control" style="visibility:hidden;display:none;" readonly/>
                 <span asp-validation-for="ValorTotalReserva" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CheckIn" class="control-label"></label>
-                <input asp-for="CheckIn" class="form-control" id="CheckIn" />
+                <input asp-for="CheckIn" id="CheckIn" type="text" placeholder="Insira a data para entrada..." class="form-control" />
                 <span asp-validation-for="CheckIn" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="CheckOut" class="control-label"></label>
-                <input asp-for="CheckOut" class="form-control" id="CheckUp" />
+                <input asp-for="CheckOut" id="CheckOut" type="text" placeholder="Insira a data para saída..." class="form-control" />
                 <span asp-validation-for="CheckOut" class="text-danger"></span>
             </div>
             <div class="form-group" style="display:none;visibility:hidden;">
