@@ -2,13 +2,18 @@
 
 @{
     ViewData["Title"] = "Index";
+    <link link rel="stylesheet" href="/css/Index_Quarto.css" asp-append-version="true" />
 }
 
-<h1>Lista de Quartos</h1>
+<div class="faixa_entrar">
+    <svg class="line_entrar_1"></svg>
+    <svg class="line_entrar_2"></svg>
+    <p>Gerenciar quartos</p>
+</div>
 
-<p>
+@* <p>
     <a asp-action="Create">Criar Novo Quarto</a>
-</p>
+</p> *@
 <table class="table" style="width:90%;margin:0 auto;">
     <thead class="thead-dark">
         <tr>
@@ -27,10 +32,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.Preco)
             </th>
-            <th></th>
+            <th style="width: 4rem;">
+                <a asp-action="Create" class="" data-bs-toggle="tooltip" data-bs-placement="top"
+                        data-bs-title="Adicionar quarto" style="background: none; border: none;">
+                     <img src="/Imagens/Adicionar.png" style="width: 28px;" />
+                </a>
+            </th>
         </tr>
     </thead>
+
     <tbody>
+        
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -56,4 +68,9 @@
         </tr>
 }
     </tbody>
+
+    
 </table>
+
+
+

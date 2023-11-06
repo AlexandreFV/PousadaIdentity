@@ -10,6 +10,9 @@ var MenuLateral = document.getElementById('menu_lateral');
 var MainPrincipal = document.getElementById('main_principal');
 var ShowMenuLateral = false;
 
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
 function toggleMenuLateral() {
     ShowMenuLateral = !ShowMenuLateral;
     if (ShowMenuLateral) {
@@ -58,3 +61,5 @@ window.onclick = function (event) {
         }
     }
 };
+
+

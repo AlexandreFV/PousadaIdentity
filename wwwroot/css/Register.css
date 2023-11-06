@@ -52,7 +52,7 @@
 .background_cadastrar_principal {
     position: relative;
     width: 100%;
-    height: 45rem;
+    height: 49rem;
     border-radius: 0.625rem;
     background: #DFA67B;
     margin-bottom: 10rem;
@@ -82,7 +82,7 @@
     position: absolute;
     left: 17.38rem;
     width: 78.2%;
-    height: 45rem;
+    height: 49rem;
     border-radius: 0.625rem;
     background-color: white;
     border-radius: 6.25rem 0.625rem 0.625rem 0rem;
@@ -217,7 +217,7 @@
     display: flex;
     align-items: center;
     padding-left: 2rem;
-    top: 38.5rem;
+    top: 42.4rem;
     color: white;
     font-family: Inter;
     font-weight: bold;
@@ -311,6 +311,15 @@
     margin-top: -1rem;
 }
 
-    .btn_sem_conta a {
-        color: #4694A6;
-    }
+.btn_sem_conta a {
+    color: #4694A6;
+}
+
+.desc_btn_form_cadastrar {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-family: Inter;
+    font-size: 1.625rem;
+    font-weight: bold;
+}

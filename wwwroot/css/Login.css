@@ -293,3 +293,12 @@
 .btn_sem_conta a {
     color: #4694A6;
 }
+
+.desc_btn_form_entrar {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-family: Inter;
+    font-size: 1.625rem;
+    font-weight: bold;
+}
