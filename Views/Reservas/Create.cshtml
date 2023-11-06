@@ -92,6 +92,7 @@
                     if (data && data.preco && data.tipo) {
                         $('#PrecoQuartoInput').val(data.preco);
                         $('#TipoQuartoInput').val(data.tipo);
+                        $('#arCondicionadoInput').val(data.arCondicionado);
                         $('#ImagemQuarto').attr('src', 'data:image/jpeg;base64,' + data.imagem);
                         console.log("imagem: " + data.imagem);
                     } else {
@@ -121,7 +122,7 @@
             // Função para verificar e atualizar a desabilitação dos botões
             function updateButtonAvailability() {
                 var selectedIndex = select.selectedIndex;
-                var optionCount = select.options.length;
+                var optionCount = select.options.length;    
 
                 increaseButton.disabled = selectedIndex >= optionCount - 1;
                 decreaseButton.disabled = selectedIndex <= 0;
@@ -132,19 +133,24 @@
 
             // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
             increaseButton.addEventListener("click", function () {
+                if (!increaseButton.disabled) {
+
                 select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
                 atualizarCampos();
                 updateButtonAvailability();
+                }
             });
 
             decreaseButton.addEventListener("click", function () {
+                if (!decreaseButton.disabled) {
                 select.selectedIndex = Math.max(0, select.selectedIndex - 1);
                 atualizarCampos();
                 updateButtonAvailability();
+                }
             });
         });
 
-
+        /*
         document.addEventListener("DOMContentLoaded", function () {
             var select = document.getElementById("QuartoID");
             var increaseButton = document.getElementById("increase");
@@ -175,7 +181,8 @@
                 updateButtonAvailability();
                 calcularValorTotal(); // Atualize o valor total após alterar a seleção
             });
-        });
+
+        });*/
 
 
 
@@ -263,6 +270,41 @@
     body {
         background-color: lightgrey;
     }
+
+
+
+
+    .slide-button {
+        width: 40px;
+        height: 300px;
+        color: #333;
+        font-size: 24px;
+        border: none;
+        position: absolute;
+        bottom: 83px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0; /* Fundo cinza claro */
+    }
+
+    .left-arrow {
+        left: 80px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .right-arrow {
+        right: 80px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    /* Oculte os botões quando desabilitados */
+    .slide-button[disabled] {
+        display: none;
+    }
+
 
 </style>
 
@@ -388,18 +430,16 @@
                 <center>
                     <svg class="line_form"></svg>
                 </center>
-                <form method="post" class="container_form">
-                    <div asp-validation-summary="All" class="text-danger row">
+                <form asp-action="Create" enctype="multipart/form-data" class="container_form">
+                    <div asp-validation-summary="All" class="text-danger">
 
                         <div class="form-group col">
                             <label asp-for="CheckIn" class="control-label">Entrada</label>
-                            <input asp-for="CheckIn" id="CheckIn" type="text" placeholder="Insira a data para entrada..." class="form-control" />
-                            <span asp-validation-for="CheckIn" class="text-danger"></span>
+                            <input asp-for="CheckIn" id="CheckIn" type="text" placeholder="Insira a data para entrada..." class="form-control" required />
                         </div>
                         <div class="form-group col">
                             <label asp-for="CheckOut" class="control-label">Saída</label>
-                            <input asp-for="CheckOut" id="CheckOut" type="text" placeholder="Insira a data para saída..." class="form-control" />
-                            <span asp-validation-for="CheckOut" class="text-danger"></span>
+                            <input asp-for="CheckOut" id="CheckOut" type="text" placeholder="Insira a data para saída..." class="form-control" required />
                         </div>
                         @* <button type="submit" class="btn btn-primary mt-02">Entrar</button> *@
 
@@ -411,49 +451,84 @@
                         </div>
                         </center> *@
                     </div>
+
+                    <p>Selecione o quarto desejado</p>
+                    <center>
+                        <svg class="line_form"></svg>
+                    </center>
+
+                    <div style="width:1000px;">
+
+
+                        <div class="carousel-inner"> 
+                            <div>
+                                <img id="ImagemQuarto" style="width:400px;height:300px;display:inline-block;position:relative;" />
+                                <div style="position:absolute;left:410px;bottom:0px;">
+                                     
+                                    <label class="control-labe;" >Preço da Diaria do Quarto</label>
+                                    <input class="form-control" id="PrecoQuartoInput" name="PrecoQuartoInput" readonly >
+                                    <label class="control-label" > Tipo de Quarto</label>
+                                    <input class="form-control" id="TipoQuartoInput" name="TipoQuartoInput" readonly>
+                                    <label class="control-label" >Valor Total</label>
+                                    <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" type="text" readonly/>
+                                    <label class="control-label"> Ar-Condicionado</label>
+                                    <input class="form-control" id="arCondicionadoInput" name="arCondicionadoInput" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div style="visibility:hidden;display:none;">
+
+                                <label asp-for="QuartoID" class="control-label"></label>
+                                <select asp-for="QuartoID" class="form-control" asp-items="ViewBag.QuartoID" id="QuartoID">
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <button type="button" id="decrease" class="slide-button left-arrow">&lt;</button>
+                            <button type="button" id="increase" class="slide-button right-arrow">&gt;</button>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                     
+
+                        <input asp-for="ValorTotalReserva" class="form-control" style="visibility:hidden;display:none;" readonly required/>
+                    </div>
+                 
+                 
+                    <div class="form-group" style="display:none;visibility:hidden;">
+                        <label asp-for="DataReservada" class="control-label"></label>
+                        <input asp-for="DataReservada" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="text" />
+                        <span asp-validation-for="DataReservada" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group" style="display:none;visibility:hidden;">
+                        <label asp-for="Estado" class="control-label"></label>
+                        <select asp-for="Estado" class="form-control">
+                            <option value="Não Pago">Não Pago</option>
+                            <option value="Pago">Pago</option>
+                            <span asp-validation-for="Estado" class="text-danger"></span>
+                        </select>
+
+                    </div>
+                    <div class="form-group" style="display:none;visibility:hidden;">
+                        <label asp-for="PessoaId" class="control-label"></label>
+                        <input asp-for="PessoaId" class="form-control" value="@HttpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId")" />
+                    </div>
+
+
+                    <div style="position:relative; text-align: center;">
+                        <a asp-action="Index" class="btn btn-danger">Voltar</a>
+                        <input type="submit" value="Criar" class="btn btn-success" />
+                    </div>
+
+
                 </form>
-                <p>Selecione o quarto desejado</p>
-                <center>
-                    <svg class="line_form"></svg>
-                </center>
-                <div id="carouselExampleCaptions" class="carousel slide" style="padding: 2rem 2rem;">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="/Imagens/palimar_img.png" class="d-block w-50" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Some representative placeholder content for the first slide.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Second slide label</h5>
-                                <p>Some representative placeholder content for the second slide.</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Third slide label</h5>
-                                <p>Some representative placeholder content for the third slide.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+               
             </div>
         </div>
     </div>

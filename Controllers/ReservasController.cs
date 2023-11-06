@@ -189,7 +189,7 @@ namespace PousadaIdentity.Controllers
 
             if (quarto != null)
             {
-                return Json(new { preco = quarto.Preco, tipo = quarto.Tipo, imagem = quarto.Imagem });
+                return Json(new { preco = quarto.Preco, tipo = quarto.Tipo, imagem = quarto.Imagem, arCondicionado = quarto.ArCondicionado });
             }
 
             return Json(new { error = "Quarto não encontrado" });
