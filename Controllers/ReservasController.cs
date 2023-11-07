@@ -59,13 +59,15 @@ namespace PousadaIdentity.Controllers
 
                 var reservas = _context.Reserva
                     .Where(r => r.PessoaId == pessoaId)
+                    .Include(r => r.Quarto)
                     .Include(r => r.Pessoa);
+                    
                 return View(await reservas.ToListAsync());
             }
             else if (await userManager.IsInRoleAsync(user, "FUNCI"))
             {
                 // Se o usuário tem a função "FUNCI", ele pode ver todas as reservas
-                var DbContext = _context.Reserva.Include(r => r.Pessoa);
+                var DbContext = _context.Reserva.Include(r => r.Pessoa).Include(r => r.Quarto);
                 return View(await DbContext.ToListAsync());
             }
             else
@@ -185,14 +187,16 @@ namespace PousadaIdentity.Controllers
         //Obtem todas as informacoes do Quarto referente ao ID do select
         public IActionResult ObterInformacoesQuarto(int quartoId)
         {
+
             var quarto = _context.Quarto.FirstOrDefault(q => q.QuartoId == quartoId);
 
             if (quarto != null)
             {
-                return Json(new { preco = quarto.Preco, tipo = quarto.Tipo, imagem = quarto.Imagem, arCondicionado = quarto.ArCondicionado });
+                return Json(new { preco = quarto.Preco, tipo = quarto.Tipo, imagem = quarto.Imagem, arCondicionado = quarto.ArCondicionado
+                });
             }
 
-            return Json(new { error = "Quarto não encontrado" });
+            return Json(new { error = "Quarto não encontrado ou Pessoa não encontrada" });
         }
 
         [Authorize(Roles = "Funcionario")] // Certifique-se de que apenas usuários com a role FUNCI podem acessar essa ação.

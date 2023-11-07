@@ -5,59 +5,78 @@
 }
 
 <div style="width:600px;background-color:#FFFF;position:relative;top:20px;border-radius:10px;
-    top:20px;margin-left:auto;margin-right:auto;height:550px;">
+    top:20px;margin-left:auto;margin-right:auto;height:700px;">
 
     <h1 style="position:relative;margin-left:auto;margin-right:auto;margin:0;text-align:center;
     background-color:#DFA67B;color:white;border-top-left-radius:10px;border-top-right-radius:10px;">
-        Deletar Reserva
+        Excluir Reserva
     </h1>
     <hr style="position:relative;bottom:16px;" />
 
 <div>
     <dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckIn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CheckIn)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckOut)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CheckOut)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataReservada)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataReservada)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValorTotalReserva)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ValorTotalReserva)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Quarto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Quarto.QuartoId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pessoa)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pessoa.PessoaId)
-        </dd>
-    </dl>
+            <dt class="col-sm-10">
+                Data de Check-In
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CheckIn)
+            </dd>
+            <dt class="col-sm-10">
+                Data de Check-Out
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CheckOut)
+            </dd>
+            <dt class="col-sm-10">
+                Data em que a reserva foi realizada
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DataReservada)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Estado)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Estado)
+            </dd>
+            <dt class="col-sm-10">
+                Valor Total
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ValorTotalReserva)
+            </dd>
+
+            <dt class="col-sm-10">
+                Valor da Diaria
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Quarto.Preco)
+            </dd>
+            <dt class="col-sm-10">
+                Numero do Quarto
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Quarto.Numero)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pessoa.CPF)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Pessoa.CPF)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pessoa.Nome)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Pessoa.Nome)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Pessoa.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Pessoa.Email)
+            </dd>
+        </dl>
     
     <form asp-action="Delete">
         <div style="position:relative;text-align: center;position:relative;bottom:20px;">
