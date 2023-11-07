@@ -119,15 +119,20 @@
             <th>
                 @Html.DisplayNameFor(model => model.Pessoa.Nome)
             </th>
-            <th style="width: 4rem;">
+            <th style="">
+                <p style="margin-bottom: 0 !important; text-align: center;">Processo</p>
+                
+            </th>
+            <th style="">
                 <a asp-action="Create" class="" data-bs-toggle="tooltip" data-bs-placement="top"
-                   data-bs-title="Adicionar reserva" style="background: none; border: none;">
+                   data-bs-title="Adicionar reserva" style="background: none; border: none; position: relative; margin-top: 0;">
                     <img src="/Imagens/Adicionar.png" style="width: 28px;" />
                 </a>
             </th>
+                
         </tr>
     </thead>
-    <tbody>
+    <tbody >
         @foreach (var item in Model)
         {
             <tr>
@@ -152,10 +157,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Pessoa.Nome)
                 </td>
-                <td>
+                <td style="text-align: center;">
                     <a asp-action="Edit" asp-route-id="@item.ReservaId" class="btn" style="background-color:#DFA67B;color:white;">Editar</a> |
                     <a asp-action="Details" asp-route-id="@item.ReservaId" class="btn btn-primary" style="width:90px;">Detalhes</a> |
                     <a asp-action="Delete" asp-route-id="@item.ReservaId" class="btn btn-danger">Excluir</a>
+                </td>
+                <td>
+
                 </td>
             </tr>
         }

@@ -391,34 +391,52 @@
 
 <div class="container">
 
-    <div class="faixa_entrar">
-        <svg class="line_entrar_1"></svg>
-        <svg class="line_entrar_2"></svg>
+    <div class="faixa_reservar">
+        <svg class="line_reservar_1"></svg>
+        <svg class="line_reservar_2"></svg>
         <p>Reservar</p>
     </div>
 
     <div class="container">
-        <div class="background_login_principal">
-            <div class="faixa_aviso_login">
-                <p>Não possui <br />conta?</p>
+        <div class="background_reservar_principal">
+            <div class="faixa_aviso_reservar">
+                <p style="text-align: center; line-height: 1.2;">Reservar <br />de outra forma</p>
             </div>
-            <div class="text_aviso_cadastrar_login">
-                <p>Clique <a asp-controller="Account" asp-action="Register">aqui</a> para se <br /> cadastrar.</p>
+            <div class="text_aviso_reservar">
+                <p>
+                    Caso prefira, temos <br />
+                    disponível outras formas <br />
+                    para um melhor conforto <br />
+                    na hora de realizar sua <br />
+                    reserva. Confira:
+                </p>
             </div>
-            <div class="faixa_duvida_login">
-                <p>Tem alguma <br />duvida?</p>
-            </div>
-            <div class="text_aviso_duvida_login">
-                <p>Entre em contato <br /> conosco via whatsapp <br /> ou telefone:  <br /></p>
-            </div>
-            <div class="faixa_whatsapp_login">
+            <div class="faixa_whatsapp_reservar">
                 <img src="/Imagens/icon_whatsapp.png" />
-                <p>(16) X XXXX-XXXX</p>
+                <p>WhatsApp: <br /> (16) X XXXX-XXXX</p>
             </div>
-            <div class="faixa_telefone_login">
+            <div class="text_whatsapp_reservar">
+                <p>
+                    Não hesite em nos <br />
+                    mandar uma mensagem, <br />
+                    afinal, queremos o melhor <br />
+                    para nossos hóspedes. <br />
+                </p>
+            </div>
+            <div class="faixa_telefone_reservar">
                 <img src="/Imagens/icon_telefone (2).png" />
-                <p>(16) XXXX-XXXX</p>
+                <p>Telefone: <br /> (16) XXXX-XXXX</p>
             </div>
+            <div class="text_telefone_reservar">
+                <p>
+                    Se necessário, também <br />
+                    podemos realizar sua <br />
+                    reserva pelo telefone. <br />
+                    Tudo para seu bem-estar e <br />
+                    conforto. <br />
+                </p>
+            </div>
+            
             <div class="faixa_observacao_login">
                 <p>
                     Observação: <br />
@@ -433,13 +451,15 @@
                 <form asp-action="Create" enctype="multipart/form-data" class="container_form">
                     <div asp-validation-summary="All" class="text-danger">
 
-                        <div class="form-group col">
+                        <div class="form-group col" >
                             <label asp-for="CheckIn" class="control-label">Entrada</label>
-                            <input asp-for="CheckIn" id="CheckIn" type="text" placeholder="Insira a data para entrada..." class="form-control" required />
+                            <input asp-for="CheckIn" id="CheckIn" type="text" placeholder="Insira a data para entrada..." 
+                            class="form-control" style="background-color: white !important;" required />
                         </div>
                         <div class="form-group col">
                             <label asp-for="CheckOut" class="control-label">Saída</label>
-                            <input asp-for="CheckOut" id="CheckOut" type="text" placeholder="Insira a data para saída..." class="form-control" required />
+                            <input asp-for="CheckOut" id="CheckOut" type="text" placeholder="Insira a data para saída..." 
+                            class="form-control" style="background-color: white !important;" required />
                         </div>
                         @* <button type="submit" class="btn btn-primary mt-02">Entrar</button> *@
 
@@ -466,13 +486,17 @@
                                 <div style="position:absolute;left:410px;bottom:0px;">
                                      
                                     <label class="control-labe;" >Preço da Diaria do Quarto</label>
-                                    <input class="form-control" id="PrecoQuartoInput" name="PrecoQuartoInput" readonly >
+                                    <input class="form-control" id="PrecoQuartoInput" name="PrecoQuartoInput" 
+                                    style="background-color: white !important;" readonly>
                                     <label class="control-label" > Tipo de Quarto</label>
-                                    <input class="form-control" id="TipoQuartoInput" name="TipoQuartoInput" readonly>
+                                    <input class="form-control" id="TipoQuartoInput" name="TipoQuartoInput" 
+                                    style="background-color: white !important;" readonly>
                                     <label class="control-label" >Valor Total</label>
-                                    <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" type="text" readonly/>
+                                    <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" type="text" 
+                                    style="background-color: white !important;" readonly />
                                     <label class="control-label"> Ar-Condicionado</label>
-                                    <input class="form-control" id="arCondicionadoInput" name="arCondicionadoInput" readonly />
+                                    <input class="form-control" id="arCondicionadoInput" name="arCondicionadoInput" 
+                                    style="background-color: white !important;" readonly />
                                 </div>
                             </div>
                         </div>
