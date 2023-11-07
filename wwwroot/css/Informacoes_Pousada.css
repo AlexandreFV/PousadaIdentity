@@ -1,0 +1,158 @@
+﻿body {
+}
+
+.faixa_como_chegar p {
+    position: relative;
+    display: inline-block;
+    background-color: #DFA67B;
+    padding: 1rem;
+    width: 26rem;
+    color: white;
+    border-radius: 0.625rem;
+    font-family: Carter One;
+    font-size: 2.5rem;
+}
+
+.faixa_como_chegar {
+    position: relative;
+    padding-top: 3%;
+}
+
+    .faixa_como_chegar p {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+.line_como_chegar_1 {
+    display: flex;
+    position: absolute;
+    background: #DFA67B;
+    width: 70rem;
+    height: 0.5rem;
+    margin-top: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+@media (max-width: 1199px) {
+    .line_como_chegar_1 {
+        width: 60rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .line_como_chegar_1 {
+        width: 100%;
+    }
+}
+
+.background_como_chegar {
+    background-color: white;
+    width: 100%;
+    height: 48rem;
+    border-radius: 2rem;
+    box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.25);
+}
+
+.text_google_maps p {
+    color: black;
+    font-family: Inter;
+    font-size: 1.875rem;
+    text-align: center;
+    padding-top: 1.87rem;
+}
+
+.text_google_maps svg {
+    width: 80%;
+    height: 0.2rem;
+    background: #DFA67B;
+}
+
+.google_maps {
+    text-align: center;
+}
+
+.google_maps img{
+    border-radius: 1rem;
+    width: 45rem;
+    height: 26rem;
+    margin-top: 2rem;
+    border: 5px solid rgb(61, 61, 61);
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 1400px){
+    .dados_endereco {
+        padding: 3rem 20rem;
+    }
+}
+
+@media (max-width: 1399px){
+    .dados_endereco {
+        padding: 3rem 15rem;
+    }
+}
+
+@media (max-width: 1199px) {
+    .dados_endereco {
+        padding: 3rem 10rem;
+    }
+}
+
+
+
+
+
+
+
+
+.faixa_contato p {
+    position: relative;
+    display: inline-block;
+    background-color: #DFA67B;
+    padding: 1rem;
+    width: 22rem;
+    color: white;
+    border-radius: 0.625rem;
+    font-family: Carter One;
+    font-size: 2.5rem;
+}
+
+.faixa_contato {
+    position: relative;
+    padding-top: 3%;
+}
+
+    .faixa_contato p {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+
+.line_contato_1 {
+    display: flex;
+    position: absolute;
+    background: #DFA67B;
+    width: 70rem;
+    height: 0.5rem;
+    margin-top: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+@media (max-width: 1199px) {
+    .line_contato_1 {
+        width: 60rem;
+    }
+}
+
+@media (max-width: 991px) {
+    .line_contato_1 {
+        width: 100%;
+    }
+}
