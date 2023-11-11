@@ -144,3 +144,23 @@
         margin-bottom: 10rem;
     }
 }
+
+
+
+.fade-in-out {
+    animation: fadeInOut 3s ease; /* Adiciona uma animação de 3 segundos com repetição infinita e aceleração (ease) */
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0; /* Começa invisível */
+    }
+
+    50% {
+        opacity: 1; /* Torna visível */
+    }
+
+    100% {
+        opacity: 0; /* Torna invisível novamente */
+    }
+}

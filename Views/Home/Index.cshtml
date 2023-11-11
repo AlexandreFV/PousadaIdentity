@@ -7,6 +7,15 @@
     ViewData["Title"] = "Home Page";
     <link link rel="stylesheet" href="/css/Index.css" asp-append-version="true" />
 } 
+<head>
+    <script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
 <!--
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
@@ -35,6 +44,15 @@
 </div>
 -->
 
+
+
+<div style="position:absolute;right: 0;z-index: 100 !important;top:10px;opacity:0;animation-duration: 7s;display:none;" id="notificationContainer" class="fade-in-out">
+    <div style="background-color:#FFFFFF;width:310px;height:70px;border-radius:10px;border-color:#DFA67B;border:2px solid #DFA67B;">
+        <img src="/Imagens/user (1).png" width="50px;" height="50px;" style="display:inline-block;position:relative;top:10px;" />
+        <p style="display:inline-block;position:relative;top:10px;">Bem Vindo, @User.Identity.Name</p>
+    </div>
+</div>
+
 <div class="container" id="container_principal">
     <div class="boas_vindas">
         <center>
@@ -55,3 +73,24 @@
         
     </div>
 </div>
+
+
+@section scripts {
+    <script>
+        // Exibir o modal ao carregar a página, se houver um indicador de sucesso
+        $(document).ready(function () {
+            var successIndicator = @(TempData["LoginSuccess"]?.ToString().ToLower() ?? "false");
+
+
+            if (successIndicator == true) {
+                // Exibe o modal
+                $('#notificationContainer').css('display', 'inline'); // Torna a div visível
+
+                $('#notificationContainer').addClass('fade-in-out');
+
+
+            }
+        });
+    </script>
+}
+
