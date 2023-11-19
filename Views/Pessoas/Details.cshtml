@@ -14,6 +14,16 @@
 
 <script>
     $(document).ready(function () {
+        $("#btnCargos").click(function () {
+            var userToken = $(this).data("token");
+            $("#userToken").val(userToken);
+            $("#cargosModal").modal("show");
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
         $('#btnAtualizarRole').click(function () {
             var novaRole = $('#novaRole').val(); // Obtenha a nova role do input
 
@@ -65,10 +75,10 @@
     <div style="position:relative;text-align: center;position:relative;">
         <a asp-action="Index" class="btn" style="background-color:#dc3545;color:#fff;">Voltar</a>
         <a asp-action="Edit" asp-route-id="@Model?.PessoaId" class="btn btn-primary" style="width:70px;">Editar</a>
-        @if (User.IsInRole("Funcionario"))
+        @if (User.IsInRole("Funcionario") && @Model?.PessoaId != 1)
         {
 
-            <button id="btnCargos" class="btn btn-primary">Cargos</button>
+            <button id="btnCargos" class="btn btn-primary" data-token="@Model?.Token">Cargos</button>
 
         }
 </div>
@@ -89,6 +99,8 @@
                 <div class="modal-body">
                     <label for="selectRoles">Cargo de @Html.DisplayFor(model => model.Email) </label>
                     <form method="get" action="/Pessoas/CheckForDuplicateTokens">
+                            <input type="hidden" name="userToken" id="userToken" />
+
                         <select name="roleSelecionada" class="form-select">
                             <option value="1">Cliente</option>
                             <option value="2">Funcionario</option>
