@@ -3,42 +3,44 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Create";
+    <link link rel="stylesheet" href="/css/Create_Reserva.css" asp-append-version="true" />
 }
 <head>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-    /*
-    $(document).ready(function () {
-        $('#CheckIn, #CheckOut, #QuartoID,#increase, #decrease').on('change click', function () {
-            calcularValorTotal();
-        });
+    <script>
 
-        function calcularValorTotal() {
-            var checkIn = new Date($('#CheckIn').val());
-            var checkUp = new Date($('#CheckOut').val());
-            var quartoID = $('#QuartoID').val();
+        /*
+        $(document).ready(function () {
+            $('#CheckIn, #CheckOut, #QuartoID,#increase, #decrease').on('change click', function () {
+                calcularValorTotal();
+            });
 
-            if (!isNaN(checkIn) && !isNaN(checkUp) && quartoID) {
-                var numeroDias = Math.ceil((checkUp - checkIn) / (1000 * 60 * 60 * 24));
+            function calcularValorTotal() {
+                var checkIn = new Date($('#CheckIn').val());
+                var checkUp = new Date($('#CheckOut').val());
+                var quartoID = $('#QuartoID').val();
 
-                $.get('/Reservas/ObterPrecoQuartoExibicao', { quartoID: quartoID }, function (data) {
-                    if (data && data.preco) {
-                        var valorTotal = numeroDias * data.preco;
-                        $('#ValorExibido').val(valorTotal.toFixed(2));
-                        ViewBag.ValorTotalReserva = valorTotal; // onde "valorTotal" é o valor calculado
+                if (!isNaN(checkIn) && !isNaN(checkUp) && quartoID) {
+                    var numeroDias = Math.ceil((checkUp - checkIn) / (1000 * 60 * 60 * 24));
 
-                    } else {
-                        console.error('Erro ao obter preço do quarto.');
-                    }
-                });
+                    $.get('/Reservas/ObterPrecoQuartoExibicao', { quartoID: quartoID }, function (data) {
+                        if (data && data.preco) {
+                            var valorTotal = numeroDias * data.preco;
+                            $('#ValorExibido').val(valorTotal.toFixed(2));
+                            ViewBag.ValorTotalReserva = valorTotal; // onde "valorTotal" é o valor calculado
+
+                        } else {
+                            console.error('Erro ao obter preço do quarto.');
+                        }
+                    });
+                }
             }
-        }
-    });*/
+        });*/
 
 
 
@@ -81,152 +83,159 @@
             }
         });
 
-    // Função para atualizar os campos em tempo real
-    function atualizarCampos() {
-        var quartoId = $('#QuartoID').val();
+        // Função para atualizar os campos em tempo real
+        function atualizarCampos() {
+            var quartoId = $('#QuartoID').val();
 
-        if (quartoId) {
-            $.get('/Reservas/ObterInformacoesQuarto', { quartoId: quartoId }, function (data) {
-                if (data && data.preco && data.tipo) {
-                    $('#PrecoQuartoInput').val(data.preco);
-                    $('#TipoQuartoInput').val(data.tipo);
-                    $('#ImagemQuarto').attr('src', 'data:image/jpeg;base64,' + data.imagem);
-                    console.log("imagem: " + data.imagem);
-                } else {
-                    console.error('Erro ao obter informações do quarto.');
+            if (quartoId) {
+                $.get('/Reservas/ObterInformacoesQuarto', { quartoId: quartoId }, function (data) {
+                    if (data && data.preco && data.tipo) {
+                        $('#PrecoQuartoInput').val(data.preco);
+                        $('#TipoQuartoInput').val(data.tipo);
+                        $('#arCondicionadoInput').val(data.arCondicionado);
+                        $('#ImagemQuarto').attr('src', 'data:image/jpeg;base64,' + data.imagem);
+                        console.log("imagem: " + data.imagem);
+                    } else {
+                        console.error('Erro ao obter informações do quarto.');
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function () {
+            // Chame a função na carga da página
+            atualizarCampos();
+
+            // Adicione um manipulador de evento ao 'change' do select
+            $('#QuartoID').on('change', function () {
+                atualizarCampos();
+            });
+        });
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var select = document.getElementById("QuartoID");
+            var increaseButton = document.getElementById("increase");
+            var decreaseButton = document.getElementById("decrease");
+
+            // Função para verificar e atualizar a desabilitação dos botões
+            function updateButtonAvailability() {
+                var selectedIndex = select.selectedIndex;
+                var optionCount = select.options.length;    
+
+                increaseButton.disabled = selectedIndex >= optionCount - 1;
+                decreaseButton.disabled = selectedIndex <= 0;
+            }
+
+            // Inicialmente, atualize o estado dos botões
+            updateButtonAvailability();
+
+            // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
+            increaseButton.addEventListener("click", function () {
+                if (!increaseButton.disabled) {
+
+                select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
+                atualizarCampos();
+                updateButtonAvailability();
                 }
             });
-        }
-    }
 
-    $(document).ready(function () {
-        // Chame a função na carga da página
-        atualizarCampos();
-
-        // Adicione um manipulador de evento ao 'change' do select
-        $('#QuartoID').on('change', function () {
-            atualizarCampos();
+            decreaseButton.addEventListener("click", function () {
+                if (!decreaseButton.disabled) {
+                select.selectedIndex = Math.max(0, select.selectedIndex - 1);
+                atualizarCampos();
+                updateButtonAvailability();
+                }
+            });
         });
-    });
 
+        /*
+        document.addEventListener("DOMContentLoaded", function () {
+            var select = document.getElementById("QuartoID");
+            var increaseButton = document.getElementById("increase");
+            var decreaseButton = document.getElementById("decrease");
 
+            // Função para verificar e atualizar a desabilitação dos botões
+            function updateButtonAvailability() {
+                var selectedIndex = select.selectedIndex;
+                var optionCount = select.options.length;
 
-    document.addEventListener("DOMContentLoaded", function () {
-        var select = document.getElementById("QuartoID");
-        var increaseButton = document.getElementById("increase");
-        var decreaseButton = document.getElementById("decrease");
+                increaseButton.disabled = selectedIndex >= optionCount - 1;
+                decreaseButton.disabled = selectedIndex <= 0;
+            }
 
-        // Função para verificar e atualizar a desabilitação dos botões
-        function updateButtonAvailability() {
-            var selectedIndex = select.selectedIndex;
-            var optionCount = select.options.length;
-
-            increaseButton.disabled = selectedIndex >= optionCount - 1;
-            decreaseButton.disabled = selectedIndex <= 0;
-        }
-
-        // Inicialmente, atualize o estado dos botões
-        updateButtonAvailability();
-
-        // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
-        increaseButton.addEventListener("click", function () {
-            select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
-            atualizarCampos();
+            // Inicialmente, atualize o estado dos botões
             updateButtonAvailability();
-        });
 
-        decreaseButton.addEventListener("click", function () {
-            select.selectedIndex = Math.max(0, select.selectedIndex - 1);
-            atualizarCampos();
-            updateButtonAvailability();
-        });
-    });
+            // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
+            increaseButton.addEventListener("click", function () {
+                select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
 
+                updateButtonAvailability();
+                calcularValorTotal(); // Atualize o valor total após alterar a seleção
+            });
 
-    document.addEventListener("DOMContentLoaded", function () {
-        var select = document.getElementById("QuartoID");
-        var increaseButton = document.getElementById("increase");
-        var decreaseButton = document.getElementById("decrease");
+            decreaseButton.addEventListener("click", function () {
+                select.selectedIndex = Math.max(0, select.selectedIndex - 1);
+                updateButtonAvailability();
+                calcularValorTotal(); // Atualize o valor total após alterar a seleção
+            });
 
-        // Função para verificar e atualizar a desabilitação dos botões
-        function updateButtonAvailability() {
-            var selectedIndex = select.selectedIndex;
-            var optionCount = select.options.length;
-
-            increaseButton.disabled = selectedIndex >= optionCount - 1;
-            decreaseButton.disabled = selectedIndex <= 0;
-        }
-
-        // Inicialmente, atualize o estado dos botões
-        updateButtonAvailability();
-
-        // Adicione ouvintes de eventos aos botões para atualizar o estado ao clicar
-        increaseButton.addEventListener("click", function () {
-            select.selectedIndex = Math.min(select.options.length - 1, select.selectedIndex + 1);
-
-            updateButtonAvailability();
-            calcularValorTotal(); // Atualize o valor total após alterar a seleção
-        });
-
-        decreaseButton.addEventListener("click", function () {
-            select.selectedIndex = Math.max(0, select.selectedIndex - 1);
-            updateButtonAvailability();
-            calcularValorTotal(); // Atualize o valor total após alterar a seleção
-        });
-    });
+        });*/
 
 
 
 
-            $(document).ready(function () {
-                var selectedQuartoID;
-                var datesUnavailable = [];
+        $(document).ready(function () {
+            var selectedQuartoID;
+            var datesUnavailable = [];
 
-                // Função para carregar datas indisponíveis
-                function loadDatesUnavailable() {
-                    selectedQuartoID = $('#QuartoID').val();
-                    if (!selectedQuartoID) {
-                        return;
-                    }
-                    $.get('/Reservas/GetDatesUnavailable', { quartoId: selectedQuartoID }, function (data) {
-                        datesUnavailable = data.map(function (date) {
-                            return new Date(date);
-                        });
+            // Função para carregar datas indisponíveis
+            function loadDatesUnavailable() {
+                selectedQuartoID = $('#QuartoID').val();
+                if (!selectedQuartoID) {
+                    return;
+                }
+                $.get('/Reservas/GetDatesUnavailable', { quartoId: selectedQuartoID }, function (data) {
+                    datesUnavailable = data.map(function (date) {
+                        return new Date(date);
+                    });
                     console.log("Datas: ", datesUnavailable)
 
-                        // Configurar o Datepicker para o campo CheckIn
-                        $("#CheckIn").datepicker({
-                            dateFormat: "dd/mm/yy",
-                            minDate: 1,
-                            beforeShowDay: function (date) {
-                                var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
-                                var isDateAvailable = !datesUnavailable.some(function (unavailable) {
-                                    return date.getTime() === unavailable.getTime();
-                                });
+                    // Configurar o Datepicker para o campo CheckIn
+                    $("#CheckIn").datepicker({
+                        dateFormat: "dd/mm/yy",
+                        minDate: 1,
+                        beforeShowDay: function (date) {
+                            var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
+                            var isDateAvailable = !datesUnavailable.some(function (unavailable) {
+                                return date.getTime() === unavailable.getTime();
+                            });
 
-                                return [date >= new Date() && isDateAvailable];
-                            }
-                        });
+                            return [date >= new Date() && isDateAvailable];
+                        }
+                    });
 
-                        // Configurar o Datepicker para o campo CheckOut
-                        $("#CheckOut").datepicker({
-                            dateFormat: "dd/mm/yy",
-                            minDate: 1,
-                            beforeShowDay: function (date) {
-                                var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
-                                var isDateAvailable = !datesUnavailable.some(function (unavailable) {
-                                    return date.getTime() === unavailable.getTime();
-                                });
+                    // Configurar o Datepicker para o campo CheckOut
+                    $("#CheckOut").datepicker({
+                        dateFormat: "dd/mm/yy",
+                        minDate: 1,
+                        beforeShowDay: function (date) {
+                            var stringDate = $.datepicker.formatDate('dd/mm/yy', date);
+                            var isDateAvailable = !datesUnavailable.some(function (unavailable) {
+                                return date.getTime() === unavailable.getTime();
+                            });
 
-                                return [date >= new Date() && isDateAvailable];
-                            }
-                        });
+                            return [date >= new Date() && isDateAvailable];
+                        }
+                    });
                     $("#CheckIn, #CheckOut").attr("readonly", true);
 
-                    });
-                }
+                });
+            }
 
-                
+
 
             function updateDatesAndID() {
                 loadDatesUnavailable();
@@ -247,27 +256,60 @@
 
 
 
-</script>
+    </script>
+
 </head>
 
 
 <style>
 
-    label{
-        color: black;   
+    label {
+        color: black;
     }
 
-    body{
-        background-color:lightgrey;
+    body {
+        background-color: lightgrey;
     }
 
 
-   
+
+
+    .slide-button {
+        width: 40px;
+        height: 300px;
+        color: #333;
+        font-size: 24px;
+        border: none;
+        position: absolute;
+        bottom: 83px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f0f0f0; /* Fundo cinza claro */
+    }
+
+    .left-arrow {
+        left: 80px;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .right-arrow {
+        right: 80px;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    /* Oculte os botões quando desabilitados */
+    .slide-button[disabled] {
+        display: none;
+    }
+
 
 </style>
 
 
-
+<!--
 <h1>Create</h1>
 
 <h4>Reserva</h4>
@@ -292,7 +334,7 @@
                         <button type="button" id="increase">></button>
                     </div>
                     <label class="control-label">Preço do Quarto</label>
-                    <input class="form-control" id="PrecoQuartoInput" name="PrecoQuartoInput" readonly>
+                        <input class="form-control" id="PrecoQuartoInput" name="PrecoQuartoInput" readonly>
                     <label class="control-label">Tipo de Quarto</label>
                     <input class="form-control" id="TipoQuartoInput" name="TipoQuartoInput" readonly>
                     </div>
@@ -319,16 +361,16 @@
                 <input asp-for="DataReservada" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="text" />
                 <span asp-validation-for="DataReservada" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group" style="display:none;visibility:hidden;">
                 <label asp-for="Estado" class="control-label"></label>
-                <select asp-for="Estado" class="form-control">                
+                <select asp-for="Estado" class="form-control">
                 <option value="Não Pago">Não Pago</option>
                 <option value="Pago">Pago</option>
                 <span asp-validation-for="Estado" class="text-danger"></span>
                     </select>
 
-            </div>     
+            </div>
             <div class="form-group" style="display:none;visibility:hidden;">
                 <label asp-for="PessoaId" class="control-label"></label>
                 <input asp-for="PessoaId" class="form-control" value="@HttpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId")"/>
@@ -344,6 +386,180 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
+-->
+
+<div class="container">
+
+    <div class="faixa_reservar">
+        <svg class="line_reservar_1"></svg>
+        <svg class="line_reservar_2"></svg>
+        <p>Reservar</p>
+    </div>
+
+    <div class="container">
+        <div class="background_reservar_principal">
+            <div class="faixa_aviso_reservar">
+                <p style="text-align: center; line-height: 1.2;">Reservar <br />de outra forma</p>
+            </div>
+            <div class="text_aviso_reservar">
+                <p>
+                    Caso prefira, temos <br />
+                    disponível outras formas <br />
+                    para um melhor conforto <br />
+                    na hora de realizar sua <br />
+                    reserva. Confira:
+                </p>
+            </div>
+            <div class="faixa_whatsapp_reservar">
+                <img src="/Imagens/icon_whatsapp.png" />
+                <p>WhatsApp: <br /> (16) X XXXX-XXXX</p>
+            </div>
+            <div class="text_whatsapp_reservar">
+                <p>
+                    Não hesite em nos <br />
+                    mandar uma mensagem, <br />
+                    afinal, queremos o melhor <br />
+                    para nossos hóspedes. <br />
+                </p>
+            </div>
+            <div class="faixa_telefone_reservar">
+                <img src="/Imagens/icon_telefone (2).png" />
+                <p>Telefone: <br /> (16) XXXX-XXXX</p>
+            </div>
+            <div class="text_telefone_reservar">
+                <p>
+                    Se necessário, também <br />
+                    podemos realizar sua <br />
+                    reserva pelo telefone. <br />
+                    Tudo para seu bem-estar e <br />
+                    conforto. <br />
+                </p>
+            </div>
+            
+            <div class="faixa_observacao_login">
+                <p>
+                    Observação: <br />
+                    Horário de atendimento das <br /> 8:00h às 21:00h.
+                </p>
+            </div>
+            <div class="background_form">
+                <p>Dados para reserva</p>
+                <center>
+                    <svg class="line_form"></svg>
+                </center>
+                <form asp-action="Create" enctype="multipart/form-data" class="container_form">
+                    <div asp-validation-summary="All" class="text-danger">
+
+                        <div class="form-group col" >
+                            <label asp-for="CheckIn" class="control-label">Entrada</label>
+                            <input asp-for="CheckIn" id="CheckIn" type="text" placeholder="Insira a data para entrada..." 
+                            class="form-control" style="background-color: white !important;" required />
+                        </div>
+                        <div class="form-group col">
+                            <label asp-for="CheckOut" class="control-label">Saída</label>
+                            <input asp-for="CheckOut" id="CheckOut" type="text" placeholder="Insira a data para saída..." 
+                            class="form-control" style="background-color: white !important;" required />
+                        </div>
+                        @* <button type="submit" class="btn btn-primary mt-02">Entrar</button> *@
+
+                        @* <center>
+                        <div class="btn_form_entrar">
+                        <!-- <a class="desc_btn_form_entrar" href="#">Entrar</a> -->
+                        <button type="submit" class="desc_btn_form_entrar">Entrar</button>
+
+                        </div>
+                        </center> *@
+                    </div>
+
+                    <p>Selecione o quarto desejado</p>
+                    <center>
+                        <svg class="line_form"></svg>
+                    </center>
+
+                    <div style="width:1000px;">
+
+
+                        <div class="carousel-inner"> 
+                            <div>
+                                <img id="ImagemQuarto" style="width:400px;height:300px;display:inline-block;position:relative;" />
+                                <div style="position:absolute;left:410px;bottom:0px;">
+                                     
+                                    <label class="control-labe;" >Preço da Diaria do Quarto</label>
+                                    <input class="form-control" id="PrecoQuartoInput" name="PrecoQuartoInput" 
+                                    style="background-color: white !important;" readonly>
+                                    <label class="control-label" > Tipo de Quarto</label>
+                                    <input class="form-control" id="TipoQuartoInput" name="TipoQuartoInput" 
+                                    style="background-color: white !important;" readonly>
+                                    <label class="control-label" >Valor Total</label>
+                                    <input class="form-control" id="ValorExibido" value="@ViewBag.ValorTotalReserva" type="text" 
+                                    style="background-color: white !important;" readonly />
+                                    <label class="control-label"> Ar-Condicionado</label>
+                                    <input class="form-control" id="arCondicionadoInput" name="arCondicionadoInput" 
+                                    style="background-color: white !important;" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div style="visibility:hidden;display:none;">
+
+                                <label asp-for="QuartoID" class="control-label"></label>
+                                <select asp-for="QuartoID" class="form-control" asp-items="ViewBag.QuartoID" id="QuartoID">
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <button type="button" id="decrease" class="slide-button left-arrow">&lt;</button>
+                            <button type="button" id="increase" class="slide-button right-arrow">&gt;</button>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                     
+
+                        <input asp-for="ValorTotalReserva" class="form-control" style="visibility:hidden;display:none;" readonly required/>
+                    </div>
+                 
+                 
+                    <div class="form-group" style="display:none;visibility:hidden;">
+                        <label asp-for="DataReservada" class="control-label"></label>
+                        <input asp-for="DataReservada" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" type="text" />
+                        <span asp-validation-for="DataReservada" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group" style="display:none;visibility:hidden;">
+                        <label asp-for="Estado" class="control-label"></label>
+                        <select asp-for="Estado" class="form-control">
+                            <option value="Não Pago">Não Pago</option>
+                            <option value="Pago">Pago</option>
+                            <span asp-validation-for="Estado" class="text-danger"></span>
+                        </select>
+
+                    </div>
+                    <div class="form-group" style="display:none;visibility:hidden;">
+                        <label asp-for="PessoaId" class="control-label"></label>
+                        <input asp-for="PessoaId" class="form-control" value="@HttpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId")" />
+                    </div>
+
+
+                    <div style="position:relative; text-align: center;">
+                        <a asp-action="Index" class="btn btn-danger">Voltar</a>
+                        <input type="submit" value="Criar" class="btn btn-success" />
+                    </div>
+
+
+                </form>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -2,17 +2,20 @@
 
 @{
     ViewData["Title"] = "Index";
+    <link link rel="stylesheet" href="/css/Index_Pessoa.css" asp-append-version="true" />
 }
 
 
 
-<h1>Index</h1>
+<div class="faixa_entrar">
+    <svg class="line_entrar_1"></svg>
+    <svg class="line_entrar_2"></svg>
+    <p>Gerenciar pessoas</p>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+
+<table class="table" style="width:90%;margin:0 auto;">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
@@ -21,15 +24,14 @@
                 @Html.DisplayNameFor(model => model.CPF)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Senha)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Usuario)
             </th>
-            <th></th>
+            <th style="text-align: center;">
+               <p style="margin-bottom: 0 !important;">Processo</p>
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -42,18 +44,15 @@
                 @Html.DisplayFor(modelItem => item.CPF)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Senha)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Usuario)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.PessoaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PessoaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PessoaId">Delete</a>
+            <td style="text-align: center;">    
+            <a asp-action="Edit" asp-route-id="@item.PessoaId" class="btn" style="background-color:#DFA67B;color:white;">Editar</a> |
+            <a asp-action="Details" asp-route-id="@item.PessoaId" class="btn btn-primary" style="width:90px;">Detalhes</a> |
+            <a asp-action="Delete" asp-route-id="@item.PessoaId" class="btn btn-danger">Excluir</a>
             </td>
         </tr>
 }

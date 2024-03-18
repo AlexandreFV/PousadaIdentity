@@ -14,6 +14,16 @@
 
 <script>
     $(document).ready(function () {
+        $("#btnCargos").click(function () {
+            var userToken = $(this).data("token");
+            $("#userToken").val(userToken);
+            $("#cargosModal").modal("show");
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
         $('#btnAtualizarRole').click(function () {
             var novaRole = $('#novaRole').val(); // Obtenha a nova role do input
 
@@ -24,12 +34,18 @@
     });
 </script>
 
-<h1>Details</h1>
+<div style="width:450px;background-color:#FFFF;position:relative;top:20px;border-radius:10px;
+    top:20px;margin-left:auto;margin-right:auto;height:380px;">
+
+
+    <h1 style="position:relative;margin-left:auto;margin-right:auto;margin:0;text-align:center;
+    background-color:#DFA67B;color:white;border-top-left-radius:10px;border-top-right-radius:10px;">
+        Detalhes de Pessoa
+    </h1>
+    <hr style="position:relative;bottom:16px;" />
 
 <div>
-    <h4>Pessoa</h4>
-    <hr />
-    <dl class="row">
+    <dl>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
@@ -41,12 +57,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.CPF)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Senha)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Senha)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Email)
@@ -62,44 +72,47 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.PessoaId">Edit</a> |
+    <div style="position:relative;text-align: center;position:relative;">
+        <a asp-action="Index" class="btn" style="background-color:#dc3545;color:#fff;">Voltar</a>
+        <a asp-action="Edit" asp-route-id="@Model?.PessoaId" class="btn btn-primary" style="width:70px;">Editar</a>
+        @if (User.IsInRole("Funcionario") && @Model?.PessoaId != 1)
+        {
 
-    <a asp-action="Index">Back to List</a>
+            <button id="btnCargos" class="btn btn-primary" data-token="@Model?.Token">Cargos</button>
+
+        }
 </div>
 
 
-@if (User.IsInRole("Funcionario"))
-{
-
-    <button id="btnCargos" class="btn btn-primary">Cargos</button>
-}
 
 @if (User.IsInRole("Funcionario"))
 { 
 <div class="modal fade" id="cargosModal" tabindex="-1" role="dialog" aria-labelledby="cargosModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="height:220px;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Título do Modal</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Cargos</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <label for="selectRoles">Cargos</label>
+                    <label for="selectRoles">Cargo de @Html.DisplayFor(model => model.Email) </label>
                     <form method="get" action="/Pessoas/CheckForDuplicateTokens">
-                        <select name="roleSelecionada">
+                            <input type="hidden" name="userToken" id="userToken" />
+
+                        <select name="roleSelecionada" class="form-select">
                             <option value="1">Cliente</option>
                             <option value="2">Funcionario</option>
                         </select>
-                        <button type="submit">Verificar e Atualizar Role</button>
+                        <center>
+                        <button type="submit"style="position:relative;top:20px;" class="btn btn-success">Atualizar Cargo</button>
+                         </center>
                     </form>
-
                 </div>
-            
             </div>
         </div>
     </div>
 } 
 
+</div>

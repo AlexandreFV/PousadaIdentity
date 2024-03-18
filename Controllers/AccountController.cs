@@ -123,11 +123,12 @@ namespace PousadaIdentity.Controllers
 
                     // Faça login com o principal que contém as claims
                     await HttpContext.SignInAsync(userPrincipal);
+                    TempData["LoginSuccess"] = true;
                     return RedirectToAction("Index", "Home");
-                
+
                 }
 
-                ModelState.AddModelError(string.Empty, "Login Invalido");
+                ModelState.AddModelError(string.Empty, "Usuario ou Senha incorretos");
             }
             return View(model);
         }

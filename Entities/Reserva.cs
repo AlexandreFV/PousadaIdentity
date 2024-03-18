@@ -20,6 +20,7 @@ namespace PousadaIdentity.Entities
         [DataCheckOutMaiorQueCheckIn] // Aplica a validação personalizada
         public DateTime CheckOut { get; set; }
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataReservada { get; set; }
 
         public string? Estado { get; set; } 

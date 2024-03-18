@@ -1,9 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PousadaIdentity</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Header_Footer.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PousadaIdentity.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PousadaIdentity.styles.css" asp-append-version="true" />
@@ -12,55 +27,194 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PousadaIdentity</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-            
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Create">Criar Reserva</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Index">Lista de Reserva</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Quartos" asp-action="Create">Adicionar Quartos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Quartos" asp-action="Index">Lista de Quartos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pessoas" asp-action="Index">Lista de Pessoas</a>
-                        </li>
-                    </ul>
-                    <partial name="LoginPartial.cshtml" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
+
+
+</head>
+
+<style>
+    .main {
+        margin-bottom: 10%;
+    }
+</style>
+<body class="body_principal" id="body_principal">
+
+    <!-- <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+         <div class="container-fluid">
+             <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PousadaIdentity</a>
+             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                     aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+             </button>
+             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                 <ul class="navbar-nav flex-grow-1">
+                     <li class="nav-item">
+                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                     </li>
+
+                     <li class="nav-item">
+                         <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Create">Criar Reserva</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-dark" asp-area="" asp-controller="Reservas" asp-action="Index">Lista de Reserva</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-dark" asp-area="" asp-controller="Quartos" asp-action="Create">Adicionar Quartos</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-dark" asp-area="" asp-controller="Quartos" asp-action="Index">Lista de Quartos</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link text-dark" asp-area="" asp-controller="Pessoas" asp-action="Index">Lista de Pessoas</a>
+                     </li>
+                 </ul>
+                 <partial name="LoginPartial.cshtml" />
+
+             </div>
+         </div>
+     </nav> -->
+
+
+    <div class="header" id="header">
+        <button onclick="toggleMenuLateral()" class="btn_menu">
+            <img src="/Imagens/Menu_hamburguer.png" />
+        </button>
+        <div class="logo_header">
+            <div class="nome_logo">
+                <a asp-controller="Home" asp-action="Index">Pousada Palimar</a>
+            </div>
+            <div class="img_header">
+                <a asp-controller="Home" asp-action="Index"> <img class="img_logo_header" src="/Imagens/ícone Pessoa dormindo2 5.png" /> </a>
+            </div>
+        </div>
+        <div class="navigation_header">
+
+            <div class="active">
+                <a asp-controller="Home" asp-action="Index" class="btn_header_inicio">Início</a>
+            </div>
+            <a asp-controller="Reservas" asp-action="Index">Minhas reservas</a>
+            <a asp-controller="Informacoes" asp-action="Informacoes_Pousada">Contato</a>
+            <div class="opcoes">
+                <a id="mais">
+                    Mais
+                    <img class="img_opcoes" src="/Imagens/Flecha inferior.png" />
+                </a>
+                <div class="dropdown-content" id="myDropdown">
+                    @if (User.IsInRole("Funcionario"))
+                    {
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Quartos" asp-action="Index">Gerenciar Quartos</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Pessoas" asp-action="Index">Gerenciar Pessoas</a>
+                    }
+
+                    <a href="#">Como Chegar</a>
+                    <a href="#">Galeria</a>
+                    <a href="#">Sobre Nós</a>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        </div>
+
+        <partial name="LoginPartial.cshtml" />
+
+        <div class="menu_lateral" id="menu_lateral">
+            <div class="background_menu1">
+                <a href="#" onclick="toggleMenuLateral()" class="btn_menu_fechar">
+                    <img src="/Imagens/Btn_fechar_menu.png" />
+                </a>
+                <div class="account_menu">
+                    <a asp-controller="Account" asp-action="Login" class="btn_entrar" style="">Entrar</a>
+                    <p class="ou" style="">ou</p>
+                    <a asp-controller="Account" asp-action="Register" class="btn_cadastrar">Cadastrar</a>
+                </div>
+                <span class="linha_menu"></span>
+                <div class="btn_meu_perfil_menu">
+                    <a href="#" class="meu_perfil_menu">
+                        Meu perfil
+                        <img class="img_user_menu" src="/Imagens/Icon_user.png" />
+                    </a>
+                </div>
+                <div class="btn_minhas_reservas_menu">
+                    <a href="#" class="minhas_reservas_menu">
+                        Minhas reservas
+                        <img class="img_calendario_menu" src="/Imagens/Calendario.png" />
+                    </a>
+                </div>
+
+            </div>
+            <div class="background_menu2">
+                <div class="btn_menu_inicio">
+                    <a href="#" class="desc_menu_inicio">
+                        Início
+                        <img class="img_home_menu" src="/Imagens/icon_home.png" />
+                    </a>
+                </div>
+                <div class="btn_menu_como_chegar">
+                    <a href="#" class="desc_menu_como_chegar">
+                        Como chegar
+                        <img class="img_localiz_menu" src="/Imagens/icon_localizacao.png" />
+                    </a>
+                </div>
+                <div class="btn_menu_contato">
+                    <a href="#" class="desc_menu_contato">
+                        Contato
+                        <img class="img_contato_menu" src="/Imagens/icon_telefone.png" />
+                    </a>
+                </div>
+                <div class="btn_menu_galeria">
+                    <a href="#" class="desc_menu_galeria">
+                        Galeria
+                        <img class="img_galeria_menu" src="/Imagens/icon_galeria.png" />
+                    </a>
+                </div>
+                <div class="btn_menu_sobre_nos">
+                    <a href="#" class="desc_menu_sobre_nos">
+                        Sobre nós
+                        <img class="img_sobre_nos_menu" src="/Imagens/icon_info.png" />
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2023 - PousadaIdentity - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+    <main tabindex="0" onclick="closeMenuLateral()" role="main" class="" id="main_principal" style="position:relative;margin-bottom:7%;">
+        @RenderBody()
+
+    </main>
+
+
+
+    <footer class="footer">
+        <div class="footer_nome" style="align-items: center; display: flex; color: white;">
+            2023 - Projeto Pousada Palimar
+        </div>
+
+        <div class="integrantes" style="display: flex;">
+
+            <p style="border-bottom: 0; color: white;">Integrantes:</p>
+
+            <div class="nome_integrantes" style="color: white;">
+                <ul>
+                    <li>Alexandre José Peixoto dos Santos</li>
+                    <li>Arthur Américo Durante</li>
+                    <li>Fernando Felipe dos Santos</li>
+                </ul>
+            </div>
         </div>
     </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Header_Footer.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -71,4 +225,3 @@
 </body>
 </html>
 
-  

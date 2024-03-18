@@ -4,57 +4,64 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div style="width:450px;background-color:#FFFF;position:relative;top:20px;border-radius:10px;
+    top:20px;margin-left:auto;margin-right:auto;height:580px;">
 
-<h4>Quarto</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <h1 style="position:relative;margin-left:auto;margin-right:auto;margin:0;text-align:center;
+    background-color:#DFA67B;color:white;border-top-left-radius:10px;border-top-right-radius:10px;">
+        Criar Quarto
+    </h1>
+    <hr style="position:relative;bottom:16px;" />
+
+<div>
+    <div class="col-md-12">
         <form asp-action="Create" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="All" class="text-danger">
+            <div asp-validation-summary="None" class="text-danger">
 
                 <div class="form-group">
                     <label asp-for="Imagem" class="control-label"></label>
-                    <input asp-for="Imagem" type="file" class="form-control" />
-                    <span asp-validation-for="Imagem" class="text-danger"></span>
+                    <input asp-for="Imagem" type="file" class="form-control" accept="image/*"  required/>
                 </div>
             <div class="form-group" style="visibility:hidden;display:none;">
                 <label asp-for="Disponibilidade" class="control-label"></label>
-                <select asp-for="Disponibilidade" class="form-control">
+                <select asp-for="Disponibilidade" class="form-control" required>
                 <option value="Disponivel">Disponivel</option>
-                <span asp-validation-for="Disponibilidade" class="text-danger"></span>
                 </select>
             </div>
             <div class="form-group">
                 <label asp-for="Numero" class="control-label"></label>
-                <input asp-for="Numero" class="form-control" />
-                <span asp-validation-for="Numero" class="text-danger"></span>
+                <input asp-for="Numero" class="form-control" required/>
             </div>
             <div class="form-group">
                 <label asp-for="Tipo" class="control-label"></label>
-                <input asp-for="Tipo" class="form-control" />
-                <span asp-validation-for="Tipo" class="text-danger"></span>
+                <select asp-for="Tipo" class="form-control" required>
+                <option value="Quarto de Solteiro">Quarto de Solteiro</option>
+                <option value="Quarto Duplo">Quarto Duplo</option>
+                <option value="Quarto Triplo">Quarto Triplo</option>
+                <option value="Quarto de Casal">Quarto de Casal</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="ArCondicionado" class="control-label"></label>
-                <input asp-for="ArCondicionado" class="form-control" />
-                <span asp-validation-for="ArCondicionado" class="text-danger"></span>
+                <select asp-for="ArCondicionado" class="form-control" required>
+                <option value="Possui">Possui</option>
+                <option value="Não-Possui">Não-Possui</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Preco" class="control-label"></label>
-                <input asp-for="Preco" class="form-control" type="number"/>
-                <span asp-validation-for="Preco" class="text-danger"></span>
+                <input asp-for="Preco" class="form-control" type="number" required/>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <div style="position:relative;text-align: center;position:relative;bottom:0px;">
+                <a asp-action="Index" class="btn btn-danger">Voltar</a>
+                <input type="submit" value="Criar" class="btn btn-primary" />
+
             </div>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

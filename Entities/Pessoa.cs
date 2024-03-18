@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace PousadaIdentity.Entities
 {
     public class Pessoa
     {
-
+        [DisplayName("Nome de Pessoa")]
         [Key]
         public int PessoaId { get; set; }
 

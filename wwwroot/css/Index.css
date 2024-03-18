@@ -1,0 +1,166 @@
+﻿body {
+
+}
+
+#container_principal{   
+    min-width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.boas_vindas{
+    position: relative;
+
+}
+
+.desc_boas_vindas{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+}
+
+.desc_boas_vindas p{
+    font-family: carter one;
+}
+
+.p_bemvindo {
+    font-size: 2.8125rem;
+    margin-bottom: -0.5rem;
+}
+
+.p_pousada{
+    font-size: 3.60rem;
+}
+
+.img_boas_vindas{
+    filter: brightness(0.8);
+}
+
+.desc_faixa {
+    position: absolute;
+    top: 41%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    background-color: #DFA67B;
+    padding: 0.13rem 0.87rem;
+    border-radius: 0.4375rem;
+}
+
+.desc_faixa p {
+    font-family: carter one;
+    font-size: 1.375rem;
+    margin-bottom: 0;
+}
+
+.line_e {
+    background: #DFA67B;
+    width: 5.1875rem;
+    height: 0.25rem;
+    position: absolute;
+    top: 41%;
+    left: 100%;
+    text-align: center;
+}
+
+.line_d {
+    background: #DFA67B;
+    width: 5.1875rem;
+    height: 0.25rem;
+    position: absolute;
+    top: 55%;
+    left: 0;
+    transform: translate(-100%, -100%);
+    text-align: center;
+}
+
+.btn_reservar_agora a{
+    color: white;
+    text-decoration: none !important;
+}
+
+.btn_reservar_agora a:hover {
+    background-color: #418F9F;
+    border: none;
+    padding-top: 1.2rem;
+    font-size: 1.8125rem;
+}
+
+.desc_btn_reservar_agora {
+    position: absolute;
+    text-decoration: none !important;
+    color: white;
+    font-family: Inter;
+    font-size: 1.75rem;
+    font-weight: bold;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 23.18919rem;
+    height: 5.5rem;
+    border-radius: 1.25rem;
+    border: 5px solid #439BAE;
+    background: rgba(51, 109, 122, 0.70);
+    padding-top: 1rem;
+}
+
+@media (min-width: 1200px) {
+    .img_boas_vindas {
+        width: 90%;
+        height: 95%;
+        padding-bottom: 5rem;
+    }
+
+    #container_principal {
+        margin-bottom: 8rem;
+    }
+}
+
+@media (min-width: 1500px) {
+    .img_boas_vindas {
+        width: 85%;
+    }
+
+    #container_principal{
+        margin-bottom: 5rem;
+    }
+}
+
+@media (max-width: 1199px){
+    .img_boas_vindas {
+        width: 100%;
+        height: 90%;
+       /* height: 50.5rem; */
+       
+    }
+
+    #container_principal {
+        margin-bottom: 10rem;
+    }
+}
+
+
+
+.fade-in-out {
+    animation: fadeInOut 3s ease; /* Adiciona uma animação de 3 segundos com repetição infinita e aceleração (ease) */
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0; /* Começa invisível */
+    }
+
+    50% {
+        opacity: 1; /* Torna visível */
+    }
+
+    100% {
+        opacity: 0; /* Torna invisível novamente */
+    }
+}

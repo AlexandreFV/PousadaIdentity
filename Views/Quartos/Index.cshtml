@@ -2,15 +2,20 @@
 
 @{
     ViewData["Title"] = "Index";
+    <link link rel="stylesheet" href="/css/Index_Quarto.css" asp-append-version="true" />
 }
 
-<h1>Index</h1>
+<div class="faixa_entrar">
+    <svg class="line_entrar_1"></svg>
+    <svg class="line_entrar_2"></svg>
+    <p>Gerenciar quartos</p>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+@* <p>
+    <a asp-action="Create">Criar Novo Quarto</a>
+</p> *@
+<table class="table" style="width:90%;margin:0 auto;">
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Disponibilidade)
@@ -27,10 +32,21 @@
             <th>
                 @Html.DisplayNameFor(model => model.Preco)
             </th>
-            <th></th>
+            <th style="">
+                <p style="margin-bottom: 0 !important; text-align: center;">Processo</p>
+
+            </th>
+            <th style="">
+                <a asp-action="Create" class="" data-bs-toggle="tooltip" data-bs-placement="top"
+                   data-bs-title="Adicionar quarto" style="background: none; border: none; position: relative; margin-top: 0;">
+                    <img src="/Imagens/Adicionar.png" style="width: 28px;" />
+                </a>
+            </th>
         </tr>
     </thead>
+
     <tbody>
+        
 @foreach (var item in Model) {
         <tr>
             <td>
@@ -48,12 +64,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Preco)
             </td>
+            <td style="text-align: center;">
+            <a asp-action="Edit" asp-route-id="@item.QuartoId" class="btn" style="background-color:#DFA67B;color:white;">Editar</a> |
+            <a asp-action="Details" asp-route-id="@item.QuartoId" class="btn btn-primary" style="width:90px;">Detalhes</a> |
+            <a asp-action="Delete" asp-route-id="@item.QuartoId" class="btn btn-danger">Excluir</a>
+            </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.QuartoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.QuartoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.QuartoId">Delete</a>
+
             </td>
         </tr>
 }
     </tbody>
+
+    
 </table>
+
+
+

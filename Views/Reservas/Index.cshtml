@@ -5,6 +5,11 @@
     ViewData["Title"] = "Index";
 }
 
+@{
+    ViewData["Title"] = "Index";
+    <link link rel="stylesheet" href="/css/Index_Pessoa.css" asp-append-version="true" />
+}
+
 
 <style>
     .custom-dropdown {
@@ -37,7 +42,6 @@
             .dropdown-options a:hover {
                 background: #e0e0e0;
             }
-
 </style>
 
 <script>
@@ -67,15 +71,15 @@
 </script>
 
 
-<h1>Index</h1>
+<!--<h1>Lista de Reservas</h1>-->
 
-    Nome : @HttpContextAccessor.HttpContext.Session.GetInt32("SessionPessoaId")
+<div class="faixa_entrar">
+    <svg class="line_entrar_1"></svg>
+    <svg class="line_entrar_2"></svg>
+    <p>Lista de Reservas</p>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-
+<div style="margin-left: 5%; padding-bottom: 20px;">
     <div class="custom-dropdown">
         <span class="selected-option">Filtrar por CheckIn e Estado: </span>
         <div class="dropdown-options">
@@ -88,7 +92,11 @@
             <a asp-controller="Reservas" asp-action="MostrarReservasPagasEPosteriores">Reservas Pagas com Data => Atual</a>
         </div>
     </div>
-    <thead>
+</div>
+<table class="table" style="width:90%;margin:0 auto;">
+
+
+    <thead class="thead-dark">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.CheckIn)
@@ -106,50 +114,58 @@
                 @Html.DisplayNameFor(model => model.ValorTotalReserva)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quarto.QuartoId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Pessoa.PessoaId)
+                @Html.DisplayNameFor(model => model.Quarto.Numero)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Pessoa.Nome)
             </th>
-            <th></th>
+            <th style="">
+                <p style="margin-bottom: 0 !important; text-align: center;">Processo</p>
+                
+            </th>
+            <th style="">
+                <a asp-action="Create" class="" data-bs-toggle="tooltip" data-bs-placement="top"
+                   data-bs-title="Adicionar reserva" style="background: none; border: none; position: relative; margin-top: 0;">
+                    <img src="/Imagens/Adicionar.png" style="width: 28px;" />
+                </a>
+            </th>
+                
         </tr>
     </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckIn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckOut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataReservada)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValorTotalReserva)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quarto.QuartoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pessoa.PessoaId)
-            </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.Pessoa.Nome)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ReservaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ReservaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ReservaId">Delete</a>
-            </td>
-        </tr>
-}
+    <tbody >
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckIn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CheckOut)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataReservada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorTotalReserva)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quarto.Numero)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pessoa.Nome)
+                </td>
+                <td style="text-align: center;">
+                    <a asp-action="Edit" asp-route-id="@item.ReservaId" class="btn" style="background-color:#DFA67B;color:white;">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.ReservaId" class="btn btn-primary" style="width:90px;">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ReservaId" class="btn btn-danger">Excluir</a>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

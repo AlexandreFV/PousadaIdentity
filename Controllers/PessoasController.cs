@@ -102,7 +102,7 @@ namespace PousadaIdentity.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PessoaId,Nome,CPF,Senha,Email,Usuario")] Pessoa pessoa)
+        public async Task<IActionResult> Edit(int id, [Bind("PessoaId,Nome,CPF,Senha,Email,Usuario,Token")] Pessoa pessoa)
         {
             if (id != pessoa.PessoaId)
             {
@@ -174,52 +174,51 @@ namespace PousadaIdentity.Controllers
           return (_context.Pessoa?.Any(e => e.PessoaId == id)).GetValueOrDefault();
         }
 
-            [HttpGet]
-            public async Task<IActionResult> CheckForDuplicateTokens(int roleSelecionada)
+        [HttpGet]
+        public async Task<IActionResult> CheckForDuplicateTokens(int roleSelecionada, string userToken)
+        {
+            var duplicateTokens = await (from pessoa in _context.Pessoa
+                                         join userRole in _context.UserRoles on pessoa.Token equals userRole.UserId
+                                         where pessoa.Token == userToken
+                                         select new
+                                         {
+                                             pessoa.Token,
+                                             userRole.UserId,
+                                             userRole.RoleId
+                                         }).ToListAsync();
+
+            foreach (var tokenInfo in duplicateTokens)
             {
-                var duplicateTokens = await (from pessoa in _context.Pessoa
-                                             join userRole in _context.UserRoles on pessoa.Token equals userRole.UserId
-                                             select new
-                                             {
-                                                 pessoa.Token,
-                                                 userRole.UserId,
-                                                 userRole.RoleId
-                                             }).ToListAsync();
+                Console.WriteLine($"Token: {tokenInfo.Token} corresponde a UserId: {tokenInfo.UserId}");
 
-                foreach (var tokenInfo in duplicateTokens)
+                // Verifique se o usuário existe
+                var user = await userManager.FindByIdAsync(tokenInfo.UserId);
+                if (user != null)
                 {
-                    Console.WriteLine($"Token: {tokenInfo.Token} corresponde a UserId: {tokenInfo.UserId}");
-
-                    // Verifique se o usuário existe
-                    var user = await userManager.FindByIdAsync(tokenInfo.UserId);
-                    if (user != null)
-                    {
-                        // Remova todas as roles existentes do usuário
-                        var existingRoles = await userManager.GetRolesAsync(user);
-                        await userManager.RemoveFromRolesAsync(user, existingRoles);
-                        var oldUserRole = _context.UserRoles.FirstOrDefault(ur => ur.UserId == tokenInfo.UserId);
+                    // Remova todas as roles existentes do usuário
+                    var existingRoles = await userManager.GetRolesAsync(user);
+                    await userManager.RemoveFromRolesAsync(user, existingRoles);
+                    var oldUserRole = _context.UserRoles.FirstOrDefault(ur => ur.UserId == tokenInfo.UserId);
 
                     if (roleSelecionada == 1)
-                        {
+                    {
                         _context.UserRoles.Remove(oldUserRole);
                         await userManager.AddToRoleAsync(user, "CLIENT");
-
-                        }
-                        else if (roleSelecionada == 2)
-                        {
+                    }
+                    else if (roleSelecionada == 2)
+                    {
                         _context.UserRoles.Remove(oldUserRole);
                         await userManager.AddToRoleAsync(user, "FUNCI");
-                        }
                     }
                 }
-
-                return Ok("Verificação concluída.");
             }
 
+            return RedirectToAction(nameof(Index));
 
 
 
 
 
+        }
     }
 }
